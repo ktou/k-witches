@@ -9,6 +9,8 @@
 <title>Index</title>
 </head>
 <body>
-<p>Hello Index !!!</p>
+<img src="images/kw-logo.png"/>
+<br/>
+<p>ここをキャンプ地とする</p>
 </body>
 </html>
