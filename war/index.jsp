@@ -11,6 +11,6 @@
 <body>
 <img src="images/kw-logo.png"/>
 <br/>
-<p>ウィッチに不可能はない！！！！！！！！！！</p>
+<p>ウィッチに不可能はない！！！！！！！！</p>
 </body>
 </html>
