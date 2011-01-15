@@ -7,7 +7,7 @@ package kwitches.text.hyperlink;
  * @author voidy21
  *
  */
-public class TwitterLinkTransformer implements HyperlinkTransformInterface {
+public class TwitterLinkTransformer extends HyperlinkTransformAbstract {
 
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()

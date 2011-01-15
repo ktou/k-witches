@@ -7,7 +7,7 @@ package kwitches.text.hyperlink;
  * @author voidy21
  *
  */
-public class YoutubeLinkTransformer implements HyperlinkTransformInterface {
+public class YoutubeLinkTransformer extends HyperlinkTransformAbstract {
 
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()

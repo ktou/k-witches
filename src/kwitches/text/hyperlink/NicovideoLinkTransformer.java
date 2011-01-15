@@ -5,24 +5,22 @@ package kwitches.text.hyperlink;
 
 /**
  * @author voidy21
- *
+ * 
  */
-public class NicovideoLinkTransformer implements HyperlinkTransformInterface {
+public class NicovideoLinkTransformer extends HyperlinkTransformAbstract {
 
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
      */
     public String getArticleType() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
+        return "nicovideo";
     }
 
     /* (非 Javadoc)
      * @see kwitches.text.LineMessageTransformInterface#getRegexp()
      */
     public String getRegexp() {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
+        return "";
     }
 
     /* (非 Javadoc)

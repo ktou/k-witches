@@ -12,18 +12,17 @@ import kwitches.text.hyperlink.*;
 /**
  * 行中のハイパーリンクに相当する文字列を変換するためのクラス
  * @author voidy21
- *
  */
 public class HyperlinkTransformer implements LineMessageTransformInterface {
 
     private static final String REGEXP_URL_STRING = "(https?):([^\\x00-\\x20()\"<>\\x7F-\\xFF])*";
     
-    private List<HyperlinkTransformInterface> hyperlinkTransformerList =
-        Arrays.asList(
-            new NicovideoLinkTransformer(),
-            new TwitterLinkTransformer(),
-            new YoutubeLinkTransformer()
-        );
+    private List<HyperlinkTransformInterface> hyperlinkTransformerList = 
+        new ArrayList<HyperlinkTransformInterface>(){{
+            add(new NicovideoLinkTransformer());
+            add(new TwitterLinkTransformer());
+            add(new YoutubeLinkTransformer());
+        }};
 
     /* (非 Javadoc)
      * @see kwitches.text.LineMessageTransformInterface#getRegexp()
