@@ -1,18 +1,17 @@
 package kwitches.text;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import kwitches.text.hyperlink.HyperlinkTransformInterface;
 import kwitches.text.hyperlink.*;
 
 /**
  * 行中のハイパーリンクに相当する文字列を変換するためのクラス
  * @author voidy21
  */
+@SuppressWarnings("serial")
 public class HyperlinkTransformer implements LineMessageTransformInterface {
 
     private static final String REGEXP_URL_STRING = "(https?):([^\\x00-\\x20()\"<>\\x7F-\\xFF])*";
@@ -22,6 +21,7 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
             add(new NicovideoLinkTransformer());
             add(new TwitterLinkTransformer());
             add(new YoutubeLinkTransformer());
+            add(new NormalLinkTransformer());
         }};
 
     /* (非 Javadoc)
@@ -35,9 +35,25 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
      * @see kwitches.text.LineMessageTransformInterface#transform(java.lang.String)
      */
     public String transform(String rawString) {
+        String transString = rawString;
         Pattern p = Pattern.compile(this.getRegexp(), Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(rawString);
-        return m.replaceAll("<a class='link' href='$0'>$0</a>");
+        int diffCount = 0;
+        while (m.find()) {
+            String url = m.group();
+            for (HyperlinkTransformInterface ht : hyperlinkTransformerList) {
+                String transUrl = ht.transform(url);
+                if (url.equals(transUrl)) {
+                    continue;
+                }
+                transString = new StringBuilder(transString)
+                    .replace(m.start() + diffCount, m.end() + diffCount , transUrl)
+                    .toString();
+                diffCount += (transUrl.length() - url.length());
+                break;
+            }
+        }
+        return transString;
     }
 
 }
