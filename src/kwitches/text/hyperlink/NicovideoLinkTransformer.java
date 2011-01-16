@@ -13,13 +13,14 @@ import java.util.regex.Matcher;
  */ 
 public class NicovideoLinkTransformer extends HyperlinkTransformAbstract {
 
-   private static final String REGEXP_URL_STRING = "^http://www.nicovideo.jp/watch/([A-Za-z_]\\w*)/?";
+    private static final String ARTICLE_TYPE = "nicovideo";
+    private static final String REGEXP_URL_STRING = "^http://www.nicovideo.jp/watch/([A-Za-z_]\\w*)/?";
     
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
      */
     public String getArticleType() {
-        return "nicovideo";
+        return ARTICLE_TYPE;
     }
 
     /* (非 Javadoc)
