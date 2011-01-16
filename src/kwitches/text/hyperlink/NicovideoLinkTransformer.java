@@ -3,12 +3,18 @@
  */
 package kwitches.text.hyperlink;
 
+import java.util.HashMap;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 /**
+ * リンクの種類がニコニコ動画URLの場合の変換クラス
  * @author voidy21
- * 
- */
+ */ 
 public class NicovideoLinkTransformer extends HyperlinkTransformAbstract {
 
+   private static final String REGEXP_URL_STRING = "^http://www.nicovideo.jp/watch/([A-Za-z_]\\w*)/?";
+    
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
      */
@@ -20,15 +26,33 @@ public class NicovideoLinkTransformer extends HyperlinkTransformAbstract {
      * @see kwitches.text.LineMessageTransformInterface#getRegexp()
      */
     public String getRegexp() {
-        return "";
+        return REGEXP_URL_STRING;
     }
 
     /* (非 Javadoc)
      * @see kwitches.text.LineMessageTransformInterface#transform(java.lang.String)
      */
     public String transform(String rawString) {
-        // TODO 自動生成されたメソッド・スタブ
-        return null;
+        Pattern p = Pattern.compile(this.getRegexp(), Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(rawString);
+        if (!m.matches()) {
+            return rawString;
+        }
+        String url = m.group(0);
+        String videoId = m.group(1);
+        
+        HashMap<String, String> thumbnailProperties = new HashMap<String, String>();
+        thumbnailProperties.put("class", "new_nico_thumb");
+        thumbnailProperties.put("data-nicovideo", videoId);
+        HashMap<String, String> tagProperties = new HashMap<String, String>();
+        tagProperties.put("class", "new_nico_tags");
+        tagProperties.put("data-nicovideo", videoId);
+        
+        return String.format("%s<br>%s<br>%s",
+            this.getDivHtml(thumbnailProperties),
+            this.getSBMLinks(url),
+            this.getDivHtml(tagProperties)
+        );
     }
 
 }
