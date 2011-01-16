@@ -6,12 +6,14 @@ package kwitches.text.hyperlink;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import static kwitches.text.hyperlink.HyperlinkTransformUtil.*;
 
 /**
  * リンクの種類がニコニコ動画URLの場合の変換クラス
  * @author voidy21
  */ 
-public class NicovideoLinkTransformer extends HyperlinkTransformAbstract {
+public class NicovideoLinkTransformer
+    implements HyperlinkTransformInterface {
 
     private static final String ARTICLE_TYPE = "nicovideo";
     private static final String REGEXP_URL_STRING = "^http://www.nicovideo.jp/watch/([A-Za-z_]\\w*)/?";
@@ -50,9 +52,9 @@ public class NicovideoLinkTransformer extends HyperlinkTransformAbstract {
         tagProperties.put("data-nicovideo", videoId);
         
         return String.format("%s<br>%s<br>%s",
-            this.getDivHtml(thumbnailProperties),
-            this.getSBMLinks(url),
-            this.getDivHtml(tagProperties)
+            getDivHtml(thumbnailProperties),
+            getSBMLinks(url),
+            getDivHtml(tagProperties)
         );
     }
 

@@ -10,14 +10,13 @@ import java.util.List;
 import kwitches.text.hyperlink.sbm.*;
 
 /**
- * リンク変換用のクラスの共通機能を提供する抽象クラス
+ * リンク変換用のクラスの共通機能を提供する
  * @author voidy21
  */
-public abstract class HyperlinkTransformAbstract implements
-        HyperlinkTransformInterface {
+public class HyperlinkTransformUtil {
 
     @SuppressWarnings("serial")
-    protected String getSBMLinks(String url) {
+    public static String getSBMLinks(String url) {
         List<SBMLinkAbstract> sbmLinks = 
             new ArrayList<SBMLinkAbstract>() {
             {
@@ -33,7 +32,7 @@ public abstract class HyperlinkTransformAbstract implements
         return String.format("<div class='sbm_links'>%s</div>", sb);
     }
     
-    protected String getDivHtml(HashMap<String, String> properties) {
+    public static String getDivHtml(HashMap<String, String> properties) {
         StringBuilder sb = new StringBuilder();
         for (String attr : properties.keySet()) {
             if (sb.length() != 0) {
