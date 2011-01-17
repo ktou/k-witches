@@ -23,6 +23,9 @@ public class TextTransformer {
         }};
     
     public static String transform(String rawText) {
+        if (rawText == null) {
+            return null;
+        }
         String[] rawTextLines = rawText.split("\\n|\\r|\\r\\n");
         List<String> transLines = new ArrayList<String>();
         for (String rawString : rawTextLines) {
