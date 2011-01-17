@@ -3,6 +3,8 @@
  */
 package kwitches.text.hyperlink;
 
+import static kwitches.text.hyperlink.HyperlinkTransformUtil.getSBMLinks;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -35,8 +37,14 @@ public class NormalLinkTransformer
      */
     public String transform(String rawString) {
         Pattern p = Pattern.compile(this.getRegexp(), Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(rawString);   
-        return m.replaceAll("<a class='link' href='$0'>$0</a>");
+        Matcher m = p.matcher(rawString);
+        if (!m.matches()) {
+            return rawString;
+        }
+        String url = m.group(0);
+        return String.format("<a class='link' href='%s'>%s</a>%s", 
+            url, url, getSBMLinks(url));
+        //return m.replaceAll("<a class='link' href='$0'>$0</a>");
     }
 
 }

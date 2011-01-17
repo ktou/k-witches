@@ -29,7 +29,7 @@ public class HyperlinkTransformUtil {
         for (SBMLinkAbstract sl : sbmLinks) {
             sb.append(sl.getDomString(url));
         }
-        return String.format("<div class='sbm_links'>%s</div>", sb);
+        return sb.toString();
     }
     
     public static String getDivHtml(HashMap<String, String> properties) {

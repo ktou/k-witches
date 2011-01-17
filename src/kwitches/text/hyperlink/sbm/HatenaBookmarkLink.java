@@ -17,7 +17,7 @@ public class HatenaBookmarkLink extends SBMLinkAbstract {
      */
     @Override
     public String getImageLinkUrl() {
-        return LINK_URL;
+        return IMAGE_LINK_URL;
     }
 
     /* (非 Javadoc)
@@ -25,7 +25,7 @@ public class HatenaBookmarkLink extends SBMLinkAbstract {
      */
     @Override
     public String getLinkUrl() {
-        return IMAGE_LINK_URL;
+        return LINK_URL;
     }
 
 }
