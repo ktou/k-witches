@@ -26,4 +26,15 @@ public class StringUtils {
         String[] strArray = array.toArray(new String[array.size()]);
         return join(strArray, with);
     }
+    
+    public static String escape(String rawText) {
+        if (rawText == null) {
+            return null;
+        }
+        return rawText.replace("&", "&amp;")
+                               .replace("<", "&lt;")
+                               .replace(">", "&gt;")
+                               .replace("\"", "&quot;")
+                               .replace("'", "&#39;");
+    }
 }

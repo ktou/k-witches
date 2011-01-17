@@ -26,6 +26,7 @@ public class TextTransformer {
         if (rawText == null) {
             return null;
         }
+        rawText = StringUtils.escape(rawText);
         String[] rawTextLines = rawText.split("\\n|\\r|\\r\\n");
         List<String> transLines = new ArrayList<String>();
         for (String rawString : rawTextLines) {
@@ -36,4 +37,5 @@ public class TextTransformer {
         }
         return StringUtils.join(transLines, "\n");
     }
+
 }

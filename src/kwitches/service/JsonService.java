@@ -11,6 +11,7 @@ import com.google.appengine.api.datastore.Key;
 import kwitches.meta.BBSDataModelMeta;
 import kwitches.model.BBSDataModel;
 import kwitches.model.UserModel;
+import kwitches.text.TextTransformer;
 import kwitches.util.TimeUtils;
 
 public class JsonService {
@@ -30,6 +31,7 @@ public class JsonService {
         for (int i = 0, len = bbsDataList.size(); i < len; i++) {
             BBSDataModel bbsData = bbsDataList.get(i);
             String comment = bbsData.getComment();
+            comment = TextTransformer.transform(comment);
             comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
             UserModel userModel = bbsData.getUserModelRef().getModel();
             String name = (userModel != null) ? userModel.getName() : "null";
