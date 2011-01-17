@@ -11,6 +11,7 @@
     <c:if test="${isKAuth}">
     <script src="js/object-prototype.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
+    <script src="js/jquery.pack.js" type="text/javascript"></script>
     </c:if>
     <title>K-Witches</title>
 </head>

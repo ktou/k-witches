@@ -42,9 +42,8 @@ public class NormalLinkTransformer
             return rawString;
         }
         String url = m.group(0);
-        return String.format("<a class='link' href='%s'>%s</a>%s", 
+        return String.format("<div class='new_link'><a class='link' href='%s'>%s</a>%s</div>", 
             url, url, getSBMLinks(url));
-        //return m.replaceAll("<a class='link' href='$0'>$0</a>");
     }
 
 }
