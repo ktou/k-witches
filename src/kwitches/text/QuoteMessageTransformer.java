@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class QuoteMessageTransformer implements LineMessageTransformInterface {
 
-    private final static String REGEXP_RES_STRING = "^>.*$";
+    private final static String REGEXP_RES_STRING = "^&gt;.*$";
     
     /* (非 Javadoc)
      * @see kwitches.text.LineMessageTransformInterface#getRegexp()

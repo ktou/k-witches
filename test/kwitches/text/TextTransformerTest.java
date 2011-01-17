@@ -39,9 +39,9 @@ public class TextTransformerTest {
      */
     @Test
     public void testTransform3() {
-        String rawText = "> http://www.yahoo.co.jp/\nhttp://www.google.co.jp/";
+        String rawText = "&gt; http://www.yahoo.co.jp/\nhttp://www.google.co.jp/";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<div class='quote'>> <a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a></div>\n" +
+        assertThat("<div class='quote'>&gt; <a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a></div>\n" +
                 "<a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>", is(transText)); 
     }
 
@@ -50,9 +50,9 @@ public class TextTransformerTest {
      */
     @Test
     public void testTransform4() {
-        String rawText = ">\nhttp://www.google.co.jp/";
+        String rawText = "&gt;\nhttp://www.google.co.jp/";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<div class='quote'>></div>\n" +
+        assertThat("<div class='quote'>&gt;</div>\n" +
                 "<a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>", is(transText)); 
     }
     
@@ -61,9 +61,9 @@ public class TextTransformerTest {
      */
     @Test
     public void testTransform5() {
-        String rawText = ">>2000\nhttp://www.google.co.jp/";
+        String rawText = "&gt;&gt;2000\nhttp://www.google.co.jp/";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<a class='res' href='javascript:void(0)' data-resnum='2000'>>>2000</a>\n" +
+        assertThat("<a class='res' href='javascript:void(0)' data-resnum='2000'>&gt;&gt;2000</a>\n" +
                 "<a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>", is(transText)); 
     }
     
@@ -72,9 +72,9 @@ public class TextTransformerTest {
      */
     @Test
     public void testTransform6() {
-        String rawText = "> >>2000";
+        String rawText = "&gt; &gt;&gt;2000";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<div class='quote'>> <a class='res' href='javascript:void(0)' data-resnum='2000'>>>2000</a></div>", is(transText)); 
+        assertThat("<div class='quote'>&gt; <a class='res' href='javascript:void(0)' data-resnum='2000'>&gt;&gt;2000</a></div>", is(transText)); 
     }
     
     /**
@@ -82,9 +82,9 @@ public class TextTransformerTest {
      */
     @Test
     public void testTransform7() {
-        String rawText = ">>>2000";
+        String rawText = "&gt;&gt;&gt;2000";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<div class='quote'>><a class='res' href='javascript:void(0)' data-resnum='2000'>>>2000</a></div>", is(transText)); 
+        assertThat("<div class='quote'>&gt;<a class='res' href='javascript:void(0)' data-resnum='2000'>&gt;&gt;2000</a></div>", is(transText)); 
     }
     
     /**
@@ -92,8 +92,8 @@ public class TextTransformerTest {
      */
     @Test
     public void testTransform8() {
-        String rawText = ">>>>2000";
+        String rawText = "&gt;&gt;&gt;&gt;2000";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<div class='quote'>>><a class='res' href='javascript:void(0)' data-resnum='2000'>>>2000</a></div>", is(transText)); 
+        assertThat("<div class='quote'>&gt;&gt;<a class='res' href='javascript:void(0)' data-resnum='2000'>&gt;&gt;2000</a></div>", is(transText)); 
     }
 }
