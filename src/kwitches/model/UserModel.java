@@ -30,6 +30,8 @@ public class UserModel implements Serializable {
         new ModelRef<ImageModel>(ImageModel.class);
     
     private boolean isAuthUser;
+    
+    private String amazonAccount;
 
     /**
      * Returns the key.
@@ -146,5 +148,19 @@ public class UserModel implements Serializable {
      */
     public ModelRef<ImageModel> getIconRef() {
         return IconRef;
+    }
+
+    /**
+     * @param amazonAccount セットする amazonAccount
+     */
+    public void setAmazonAccount(String amazonAccount) {
+        this.amazonAccount = amazonAccount;
+    }
+
+    /**
+     * @return amazonAccount
+     */
+    public String getAmazonAccount() {
+        return amazonAccount;
     }
 }
