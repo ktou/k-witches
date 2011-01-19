@@ -5,7 +5,6 @@ package kwitches.text.hyperlink;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static kwitches.text.hyperlink.HyperlinkTransformUtil.*;
 
 /**
  * @author voidy21
