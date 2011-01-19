@@ -12,7 +12,7 @@ import static kwitches.text.hyperlink.HyperlinkTransformUtil.*;
  *
  */
 public class YoutubeLinkTransformer
-    implements HyperlinkTransformInterface {
+    extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "youtube";
     private static final String REGEXP_URL_STRING = "^http://(\\w+).youtube.com/watch\\?v=(\\w+)";

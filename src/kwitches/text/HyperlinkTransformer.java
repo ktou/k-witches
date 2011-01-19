@@ -1,6 +1,7 @@
 package kwitches.text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,9 +16,20 @@ import kwitches.text.hyperlink.*;
 public class HyperlinkTransformer implements LineMessageTransformInterface {
 
     private static final String REGEXP_URL_STRING = "(https?):([^\\x00-\\x20()\"<>\\x7F-\\xFF])*";
+    private HashMap<String, String> accountTable;    
+
+    public HyperlinkTransformer() {
+        this.accountTable = null;
+    }
     
+    public HyperlinkTransformer(HashMap<String, String> accountTable) {
+        this.accountTable = accountTable;
+    }
+
     private List<HyperlinkTransformInterface> hyperlinkTransformerList = 
         new ArrayList<HyperlinkTransformInterface>(){{
+            add(new AmazonLinkTransformer());
+            add(new GistLinkTransformer());
             add(new NicovideoLinkTransformer());
             add(new TwitterLinkTransformer());
             add(new YoutubeLinkTransformer());
@@ -54,6 +66,13 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
             }
         }
         return transString;
+    }
+
+    /**
+     * @return accountTable
+     */
+    public HashMap<String, String> getAccountTable() {
+        return accountTable;
     }
 
 }

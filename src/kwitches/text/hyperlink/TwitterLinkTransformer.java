@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  *
  */
 public class TwitterLinkTransformer
-    implements HyperlinkTransformInterface {
+    extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "twitter";
     private static final String REGEXP_URL_STRING = "^http://twitter.com/(\\w+)/status/(\\d+)/?";

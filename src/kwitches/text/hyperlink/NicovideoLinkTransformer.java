@@ -13,7 +13,7 @@ import static kwitches.text.hyperlink.HyperlinkTransformUtil.*;
  * @author voidy21
  */ 
 public class NicovideoLinkTransformer
-    implements HyperlinkTransformInterface {
+    extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "nicovideo";
     private static final String REGEXP_URL_STRING = "^http://www.nicovideo.jp/watch/([A-Za-z_]\\w*)/?";

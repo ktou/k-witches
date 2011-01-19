@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  *
  */
 public class GistLinkTransformer
-    implements HyperlinkTransformInterface {
+    extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "gist";
     private static final String REGEXP_URL_STRING = "^https?://gist.github.com/(\\d*)/?";

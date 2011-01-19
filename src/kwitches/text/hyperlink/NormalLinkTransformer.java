@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
  * @author voidy21
  */ 
 public class NormalLinkTransformer
-    implements HyperlinkTransformInterface {
+    extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "link";
     private static final String REGEXP_URL_STRING = "(https?):([^\\x00-\\x20()\"<>\\x7F-\\xFF])*";
