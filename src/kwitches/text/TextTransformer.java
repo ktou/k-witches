@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package kwitches.text;
 
@@ -12,16 +12,16 @@ import kwitches.util.StringUtils;
  * @author voidy21
  *
  */
-@SuppressWarnings({ "unchecked", "serial" })
+@SuppressWarnings({ "serial" })
 public class TextTransformer {
-    
+
     private static List<LineMessageTransformInterface> transformerList =
-        new ArrayList(){{
+        new ArrayList<LineMessageTransformInterface>(){{
             add(new ResMessageTransformer());
             add(new QuoteMessageTransformer());
             add(new HyperlinkTransformer());
         }};
-    
+
     public static String transform(String rawText) {
         if (rawText == null) {
             return null;
