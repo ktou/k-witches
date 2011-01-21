@@ -13,38 +13,41 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
     public void test1() throws Exception {
         String text = "http://www.yahoo.co.jp/";
         assertThat(new HyperlinkTransformer().transform(text),
-            is("<a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks(text)));
+            is("<div class='new_link'><a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks(text) +
+                "</div>" ));
     }
 
     @Test
     public void test2() throws Exception {
         String text = "http://www.yahoo.co.jp/ http://www.google.co.jp/";
         assertThat(new HyperlinkTransformer().transform(text),
-            is("<a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
+            is("<div class='new_link'><a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
                 HyperlinkTransformUtil.getSBMLinks("http://www.yahoo.co.jp/") +
-                " <a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/")));
+                "</div> <div class='new_link'><a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/") +
+                "</div>"));
     }
 
     @Test
     public void test3() throws Exception {
         String text = "http://www.yahoo.co.jp/ http://www.google.co.jp/ http://www.yahoo.co.jp/";
         assertThat(new HyperlinkTransformer().transform(text),
-            is("<a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
+            is("<div class='new_link'><a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
                 HyperlinkTransformUtil.getSBMLinks("http://www.yahoo.co.jp/") +
-                " <a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
+                "</div> <div class='new_link'><a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
                 HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/") +
-                " <a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks("http://www.yahoo.co.jp/")));
+                "</div> <div class='new_link'><a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks("http://www.yahoo.co.jp/") +
+                "</div>"));
     }
 
     @Test
     public void test4() throws Exception {
         String text = "https://www.yahoo.co.jp/";
         assertThat(new HyperlinkTransformer().transform(text),
-            is("<a class='link' href='https://www.yahoo.co.jp/'>https://www.yahoo.co.jp/</a>" +
-            HyperlinkTransformUtil.getSBMLinks("https://www.yahoo.co.jp/")));
+            is("<div class='new_link'><a class='link' href='https://www.yahoo.co.jp/'>https://www.yahoo.co.jp/</a>" +
+            HyperlinkTransformUtil.getSBMLinks("https://www.yahoo.co.jp/") + "</div>"));
     }
 
     @Test
@@ -99,7 +102,7 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
     public void test9() throws Exception {
         String text = "ttp://s-witch.cute.or.jp/";
         assertThat(new HyperlinkTransformer().transform(text),
-            is("<a class='link' href='http://s-witch.cute.or.jp/'>http://s-witch.cute.or.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks(text)));
+            is("<div class='new_link'><a class='link' href='http://s-witch.cute.or.jp/'>http://s-witch.cute.or.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks("h" + text) + "</div>"));
     }
 }
