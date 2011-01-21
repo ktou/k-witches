@@ -32,11 +32,12 @@ public class TextTransformerTest {
     public void testTransform2() {
         String rawText = "http://www.yahoo.co.jp/\nhttp://www.google.co.jp/";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
+        assertThat("<div class='new_link'><a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
                 HyperlinkTransformUtil.getSBMLinks("http://www.yahoo.co.jp/") +
-                "\n" +
-                "<a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/"), is(transText)); 
+                "</div>\n" +
+                "<div class='new_link'><a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/") +
+                "</div>", is(transText)); 
     }
     
     /**
@@ -46,11 +47,12 @@ public class TextTransformerTest {
     public void testTransform3() {
         String rawText = "> http://www.yahoo.co.jp/\nhttp://www.google.co.jp/";
         String transText = TextTransformer.transform(rawText);
-        assertThat("<div class='quote'>&gt; <a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
+        assertThat("<div class='quote'>&gt; <div class='new_link'><a class='link' href='http://www.yahoo.co.jp/'>http://www.yahoo.co.jp/</a>" +
                 HyperlinkTransformUtil.getSBMLinks("http://www.yahoo.co.jp/") +
-                "</div>\n" +
-                "<a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/"), is(transText)); 
+                "</div></div>\n" +
+                "<div class='new_link'><a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/") +
+                "</div>", is(transText)); 
     }
 
     /**
@@ -61,8 +63,9 @@ public class TextTransformerTest {
         String rawText = ">\nhttp://www.google.co.jp/";
         String transText = TextTransformer.transform(rawText);
         assertThat("<div class='quote'>&gt;</div>\n" +
-                "<a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/"), is(transText)); 
+                "<div class='new_link'><a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/") +
+                "</div>", is(transText)); 
     }
     
     /**
@@ -73,8 +76,9 @@ public class TextTransformerTest {
         String rawText = ">>2000\nhttp://www.google.co.jp/";
         String transText = TextTransformer.transform(rawText);
         assertThat("<a class='res' href='javascript:void(0)' data-resnum='2000'>&gt;&gt;2000</a>\n" +
-                "<a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
-                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/"), is(transText)); 
+                "<div class='new_link'><a class='link' href='http://www.google.co.jp/'>http://www.google.co.jp/</a>" +
+                HyperlinkTransformUtil.getSBMLinks("http://www.google.co.jp/") +
+                "</div>", is(transText)); 
     }
     
     /**
