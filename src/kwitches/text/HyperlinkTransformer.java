@@ -15,18 +15,18 @@ import kwitches.text.hyperlink.*;
 @SuppressWarnings("serial")
 public class HyperlinkTransformer implements LineMessageTransformInterface {
 
-    private static final String REGEXP_URL_STRING = "(https?):([^\\x00-\\x20()\"<>\\x7F-\\xFF])*";
-    private HashMap<String, String> accountTable;    
+    private static final String REGEXP_URL_STRING = "(h?ttps?):([^\\x00-\\x20()\"<>\\x7F-\\xFF])*";
+    private HashMap<String, String> accountTable;
 
     public HyperlinkTransformer() {
         this.accountTable = null;
     }
-    
+
     public HyperlinkTransformer(HashMap<String, String> accountTable) {
         this.accountTable = accountTable;
     }
 
-    private List<HyperlinkTransformInterface> hyperlinkTransformerList = 
+    private List<HyperlinkTransformInterface> hyperlinkTransformerList =
         new ArrayList<HyperlinkTransformInterface>(){{
             add(new AmazonLinkTransformer());
             add(new GistLinkTransformer());
@@ -52,7 +52,7 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
         Matcher m = p.matcher(rawString);
         int diffCount = 0;
         while (m.find()) {
-            String url = m.group();
+            String url = m.group().charAt(0)=='h' ? m.group() : new StringBuilder("h").append(m.group()).toString();
             for (HyperlinkTransformInterface ht : hyperlinkTransformerList) {
                 String transUrl = ht.transform(url);
                 if (url.equals(transUrl)) {
