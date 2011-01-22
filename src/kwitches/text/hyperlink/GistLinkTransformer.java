@@ -42,8 +42,7 @@ public class GistLinkTransformer
         String url = m.group(0);
         String gistId = m.group(1);
         
-        return String.format("<a href='%s'>%s</a><br>%s",
-            url,
+        return String.format("<a href='%1$s'>%1$s</a><br>%2$s",
             url,
             String.format("<script src='https://gist.github.com/%s.js'> </script><br>",
                 gistId
