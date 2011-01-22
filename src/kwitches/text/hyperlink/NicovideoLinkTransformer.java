@@ -35,6 +35,7 @@ public class NicovideoLinkTransformer
     /* (非 Javadoc)
      * @see kwitches.text.LineMessageTransformInterface#transform(java.lang.String)
      */
+    @SuppressWarnings("serial")
     public String transform(String rawString) {
         Pattern p = Pattern.compile(this.getRegexp(), Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(rawString);
@@ -42,14 +43,17 @@ public class NicovideoLinkTransformer
             return rawString;
         }
         String url = m.group(0);
-        String videoId = m.group(1);
+        final String videoId = m.group(1);
         
-        HashMap<String, String> thumbnailProperties = new HashMap<String, String>();
-        thumbnailProperties.put("class", "new_nico_thumb");
-        thumbnailProperties.put("data-nicovideo", videoId);
-        HashMap<String, String> tagProperties = new HashMap<String, String>();
-        tagProperties.put("class", "new_nico_tags");
-        tagProperties.put("data-nicovideo", videoId);
+        HashMap<String, String> thumbnailProperties = new HashMap<String, String>() {{
+            put("class", "new_nico_thumb");
+            put("data-nicovideo", videoId);
+        }};
+
+        HashMap<String, String> tagProperties = new HashMap<String, String>() {{
+            put("class", "new_nico_tags");
+            put("data-nicovideo", videoId);
+        }};
         
         return String.format("%s<br>%s<br>%s",
             getDivHtml(thumbnailProperties),
