@@ -105,4 +105,14 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
             is("<div class='new_link'><a class='link' href='http://s-witch.cute.or.jp/'>http://s-witch.cute.or.jp/</a>" +
                 HyperlinkTransformUtil.getSBMLinks("h" + text) + "</div>"));
     }
+    
+    @Test
+    public void tumblrLinkTest() {
+        String text = "http://thrakt.tumblr.com/post/2811433075";
+        String transString = "<a href='http://thrakt.tumblr.com/post/2811433075'>" +
+            "http://thrakt.tumblr.com/post/2811433075</a><br>" +
+            "<div data-postid='2811433075' class='new_tumblr_thumb' data-tumblrid='thrakt'></div><br>" +
+            HyperlinkTransformUtil.getSBMLinks(text);
+        assertThat(new HyperlinkTransformer().transform(text), is(transString));
+    }
 }

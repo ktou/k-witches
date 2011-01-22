@@ -33,6 +33,7 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
             add(new NicovideoLinkTransformer());
             add(new TwitterLinkTransformer());
             add(new YoutubeLinkTransformer());
+            add(new TumblrLinkTransformer());
             add(new NormalLinkTransformer());
         }};
 
