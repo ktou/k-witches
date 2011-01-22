@@ -50,13 +50,13 @@ public class AmazonLinkTransformer
                 amazonAffiliateId = aid;
             }
         }
-        String formatString = "<a href='%s'>%s</a><br><iframe src='http://rcm-jp.amazon.co.jp/e/cm" +
-            "?t=%s&o=9&p=8&l=as1&asins=%s&IS2=1&fc1=000000" +
+        String formatString = "<a href='%1$s'>%1$s</a><br><iframe src='http://rcm-jp.amazon.co.jp/e/cm" +
+            "?t=%2$s&o=9&p=8&l=as1&asins=%3$s&IS2=1&fc1=000000" +
             "&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr'" +
             " style='width:120px;height:240px;' scrolling='no'" +
             " marginwidth='0' marginheight='0' frameborder='0'></iframe><br>";
         
-        return String.format(formatString, url, url, amazonAffiliateId, asin);
+        return String.format(formatString, url, amazonAffiliateId, asin);
     }
 
 }
