@@ -103,14 +103,17 @@ Article.prototype = {
     },  
     
     decorate : function() {
+        var lazyScriptLoader = new LazyScriptLoader();
         var decoratorer = [
-            new NicoThumnail("div.new_nico_thumb"),
+            new NicoThumnail("div.new_nico_thumb", lazyScriptLoader),
             new NicoTags("div.new_nico_tags"),
+            new GistPreview("div.new_gist_preview", lazyScriptLoader),
             new NormalLink("div.new_link")
         ];
         for (var i = 0,length = decoratorer.length; i < length; i++) {
             decoratorer[i].execute();
         }
+        lazyScriptLoader.execute();
     }
 }
 
@@ -133,44 +136,24 @@ var NicoThumnail = function() {
 NicoThumnail.prototype = new DomModifier();
 
 (function() {
-    this.initialize = function(domPattern) {
+    this.initialize = function(domPattern, lazyScriptLoader) {
         DomModifier.prototype.initialize.apply(this, arguments);
         this.params = [];
         this.count = 0;
-    },
-
-    this.append = function(dom,nico_video_id) {
-        $(dom).append($("<img/>").attr("src","../../images/ajax-loader.gif"));
-        this.params.push({"dom":dom,"nico_video_id":nico_video_id});
-        this.count++;
-    },
-
-    this.show_nico_thumbnail = function(count) {
-        var _this = this;
-        var alts = []; // document.writeの内容を入れておく配列を準備 
-        var d = document;
-        d._write = document.write; // オリジナルはコピーしておく
-        document.write = function(s){ alts.push(s);}; // d.writeを新たに定義
-        var src = "http://ext.nicovideo.jp/thumb_watch/" + this.params[count].nico_video_id;
-        $.getScript(src,function(){
-            var write = alts.join("");
-            $(_this.params[count].dom).html(write).removeClass(this.domPattern); // 指定した場所に流し込む
-            document.write = d._write; // d.writeを元の定義に戻しておく
-            if (++count < _this.count) {
-                _this.show_nico_thumbnail(count);
-            }
-        });
+        this.lazyScriptLoader = lazyScriptLoader;
     },
 
     this.execute = function() {
         var _this = this;
         $(this.domPattern).each(function(){
             var nico_video_id = $(this).attr("data-nicovideo");
-            _this.append(this,nico_video_id);
+            var src = "http://ext.nicovideo.jp/thumb_watch/" + nico_video_id;
+            _this.lazyScriptLoader.append({
+                "dom" : this,
+                "src_url" : src,
+                "dom_pattern": _this.domPattern
+            });
         });
-        if (this.count != 0) {
-            this.show_nico_thumbnail(0);
-        }
     }
 
 }).apply(NicoThumnail.prototype);
@@ -221,7 +204,7 @@ NicoTags.prototype = new DomModifier();
         $(this.domPattern).each(function(){
             var nico_video_id = $(this).attr("data-nicovideo");
             _this.getNicoTags(this,nico_video_id);
-            $(this).removeClass(this.domPattern);
+            $(this).removeClass(_this.domPattern);
         });
     }
 
@@ -309,10 +292,39 @@ NormalLink.prototype = new DomModifier();
         $(this.domPattern).each(function(){
             var url = $(this).find("a").attr("class","link").attr("href").replace("/href?location=","");
             _this._getTitleAndTagCloud(this,url);
-            $(this).removeClass(this.domPattern);
+            $(this).removeClass(_this.domPattern);
         });
     }
 }).apply(NormalLink.prototype);
+
+var GistPreview = function() {
+    this.initialize.apply(this, arguments);
+}
+
+GistPreview.prototype = new DomModifier();
+
+(function() {
+    this.initialize = function(domPattern, lazyScriptLoader) {
+        DomModifier.prototype.initialize.apply(this, arguments);
+        this.params = [];
+        this.count = 0;
+        this.lazyScriptLoader = lazyScriptLoader;
+     },
+
+    this.execute = function() {
+        var _this = this;
+        $(this.domPattern).each(function(){
+            var gist_id = $(this).attr("data-gistid");
+            var src = "https://gist.github.com/" + gist_id + ".js";
+            _this.lazyScriptLoader.append({
+                "dom" : this,
+                "src_url" : src,
+                "dom_pattern": _this.domPattern
+            });
+        });
+    }
+
+}).apply(GistPreview.prototype);
 
 var ShowTitleApi = function() {
     this.initialize.apply(this, arguments);
@@ -361,4 +373,50 @@ Api.getHatebuImage = function(url) {
 Api.getLdclipImage = function(url) {
     var api = 'http://image.clip.livedoor.com/counter/medium/';
     return $('<img />').attr('src',api + url);
+}
+
+var LazyScriptLoader = function() {
+    this.initialize.apply(this, arguments);
+}
+
+LazyScriptLoader.prototype = {
+    initialize : function() {
+        this.params = [];
+        this.count = 0;
+    },
+    
+    append : function(params) {
+        $(params.dom).append($("<img/>").attr("src","../../images/ajax-loader.gif"));
+        this.params.push({
+            "dom" : params.dom,
+            "src_url" : params.src_url,
+            "dom_pattern": params.dom_pattern
+        });
+        this.count++;
+    },
+    
+    _execute : function(count) {
+        var _this = this;
+        var src = this.params[count].src_url;
+        var dom = this.params[count].dom;
+        var dom_pattern = this.params[count].dom_pattern;
+        var alts = []; // document.writeの内容を入れておく配列を準備 
+        var d = document;
+        d._write = document.write; // オリジナルはコピーしておく
+        document.write = function(s){ alts.push(s); }; // d.writeを新たに定義
+        $.getScript(src, function(){
+            var write = alts.join("");
+            $(dom).html(write).removeClass(dom_pattern); // 指定した場所に流し込む
+            document.write = d._write; // d.writeを元の定義に戻しておく
+            if (++count < _this.count) {
+                _this._execute(count);
+            }
+        });
+    },
+
+    execute : function() {
+        if (this.count != 0) {
+            this._execute(0);
+        }
+    }
 }
