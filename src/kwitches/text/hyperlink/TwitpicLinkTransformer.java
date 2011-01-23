@@ -14,7 +14,7 @@ public class TwitpicLinkTransformer
     extends HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "twitpic";
-    private static final String REGEXP_URL_STRING = "^http://twitpic\\.com/([^/]+)/?";
+    private static final String REGEXP_URL_STRING = "^http://twitpic\\.com/([^/]+)/?.*";
     
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
