@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 /**
- * リンクの種類がニコニコ動画URLの場合の変換クラス
+ * リンクの種類が通常URLの場合の変換クラス
  * @author voidy21
  */ 
 public class NormalLinkTransformer
