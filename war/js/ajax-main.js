@@ -354,7 +354,6 @@ TumblrThumnail.prototype = new DomModifier();
                     id : post_id
                 },
                 success: function(data) {
-                alert(data.toSource());
                     var post = data.posts[0];
                     if (post.type == "photo") {
                         var photo_thumbnail_url = post["photo-url-250"];
