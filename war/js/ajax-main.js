@@ -110,6 +110,7 @@ Article.prototype = {
             new GistPreview("div.new_gist_preview", lazyScriptLoader),
             new TwitterThumnail("div.new_twitter_thumb"),
             new TumblrThumnail("div.new_tumblr_thumb"),
+            new InstagrThumnail("div.new_instagr_thumb"),
             new NormalLink("div.new_link")
         ];
         for (var i = 0,length = decoratorer.length; i < length; i++) {
@@ -367,7 +368,7 @@ TumblrThumnail.prototype = new DomModifier();
                             }).append(
                                 $("<img />").attr("src", photo_thumbnail_url)
                             ).append(
-                                $("<div />").addClass("tumblr_photo_caption").html(photo_caption)
+                                $("<div />").addClass("photo_caption").html(photo_caption)
                             )
                         );
                     }
@@ -428,6 +429,54 @@ TwitterThumnail.prototype = new DomModifier();
     }
 
 }).apply(TwitterThumnail.prototype);
+
+var InstagrThumnail = function() {
+    this.initialize.apply(this, arguments);
+}
+
+InstagrThumnail.prototype = new DomModifier();
+
+(function() {
+    this.initialize = function(domPattern) {
+        DomModifier.prototype.initialize.apply(this, arguments);
+    },
+
+    this.execute = function() {
+        var _this = this;
+        
+        $(this.domPattern).each(function(){
+            var url = $(this).attr("data-url");
+            var api_url = "http://instagr.am/api/v1/oembed";
+            var dom = this;
+            $.ajax({
+                type: "GET",
+                url: api_url,
+                dataType: "jsonp",
+                data : {
+                    url : url,
+                    maxwidth : 450
+                },
+                jsonp: 'callback',
+                success: function(data) {
+                    var photo_thumbnail_url = data.url;
+                    var photo_caption = data.title;
+                    $(dom).empty().append(
+                        $("<a />").attr({
+                            "href" : url,
+                            "target" : "_blank"
+                        }).append(
+                            $("<img />").attr("src", photo_thumbnail_url)
+                        ).append(
+                            $("<div />").addClass("photo_caption").html(photo_caption)
+                        )
+                    );
+                }
+            });
+            $(this).removeClass(_this.domPattern);
+        });
+    }
+
+}).apply(InstagrThumnail.prototype);
 
 var ShowTitleApi = function() {
     this.initialize.apply(this, arguments);

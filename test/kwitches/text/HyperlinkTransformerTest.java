@@ -131,4 +131,11 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
             "<img width='200' src='https://github.com/images/gravatars/gravatar-140.png'></a><br>";
         assertThat(new HyperlinkTransformer().transform(text), is(transString));
     }
+    
+    @Test
+    public void instagrLinkTest() {
+        String text = "http://instagr.am/p/BBjYm";
+        String transString = "<a href='http://instagr.am/p/BBjYm'>http://instagr.am/p/BBjYm</a><br><div data-url='http://instagr.am/p/BBjYm' class='new_instagr_thumb'></div>";
+        assertThat(new HyperlinkTransformer().transform(text), is(transString));
+    }
 }
