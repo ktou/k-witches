@@ -43,7 +43,7 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
     }
 
     @Test
-    public void test4() throws Exception {
+    public void httpsLinkTest() throws Exception {
         String text = "https://www.yahoo.co.jp/";
         assertThat(new HyperlinkTransformer().transform(text),
             is("<div class='new_link'><a class='link' href='https://www.yahoo.co.jp/'>https://www.yahoo.co.jp/</a>" +
@@ -51,7 +51,7 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
     }
 
     @Test
-    public void test5() throws Exception {
+    public void nicovideoLinkTest() throws Exception {
         String rawString = "http://www.nicovideo.jp/watch/sm7415744";
         String transString = "<div data-nicovideo='sm7415744' class='new_nico_thumb'></div><br>" +
         HyperlinkTransformUtil.getSBMLinks(rawString) +
@@ -61,18 +61,18 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
     }
 
     @Test
-    public void test6() throws Exception {
+    public void twitterLinkTest() throws Exception {
         String rawString = "http://twitter.com/zenra_bot/status/3605531004/";
         String transString = "<a href='http://twitter.com/zenra_bot/status/3605531004/'>" +
             "http://twitter.com/zenra_bot/status/3605531004/</a><br>" +
-            "<div data-status_num='3605531004' class='twitter_thumbnail' " +
+            "<div data-status_num='3605531004' class='new_twitter_thumb' " +
             "data-twitter_id='zenra_bot'></div>";
         assertThat(new HyperlinkTransformer().transform(rawString),
             is(transString));
     }
 
     @Test
-    public void test7() throws Exception {
+    public void youtubeLinkTest() throws Exception {
         String rawString = "http://www.youtube.com/watch?v=zXnTYEW1m7M";
         String transString = "<div><iframe class='youtube-player' " +
             "type='text/html' width='640' height='385' " +
@@ -84,7 +84,7 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
     }
 
     @Test
-    public void test8() throws Exception {
+    public void nicovideoAndYoutubeLinkTest() throws Exception {
         String rawString = "http://www.nicovideo.jp/watch/sm7415744 http://www.youtube.com/watch?v=zXnTYEW1m7M";
         String transString = "<div data-nicovideo='sm7415744' class='new_nico_thumb'></div><br>" +
         HyperlinkTransformUtil.getSBMLinks("http://www.nicovideo.jp/watch/sm7415744") +
@@ -99,7 +99,7 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
     }
 
     @Test
-    public void test9() throws Exception {
+    public void ttpLinkTest() throws Exception {
         String text = "ttp://s-witch.cute.or.jp/";
         assertThat(new HyperlinkTransformer().transform(text),
             is("<div class='new_link'><a class='link' href='http://s-witch.cute.or.jp/'>http://s-witch.cute.or.jp/</a>" +

@@ -47,7 +47,7 @@ public class TwitterLinkTransformer
         String statusNum = m.group(2);
         
         HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put("class", "twitter_thumbnail");
+        properties.put("class", "new_twitter_thumb");
         properties.put("data-twitter_id", userId);
         properties.put("data-status_num", statusNum);
         
