@@ -115,4 +115,12 @@ public class HyperlinkTransformerTest extends AppEngineTestCase {
             HyperlinkTransformUtil.getSBMLinks(text);
         assertThat(new HyperlinkTransformer().transform(text), is(transString));
     }
+    
+    @Test
+    public void twitpicLinktest() {
+        String text = "http://twitpic.com/2xfh6c";
+        String transString = "<a href='http://twitpic.com/2xfh6c'>http://twitpic.com/2xfh6c<br>" +
+            "<img src='http://twitpic.com/show/thumb/2xfh6c'></a><br>";
+        assertThat(new HyperlinkTransformer().transform(text), is(transString));
+    }
 }
