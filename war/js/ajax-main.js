@@ -108,6 +108,7 @@ Article.prototype = {
             new NicoThumnail("div.new_nico_thumb", lazyScriptLoader),
             new NicoTags("div.new_nico_tags"),
             new GistPreview("div.new_gist_preview", lazyScriptLoader),
+            new TwitterThumnail("div.new_twitter_thumb"),
             new TumblrThumnail("div.new_tumblr_thumb"),
             new NormalLink("div.new_link")
         ];
@@ -377,6 +378,56 @@ TumblrThumnail.prototype = new DomModifier();
     }
 
 }).apply(TumblrThumnail.prototype);
+
+var TwitterThumnail = function() {
+    this.initialize.apply(this, arguments);
+}
+
+TwitterThumnail.prototype = new DomModifier();
+
+(function() {
+    this.initialize = function(domPattern) {
+        DomModifier.prototype.initialize.apply(this, arguments);
+    },
+
+    this.execute = function() {
+        var _this = this;
+        
+        $(this.domPattern).each(function(){
+            var twitterId = $(this).attr("data-twitter_id");
+            var statusNum = $(this).attr("data-status_num");
+            var dom = this;
+            $.ajax({
+                type: "GET",
+                url: "http://voidy21.appspot.com/twit_status",
+                dataType: "jsonp",
+                jsonp: 'callback',
+                data : {
+                    twitter_id : twitterId,
+                    status_num : statusNum
+                },
+                success: function(data) {
+                    if(!data) return;
+                    $(dom).empty();
+                    var cite = $('<cite />').html(
+                        "<a href='http://twitter.com/"+ twitterId +"/'>" + 
+                        twitterId +'</a> on ' +
+                        decodeURI(data.date));
+                    var comment = $('<span />').attr('class','twitter')
+                        .html(decodeURI(data.entry));
+                    var twit_entry = $('<blockquote />').attr('class','twitter')
+                        .attr('style','background-image: url(' + 
+                        decodeURI(data.image) + 
+                        ');background-position: left center;')
+                        .append(comment).append('<br />').append(cite);
+                    $(dom).append(twit_entry);
+                }
+            });
+            $(this).removeClass(_this.domPattern);
+        });
+    }
+
+}).apply(TwitterThumnail.prototype);
 
 var ShowTitleApi = function() {
     this.initialize.apply(this, arguments);
