@@ -30,7 +30,6 @@ public class AmazonLinkTransformer
         return REGEXP_URL_STRING;
     }
 
-
     /* (非 Javadoc)
      * @see kwitches.text.LineMessageTransformInterface#transform(java.lang.String)
      */
