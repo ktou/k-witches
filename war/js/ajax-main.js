@@ -108,6 +108,7 @@ Article.prototype = {
             new NicoThumnail("div.new_nico_thumb", lazyScriptLoader),
             new NicoTags("div.new_nico_tags"),
             new GistPreview("div.new_gist_preview", lazyScriptLoader),
+            new TumblrThumnail("div.new_tumblr_thumb"),
             new NormalLink("div.new_link")
         ];
         for (var i = 0,length = decoratorer.length; i < length; i++) {
@@ -325,6 +326,58 @@ GistPreview.prototype = new DomModifier();
     }
 
 }).apply(GistPreview.prototype);
+
+var TumblrThumnail = function() {
+    this.initialize.apply(this, arguments);
+}
+
+TumblrThumnail.prototype = new DomModifier();
+
+(function() {
+    this.initialize = function(domPattern) {
+        DomModifier.prototype.initialize.apply(this, arguments);
+    },
+
+    this.execute = function() {
+        var _this = this;
+        
+        $(this.domPattern).each(function(){
+            var tumblr_id = $(this).attr("data-tumblrid");
+            var post_id = $(this).attr("data-postid");
+            var tumblr_api_url = "http://" + tumblr_id + ".tumblr.com/api/read/json";
+            var dom = this;
+            $.ajax({
+                type: "GET",
+                url: tumblr_api_url,
+                dataType: "jsonp",
+                data : {
+                    id : post_id
+                },
+                success: function(data) {
+                alert(data.toSource());
+                    var post = data.posts[0];
+                    if (post.type == "photo") {
+                        var photo_thumbnail_url = post["photo-url-250"];
+                        var photo_url = post["photo-url-1280"];
+                        var photo_caption = post["photo-caption"];
+                        $(dom).empty().append(
+                            $("<a />").attr({
+                                "href" : photo_url,
+                                "target" : "_blank"
+                            }).append(
+                                $("<img />").attr("src", photo_thumbnail_url)
+                            ).append(
+                                $("<div />").addClass("tumblr_photo_caption").html(photo_caption)
+                            )
+                        );
+                    }
+                }
+            });
+            $(this).removeClass(_this.domPattern);
+        });
+    }
+
+}).apply(TumblrThumnail.prototype);
 
 var ShowTitleApi = function() {
     this.initialize.apply(this, arguments);
