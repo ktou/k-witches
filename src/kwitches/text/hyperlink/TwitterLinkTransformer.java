@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package kwitches.text.hyperlink;
 
@@ -17,8 +17,8 @@ public class TwitterLinkTransformer
     extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "twitter";
-    private static final String REGEXP_URL_STRING = "^http://twitter.com/(\\w+)/status/(\\d+)/?";
-    
+    private static final String REGEXP_URL_STRING = "^http://twitter.com/(#!/)?(\\w+)/status/(\\d+)/?";
+
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
      */
@@ -43,14 +43,14 @@ public class TwitterLinkTransformer
             return rawString;
         }
         String url = m.group(0);
-        String userId = m.group(1);
-        String statusNum = m.group(2);
-        
+        String userId = m.group(2);
+        String statusNum = m.group(3);
+
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("class", "new_twitter_thumb");
         properties.put("data-twitter_id", userId);
         properties.put("data-status_num", statusNum);
-        
+
         return String.format("<a href='%1$s'>%1$s</a><br>%2$s",
             url,
             getDivHtml(properties)
