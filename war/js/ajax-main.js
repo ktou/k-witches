@@ -68,7 +68,7 @@ Article.prototype = {
             ).append(
                 $("<div/>").addClass("title").append($("<a/>").attr("href","#").text(e.id))
             ).append(
-                $("<div/>").addClass("body").html(decodeURL(e.comment).replace(/\r\n?/g,"<br />"))
+                $("<div/>").addClass("body").html(decodeURL(e.comment).replace(/\n\n/g,"<br />"))
                )
             .append(
                 $("<div/>").addClass("bottom").attr("align","right").append(
