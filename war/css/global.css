@@ -40,9 +40,9 @@ input[type="text"]:focus,
     textarea:focus {
         background-image: none;
     background-color: #FFD;
-    transform: scale(1.05);
+/*    transform: scale(1.05);
     -webkit-transform: scale(1.05);
-    -moz-transform: scale(1.05);
+    -moz-transform: scale(1.05);*/
         -moz-box-shadow: 0 0 8px rgba(82,168,236,0.5);
         border-color:rgba(82,168,236,0.75) !important;
         outline: medium none;
@@ -205,9 +205,9 @@ blockquote.twitter {
                 display: block;
                 height: 100px;
                 width: 100px;
-                background-repeat: no-repeat;           
+                background-repeat: no-repeat;
                 background-image: url(http://static.tumblr.com/4cradrm/caWkmz08e/icon_reblog.png);
-        }       
+        }
 
 /*--------------------------------------------------------
  * 更新情報とか
@@ -466,7 +466,7 @@ button.regular, .buttons a.regular{
 {
         position:absolute;
         margin-top:60px;
-        top:expression(( (ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)) + 'px'); 
+        top:expression(( (ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)) + 'px');
         right:expression(( (ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)) + 'px');
 }
 * html #overlay
@@ -486,8 +486,8 @@ div.sabrosus a.other {
     padding: 2px 5px 2px 5px;
     margin-right: 2px;
     border: 1px solid #9aafe5;
-    
-    text-decoration: none; 
+
+    text-decoration: none;
     color: #2e6ab1;
 }
 div.sabrosus span.other:hover, div.pagination a:active {
