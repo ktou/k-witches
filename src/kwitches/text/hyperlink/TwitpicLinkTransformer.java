@@ -42,7 +42,7 @@ public class TwitpicLinkTransformer
         String url = m.group(0);
         final String pictureId = m.group(1);
 
-        return String.format("<a href='%1$s'>%1$s<br><img src='http://twitpic.com/show/thumb/%2$s'></a><br>",
+        return String.format("<a href='%1$s'>%1$s<br><img src='http://twitpic.com/show/thumb/%2$s'></a>",
             url,
             pictureId
         );

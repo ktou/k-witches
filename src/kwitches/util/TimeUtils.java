@@ -52,9 +52,20 @@ public class TimeUtils {
      * @return
      */
     public static String getJstDateString(Date date) {
+        return getDateString(getJstDate(date));
+    }
+
+    /**
+     * 指定した時刻を文字列に変換して取得
+     *
+     * @param date
+     *            変換する時刻
+     * @return
+     */
+    public static String getDateString(Date date) {
         if (date == null) {
             return null;
         }
-        return sdf.format(getJstDate(date));
+        return sdf.format(date);
     }
 }

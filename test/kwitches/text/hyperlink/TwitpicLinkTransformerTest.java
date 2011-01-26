@@ -21,7 +21,7 @@ public class TwitpicLinkTransformerTest {
     public void testTransform1() {
         String rawString = "http://twitpic.com/2xfh6c";
         String transString = "<a href='http://twitpic.com/2xfh6c'>http://twitpic.com/2xfh6c<br>" +
-            "<img src='http://twitpic.com/show/thumb/2xfh6c'></a><br>";
+            "<img src='http://twitpic.com/show/thumb/2xfh6c'></a>";
         HyperlinkTransformInterface transformer = new TwitpicLinkTransformer();
         assertThat(transformer.transform(rawString), is(transString));
     }
@@ -33,7 +33,7 @@ public class TwitpicLinkTransformerTest {
     public void testTransform2() {
         String rawString = "http://twitpic.com/2xfh6c/";
         String transString = "<a href='http://twitpic.com/2xfh6c/'>http://twitpic.com/2xfh6c/<br>" +
-            "<img src='http://twitpic.com/show/thumb/2xfh6c'></a><br>";
+            "<img src='http://twitpic.com/show/thumb/2xfh6c'></a>";
         HyperlinkTransformInterface transformer = new TwitpicLinkTransformer();
         assertThat(transformer.transform(rawString), is(transString));
     }
@@ -45,7 +45,7 @@ public class TwitpicLinkTransformerTest {
     public void testTransform3() {
         String rawString = "http://twitpic.com/3so01c/full";
         String transString = "<a href='http://twitpic.com/3so01c/full'>http://twitpic.com/3so01c/full<br>" +
-            "<img src='http://twitpic.com/show/thumb/3so01c'></a><br>";
+            "<img src='http://twitpic.com/show/thumb/3so01c'></a>";
         HyperlinkTransformInterface transformer = new TwitpicLinkTransformer();
         assertThat(transformer.transform(rawString), is(transString));
     }

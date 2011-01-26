@@ -40,7 +40,7 @@ public class ImageLinkTransformer
             return rawString;
         }
         String url = rawString;
-        return String.format("<a class='lightpop' href='%1$s'><img width='200' src='%1$s'></a><br>", 
+        return String.format("<a class='lightpop' href='%1$s'><img width='200' src='%1$s'></a>", 
             url);
     }
 

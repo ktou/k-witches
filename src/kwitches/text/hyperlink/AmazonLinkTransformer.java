@@ -53,7 +53,7 @@ public class AmazonLinkTransformer
             "?t=%2$s&o=9&p=8&l=as1&asins=%3$s&IS2=1&fc1=000000" +
             "&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr'" +
             " style='width:120px;height:240px;' scrolling='no'" +
-            " marginwidth='0' marginheight='0' frameborder='0'></iframe><br>";
+            " marginwidth='0' marginheight='0' frameborder='0'></iframe>";
         
         return String.format(formatString, url, amazonAffiliateId, asin);
     }

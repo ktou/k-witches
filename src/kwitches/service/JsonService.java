@@ -17,16 +17,16 @@ import kwitches.util.TimeUtils;
 public class JsonService {
 
     public static final int DEFAULT_LIMIT = 30;
-    private static final String JSON_DATA_FORMAT = 
+    private static final String JSON_DATA_FORMAT =
         "<'name':'{0}','ip':'{1}','date':'{2}'," +
         "'comment':'{3}','id':'{4}','classtype':'{5}','icon':'{6}'>";
-   
+
     private static final BBSDataModelMeta meta =  BBSDataModelMeta.get();
-    
+
     public String getJson() throws Exception {
         StringBuilder sb = new StringBuilder();
         List<BBSDataModel> bbsDataList = this.getBBSDataList();
-        
+
         sb.append("{\"articles\":[");
         for (int i = 0, len = bbsDataList.size(); i < len; i++) {
             BBSDataModel bbsData = bbsDataList.get(i);
@@ -43,7 +43,7 @@ public class JsonService {
                     new Object[] {
                         name,
                         bbsData.getIpAddress(),
-                        TimeUtils.getJstDateString(bbsData.getCreatedDate()),
+                        TimeUtils.getDateString(bbsData.getCreatedDate()),
                         comment,
                         bbsData.getId(),
                         "text",
@@ -61,14 +61,14 @@ public class JsonService {
                               .replace(">", "}");
         return jsonString;
     }
-    
+
     public List<BBSDataModel> getBBSDataList() {
         return Datastore.query(meta)
                         .sort(meta.id.desc)
                         .limit(DEFAULT_LIMIT)
                         .asList();
     }
-    
+
     public List<BBSDataModel> getBBSDataList(int offset,int limit) {
         return Datastore.query(meta)
                         .sort(meta.id.desc)

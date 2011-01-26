@@ -4,6 +4,11 @@ body {
         background-color:#F5F5F5;
 }
 
+div .quote, .res, .new_link, .new_instagr_thumb{
+	display: inline-block;
+	_display: inline;
+}
+
 a:link,a:visited {
     text-decoration:none;
 }
