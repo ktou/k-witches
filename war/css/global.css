@@ -100,8 +100,7 @@ blockquote.twitter {
         font-size:120%;
 }
 .expand {
-        height:120px !important;
-        font-size:100% !important;
+        height:4.9em !important;
 }
 
 .entry, .cluster_info, .user_info {
@@ -110,7 +109,7 @@ blockquote.twitter {
         -webkit-border-radius: 5px;
         background: none repeat scroll 0 0 white;
         border: 1px solid #D1D1D1;
-        width: 750px;
+        width: 840px;
         padding-bottom: 16px;
         margin-left:105px;
 }
@@ -145,9 +144,7 @@ blockquote.twitter {
 }
 
 .cluster_info .body, .entry .body, .user_info .body{
-    margin-top:8px;
-    margin-left:42px;
-    width:700px;
+    margin:8px 42px 0px 42px ;
 }
 .cluster_info {
         background-color : #FFF8DC;
