@@ -20,7 +20,7 @@
     <c:if test="${'LOGIN' == isLogin}">
         <img src="images/kw-logo.png"/>
         <br />
-        <p>ウィッチに不可能はない！！！！！！！！</p>
+        <p>守りたいから私は飛ぶ！！パンツじゃないから恥ずかしくないもん！</p>
         <c:if test="${isKAuth}">
         <div class="postlocate">
             <div class="title"></div>
