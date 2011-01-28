@@ -58,7 +58,7 @@ Article.prototype = {
    createDom : function(e) {
         var icon_url = this._getIconUrl(e);
 
-        var article = $("<div/>").append(
+        var article = $("<div/>").addClass("article").append(
             $("<div/>").addClass("photo").append($("<img/>").attr("src",icon_url))
         ).append(
             $("<div/>").addClass("entry").attr("data-entrynumber",e.id).append(
