@@ -28,15 +28,15 @@
                 <textarea rows="1" name="comment" id="textarea" class=""></textarea><br>
                 <div class="buttons">
                     <a id="post_button" class="positive" href="javascript:void(0)">
-                        <img alt="" src="images/apply2.png"> 
+                        <img alt="" src="images/apply2.png">
                         送信
                     </a>
                       <!--
                     <a id="preview_link" class="regular" href="javascript:void(0)">
-                        <img alt="" src="images/preview.png"> 
+                        <img alt="" src="images/preview.png">
                         プレビュー
                     </a>
-                
+
                    <input type="file" id="file" name="file"/>
                      -->
                    <br />
@@ -44,6 +44,7 @@
             </form>
             <iframe id="dammy" name="dammy" style="display:none"></iframe>
         </div>
+        <div class="shadow" ></div>
         <div id="articles" />
         </c:if>
     </c:if>
