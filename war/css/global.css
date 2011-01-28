@@ -127,8 +127,7 @@ blockquote cite {
 }
 
 .entry {
-	width: 840px;
-	margin-left: 60px;
+	margin-left: 70px;
 }
 
 .all {
@@ -206,7 +205,7 @@ blockquote cite {
 
 .photo {
 	float: left;
-	padding: 5px;
+	padding: 10px;
 }
 
 .photo img {
