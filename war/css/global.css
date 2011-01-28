@@ -95,6 +95,18 @@ blockquote.twitter {
      margin: 0px;
    }
 
+.postlocate{
+	border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #D1D1D1;
+    width: 900px;
+    padding: 12px 0px 12px 0px;
+    margin: 15px 0px;
+}
+
+
 #textarea{
         width:520px;
         height:28px;
@@ -332,6 +344,7 @@ h3 span {
 /* BUTTONS */
 
 .buttons {
+		height: 32px;
     margin-left:12px;
     margin-top:12px;
 }

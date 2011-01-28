@@ -22,7 +22,7 @@
         <br />
         <p>ウィッチに不可能はない！！！！！！！！</p>
         <c:if test="${isKAuth}">
-        <div class="entry">
+        <div class="postlocate">
             <div class="title"></div>
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
                 <textarea rows="1" name="comment" id="textarea" class=""></textarea><br>
@@ -44,7 +44,6 @@
             </form>
             <iframe id="dammy" name="dammy" style="display:none"></iframe>
         </div>
-        <div class="shadow" ></div>
         <div id="articles" />
         </c:if>
     </c:if>
