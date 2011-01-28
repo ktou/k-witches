@@ -178,14 +178,6 @@ blockquote cite {
 	line-height: 16px;
 }
 
-.shadow {
-	background:
-		url("http://static.tumblr.com/jn9hrij/WwEl32aup/bottomshadow.png")
-		no-repeat scroll left top transparent;
-	height: 14px;
-	margin-left: 200px;
-}
-
 .bottom {
 	margin-top: 15px;
 	margin-right: 30px;

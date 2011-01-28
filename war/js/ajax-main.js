@@ -54,10 +54,10 @@ Article.prototype = {
         var icon = data.icon;
         return "user/icon?_=" + icon;
     },
-    
+
    createDom : function(e) {
         var icon_url = this._getIconUrl(e);
-        
+
         var article = $("<div/>").append(
             $("<div/>").addClass("photo").append($("<img/>").attr("src",icon_url))
         ).append(
@@ -76,12 +76,10 @@ Article.prototype = {
                     )
              ).append($("<div/>").addClass("res")
              )
-        ).append(
-            $("<div/>").addClass("shadow")
-          );
+        );
         return article;
     },
-    
+
     drawArticles : function(num,page) {
         var _this = this;
         $("#articles").html("");
@@ -96,12 +94,12 @@ Article.prototype = {
               data.articles.forEach(function(e) {
                   $("#articles").append(_this.createDom(e));
                 });
-                    
+
              _this.decorate();
             }
         });
-    },  
-    
+    },
+
     decorate : function() {
         var lazyScriptLoader = new LazyScriptLoader();
         var decoratorer = [
@@ -233,7 +231,7 @@ NormalLink.prototype = new DomModifier();
             if(!tagCloud[i].tag) continue;
             $(link_tag)
                .attr('href','http://b.hatena.ne.jp/t/'+encodeURI(tagCloud[i].tag))
-               .css({ 
+               .css({
                    'font-size':'13px','color':this.tagColor[i],
                    'text-decoration':'none'
                 })
@@ -342,7 +340,7 @@ TumblrThumnail.prototype = new DomModifier();
 
     this.execute = function() {
         var _this = this;
-        
+
         $(this.domPattern).each(function(){
             var tumblr_id = $(this).attr("data-tumblrid");
             var post_id = $(this).attr("data-postid");
@@ -393,7 +391,7 @@ TwitterThumnail.prototype = new DomModifier();
 
     this.execute = function() {
         var _this = this;
-        
+
         $(this.domPattern).each(function(){
             var twitterId = $(this).attr("data-twitter_id");
             var statusNum = $(this).attr("data-status_num");
@@ -411,14 +409,14 @@ TwitterThumnail.prototype = new DomModifier();
                     if(!data) return;
                     $(dom).empty();
                     var cite = $('<cite />').html(
-                        "<a href='http://twitter.com/"+ twitterId +"/'>" + 
+                        "<a href='http://twitter.com/"+ twitterId +"/'>" +
                         twitterId +'</a> on ' +
                         decodeURI(data.date));
                     var comment = $('<span />').attr('class','twitter')
                         .html(decodeURI(data.entry));
                     var twit_entry = $('<blockquote />').attr('class','twitter')
-                        .attr('style','background-image: url(' + 
-                        decodeURI(data.image) + 
+                        .attr('style','background-image: url(' +
+                        decodeURI(data.image) +
                         ');background-position: left center;')
                         .append(comment).append('<br />').append(cite);
                     $(dom).append(twit_entry);
@@ -443,7 +441,7 @@ InstagrThumnail.prototype = new DomModifier();
 
     this.execute = function() {
         var _this = this;
-        
+
         $(this.domPattern).each(function(){
             var url = $(this).attr("data-url");
             var api_url = "http://instagr.am/api/v1/oembed";
@@ -509,7 +507,7 @@ ShowTitleApi.prototype = {
             delay: 0,
             showURL: false,
             showBody: ' - ',
-            fade: 250 
+            fade: 250
         });
     },
 
@@ -536,7 +534,7 @@ LazyScriptLoader.prototype = {
         this.params = [];
         this.count = 0;
     },
-    
+
     append : function(params) {
         $(params.dom).append($("<img/>").attr("src","../../images/ajax-loader.gif"));
         this.params.push({
@@ -546,13 +544,13 @@ LazyScriptLoader.prototype = {
         });
         this.count++;
     },
-    
+
     _execute : function(count) {
         var _this = this;
         var src = this.params[count].src_url;
         var dom = this.params[count].dom;
         var dom_pattern = this.params[count].dom_pattern;
-        var alts = []; // document.writeの内容を入れておく配列を準備 
+        var alts = []; // document.writeの内容を入れておく配列を準備
         var d = document;
         d._write = document.write; // オリジナルはコピーしておく
         document.write = function(s){ alts.push(s); }; // d.writeを新たに定義
