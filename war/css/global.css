@@ -197,13 +197,12 @@ blockquote.twitter {
 
 .photo{
         float:left;
+        padding: 0px 10px;
 }
 
 .photo img{
-    padding:1px;
     background:#ccc;
-    width:96px;
-    height:96px;
+    width:85px;
 }
 
 .photo span{
