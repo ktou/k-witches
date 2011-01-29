@@ -316,7 +316,7 @@ NormalLink.prototype = new DomModifier();
         $(this.domPattern).each(function() {
             var url = $(this).find("a").attr("class","link").attr("href").replace("/href?location=", "");
             _this._getTitleAndTagCloud(this, url);
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 }).apply(NormalLink.prototype);
@@ -395,7 +395,7 @@ TumblrThumnail.prototype = new DomModifier();
                     }
                 }
             });
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 
@@ -445,7 +445,7 @@ TwitterThumnail.prototype = new DomModifier();
                     $(dom).append(twit_entry);
                 }
             });
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 
@@ -493,7 +493,7 @@ InstagrThumnail.prototype = new DomModifier();
                     );
                 }
             });
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 
@@ -579,7 +579,7 @@ LazyScriptLoader.prototype = {
         document.write = function(s){ alts.push(s); }; // d.writeを新たに定義
         $.getScript(src, function(){
             var write = alts.join("");
-            $(dom).html(write).removeClass(dom_pattern); // 指定した場所に流し込む
+            $(dom).html(write).removeClass(dom_pattern.split(".")[1]); // 指定した場所に流し込む
             document.write = d._write; // d.writeを元の定義に戻しておく
             if (++count < _this.count) {
                 _this._execute(count);
