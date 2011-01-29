@@ -17,7 +17,6 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 public class SignController extends Controller {
-
     private SignService service = new SignService();
     
     private static final UserModelMeta meta =  UserModelMeta.get();

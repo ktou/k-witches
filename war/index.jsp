@@ -9,9 +9,16 @@
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">google.load("jquery", "1.4");</script>
     <c:if test="${isKAuth}">
+    <script src='./_ah/channel/jsapi'></script>
     <script src="js/object-prototype.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery.pack.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    <!--
+    // Global
+    channelToken = "${f:h(channelToken)}";
+    //-->
+    </script>
     </c:if>
     <title>K-Witches</title>
 </head>

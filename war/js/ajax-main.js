@@ -1,10 +1,22 @@
 $(function(){
+    var article = new Article();
+    article.drawArticles();
+    var channel = new goog.appengine.Channel(channelToken);
+    var socket = channel.open();
+    
+    socket.onmessage = function(msg) {
+        var data = $.parseJSON(msg.data);
+        if (data.type == "sign") {
+            $("#articles").prepend(article.createDom(data.content));
+            article.decorate();
+        }
+    };
+
     $("#post_button").click(function() {
         $("#post_form").submit();
         setTimeout(function() {
             $("#textarea").val("");
             $("#file").val("");
-            article.drawArticles();
             $("#post_form").submit();  //わざとPOSTすることで二重送信防止
         }, 100);
     });
@@ -26,9 +38,6 @@ $(function(){
             textarea.addClass("expand");
         }
     });
-
-    var article = new Article();
-    article.drawArticles();
 });
 
 var Res = function() {}
@@ -60,7 +69,6 @@ Article.prototype = {
 
    createDom : function(e) {
         var icon_url = this._getIconUrl(e);
-
         var article = $("<div/>").addClass("article").append(
             $("<div/>").addClass("photo").append(
                 $("<img/>").attr("src", icon_url)

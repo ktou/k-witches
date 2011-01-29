@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.slim3.util.BeanUtil;
 
+import kwitches.message.MessageFactory;
+import kwitches.message.MessageInterface;
 import kwitches.model.BBSDataModel;
 import kwitches.model.UserModel;
 import kwitches.service.dao.BBSDataModelDao;
@@ -21,6 +23,10 @@ public class SignService {
         input.put("ipAddress", ipAddress);
         BeanUtil.copy(input, bbsDataModel);
         bbsDao.putBBSData(bbsDataModel);
+        MessageInterface message = 
+            MessageFactory.create(MessageFactory.Type.SIGN);
+        message.setInformation(bbsDataModel);
+        MessageService.sendMessage(message.getMessage());
         return bbsDataModel;
      }
 
