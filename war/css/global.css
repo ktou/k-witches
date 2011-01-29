@@ -110,6 +110,7 @@ blockquote cite {
 
 .expand {
 	height: 4.9em !important;
+	font-size: 100% !important;
 }
 
 #articles{

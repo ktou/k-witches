@@ -20,9 +20,7 @@ $(function(){
                 textarea.addClass("expand");
             }
         }, 100);
-    });
-
-    $("#textarea").keypress(function(e){
+    }).keypress(function(e) {
         var textarea = $("#textarea");
         if (textarea.val().indexOf("\n") == -1 && !(e.keyCode == 13)) {
             textarea.removeClass("expand");
@@ -36,6 +34,15 @@ $(function(){
 
 
 });
+
+var Res = function() {}
+Res.appendTextarea = function(resNumber) {
+    var textarea = $("#textarea").get(0);
+    if(textarea.value == "\n") {
+        textarea.value = "";
+    }
+    $("#textarea").get(0).value += ">>%d\n".replace("%d", resNumber);
+}
 
 var Article = function() {
     var self = arguments.callee;
@@ -64,17 +71,24 @@ Article.prototype = {
             $("<div/>").addClass("entry").attr("data-entrynumber",e.id).append(
                 $("<div/>").addClass("creater").attr("align","right").append(
                     $("<a/>").addClass("name").attr("href","#").text(e.name)
-                    )
+                )
             ).append(
-                $("<div/>").addClass("title").append($("<a/>").attr("href","#").text(e.id))
+                $("<div/>").addClass("title").append(
+                    $("<a/>").attr("href","#").text(e.id).click(function() {
+                        Res.appendTextarea(e.id);
+                        $("#textarea").focus().addClass("expand");
+                        
+                    })
+                )
             ).append(
                 $("<div/>").addClass("body").html(decodeURL(e.comment).replace(/\n\n/g,"<br />"))
                )
             .append(
                 $("<div/>").addClass("bottom").attr("align","right").append(
                     $("<a/>").addClass("time").attr("href","#").text(e.date)
-                    )
-             ).append($("<div/>").addClass("res")
+                )
+             ).append(
+                $("<div/>").addClass("res")
              )
         );
         return article;
