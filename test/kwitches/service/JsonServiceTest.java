@@ -3,7 +3,6 @@ package kwitches.service;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import kwitches.model.BBSDataModel;
@@ -40,7 +39,7 @@ public class JsonServiceTest extends AppEngineTestCase {
         Datastore.put(userModel);
         String ip = "127.0.0.1";
         String comment = "hello";
-        Date createdDate = TimeUtils.getJstDate();
+        Date createdDate = new Date();
         Map<String, Object> input = new HashMap<String, Object>();
         input.put("comment", comment);
         BBSDataModel signed = signService.sign(input, ip, createdDate, userModel);
@@ -51,11 +50,11 @@ public class JsonServiceTest extends AppEngineTestCase {
         assertThat(stored.getIpAddress(), is(ip));
         assertThat(stored.getId(), is(1));
         String jsonString = "<'articles':[<'name':'{0}','ip':'{1}'," +
-            "'date':'{2,date} {2,time}','comment':'{3}','id':'1','classtype':'text','icon':''>]>";
+            "'date':'{2}','comment':'{3}','id':'1','classtype':'text','icon':''>]>";
         Object[] argument = {
             name,
             ip,
-            createdDate,
+            TimeUtils.getDateString(createdDate),
             comment
         };
         jsonString = jsonString.replace("'", "\"");
@@ -77,14 +76,4 @@ public class JsonServiceTest extends AppEngineTestCase {
          */
     }
     
-    
-    @Test
-    public void getBBSDataList() throws Exception {
-        BBSDataModel bbsDataModel = new BBSDataModel();
-        bbsDataModel.setComment("test");
-        Datastore.put(bbsDataModel);
-        List<BBSDataModel> bbsDataList = jsonService.getBBSDataList();
-        assertThat(bbsDataList.size(), is(1));
-        assertThat(bbsDataList.get(0).getComment(), is("test"));
-    }
 }
