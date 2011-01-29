@@ -1,15 +1,13 @@
 $(function(){
-
-    $("#post_button").click(function(){
+    $("#post_button").click(function() {
         $("#post_form").submit();
         setTimeout(function() {
             $("#textarea").val("");
             $("#file").val("");
             article.drawArticles();
             $("#post_form").submit();  //わざとPOSTすることで二重送信防止
-        },100);
+        }, 100);
     });
-
 
     $("#textarea").bind('paste', function(e) {
         setTimeout(function() {
@@ -31,14 +29,12 @@ $(function(){
 
     var article = new Article();
     article.drawArticles();
-
-
 });
 
 var Res = function() {}
 Res.appendTextarea = function(resNumber) {
     var textarea = $("#textarea").get(0);
-    if(textarea.value == "\n") {
+    if (textarea.value == "\n") {
         textarea.value = "";
     }
     $("#textarea").get(0).value += ">>%d\n".replace("%d", resNumber);
@@ -46,7 +42,7 @@ Res.appendTextarea = function(resNumber) {
 
 var Article = function() {
     var self = arguments.callee;
-    if(self.instance == null){
+    if (self.instance == null) {
         this.initialize.apply(this, arguments);
         self.instance = this;
     }
@@ -66,26 +62,28 @@ Article.prototype = {
         var icon_url = this._getIconUrl(e);
 
         var article = $("<div/>").addClass("article").append(
-            $("<div/>").addClass("photo").append($("<img/>").attr("src",icon_url))
+            $("<div/>").addClass("photo").append(
+                $("<img/>").attr("src", icon_url)
+            )
         ).append(
-            $("<div/>").addClass("entry").attr("data-entrynumber",e.id).append(
-                $("<div/>").addClass("creater").attr("align","right").append(
-                    $("<a/>").addClass("name").attr("href","#").text(e.name)
+            $("<div/>").addClass("entry").attr("data-entrynumber", e.id).append(
+                $("<div/>").addClass("creater").attr("align", "right").append(
+                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
                 )
             ).append(
                 $("<div/>").addClass("title").append(
                     $("<a/>").attr("href","#").text(e.id).click(function() {
                         Res.appendTextarea(e.id);
                         $("#textarea").focus().addClass("expand");
-                        
                     })
                 )
             ).append(
-                $("<div/>").addClass("body").html(decodeURL(e.comment).replace(/\n\n/g,"<br />"))
-               )
-            .append(
-                $("<div/>").addClass("bottom").attr("align","right").append(
-                    $("<a/>").addClass("time").attr("href","#").text(e.date)
+                $("<div/>").addClass("body").html(
+                    decodeURL(e.comment).replace(/\n\n/g, "<br />")
+                )
+            ).append(
+                $("<div/>").addClass("bottom").attr("align", "right").append(
+                    $("<a/>").addClass("time").attr("href", "#").text(e.date)
                 )
              ).append(
                 $("<div/>").addClass("res")
@@ -94,7 +92,7 @@ Article.prototype = {
         return article;
     },
 
-    drawArticles : function(num,page) {
+    drawArticles : function(num, page) {
         var _this = this;
         $("#articles").html("");
         $.ajax({
@@ -105,11 +103,10 @@ Article.prototype = {
                 xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
             },
             success: function(data) {
-              data.articles.forEach(function(e) {
-                  $("#articles").append(_this.createDom(e));
+                data.articles.forEach(function(e) {
+                    $("#articles").append(_this.createDom(e));
                 });
-
-             _this.decorate();
+                _this.decorate();
             }
         });
     },
@@ -125,7 +122,7 @@ Article.prototype = {
             new InstagrThumnail("div.new_instagr_thumb"),
             new NormalLink("div.new_link")
         ];
-        for (var i = 0,length = decoratorer.length; i < length; i++) {
+        for (var i = 0, length = decoratorer.length; i < length; i++) {
             decoratorer[i].execute();
         }
         lazyScriptLoader.execute();
@@ -160,7 +157,7 @@ NicoThumnail.prototype = new DomModifier();
 
     this.execute = function() {
         var _this = this;
-        $(this.domPattern).each(function(){
+        $(this.domPattern).each(function() {
             var nico_video_id = $(this).attr("data-nicovideo");
             var src = "http://ext.nicovideo.jp/thumb_watch/" + nico_video_id;
             _this.lazyScriptLoader.append({
@@ -185,7 +182,7 @@ NicoTags.prototype = new DomModifier();
         DomModifier.prototype.initialize.apply(this, arguments);
     },
 
-    this.getNicoTags = function(dom,nico_video_id) {
+    this.getNicoTags = function(dom, nico_video_id) {
         $.ajax({
             url : 'http://voidy21.appspot.com/nicotag',
             dataType : 'jsonp',
@@ -200,13 +197,13 @@ NicoTags.prototype = new DomModifier();
                 for(var i = 0 , n = json.tags.length; i < n; i++){
                     var nico_tag = json.tags[i].tag;
                     var link_tag = $('<a />')
-                        .attr('href','http://www.nicovideo.jp/tag/'+nico_tag)
+                        .attr('href','http://www.nicovideo.jp/tag/' + nico_tag)
                         .css({'font-size':'13px','color':'#000080'})
                         .text(decodeURIComponent(nico_tag));
                     nicoDom.append(link_tag);
-                    if(i%4==0 && i!=0){
+                    if (i%4 == 0 && i != 0) {
                         nicoDom.append('<br />');
-                    }else if(i!=n-1){
+                    } else if(i != n-1) {
                         nicoDom.append(' ');
                     }
                 }
@@ -216,7 +213,7 @@ NicoTags.prototype = new DomModifier();
     },
     this.execute = function() {
         var _this = this;
-        $(this.domPattern).each(function(){
+        $(this.domPattern).each(function() {
             var nico_video_id = $(this).attr("data-nicovideo");
             _this.getNicoTags(this,nico_video_id);
             $(this).removeClass(_this.domPattern);
@@ -234,25 +231,27 @@ NormalLink.prototype = new DomModifier();
 (function() {
     this.initialize = function() {
         DomModifier.prototype.initialize.apply(this, arguments);
-        this.tagColor = ['#993900','#C84B00','#F25B00','#FF6000',
-                         '#FF8135','#FFA975','#FFC6A4','#FFDDC8'];
+        this.tagColor = ['#993900', '#C84B00', '#F25B00', '#FF6000',
+                         '#FF8135', '#FFA975', '#FFC6A4', '#FFDDC8'];
         this.tagLength = this.tagColor.length;
     },
 
-    this._showTagCloud = function(dom,tagCloud) {
-        for(var i = 0; i<this.tagLength; i++){
+    this._showTagCloud = function(dom, tagCloud) {
+        for(var i = 0; i < this.tagLength; i++){
             var link_tag = $('<a />');
             if(!tagCloud[i].tag) continue;
             $(link_tag)
-               .attr('href','http://b.hatena.ne.jp/t/'+encodeURI(tagCloud[i].tag))
+               .attr('href', 'http://b.hatena.ne.jp/t/' + encodeURI(tagCloud[i].tag))
                .css({
-                   'font-size':'13px','color':this.tagColor[i],
-                   'text-decoration':'none'
+                   'font-size' : '13px',
+                   'color' : this.tagColor[i],
+                   'text-decoration' : 'none'
                 })
                .text(tagCloud[i].tag);
             $(dom).append(link_tag);
-            if (i!=this.tagLength-1)
+            if (i != this.tagLength - 1) {
                 $(dom).append(' ');
+            }
         }
     },
 
@@ -266,36 +265,38 @@ NormalLink.prototype = new DomModifier();
             });
         });
         var tagCloud = {};
-        for(var j= 0; j<this.tagLength; j++){
+        for(var j= 0; j < this.tagLength; j++){
             tagCloud[j] = {};
             tagCloud[j].count = 0;
             for(var i in hatena_tags){
-                if(tagCloud[j].count<hatena_tags[i]){
+                if(tagCloud[j].count < hatena_tags[i]){
                     tagCloud[j].count = hatena_tags[i];
                     tagCloud[j].tag = i;
                 }
             }
-            hatena_tags[tagCloud[j].tag]= 0;
+            hatena_tags[tagCloud[j].tag] = 0;
         }
         return tagCloud;
     },
 
-    this._getTitleAndTagCloud = function(dom,url) {
+    this._getTitleAndTagCloud = function(dom, url) {
         var _this = this;
         $.ajax({
             url : 'http://b.hatena.ne.jp/entry/jsonlite/',
             dataType : 'jsonp',
-            data : { url : url },
+            data : {
+                url : url
+            },
             jsonp : 'callback',
             success : function(json){
                 if(!json || !json.title) return;
-                var prevDom = $("<div />").css('color','green').text(json.title);
+                var prevDom = $("<div />").css('color', 'green').text(json.title);
                 var nextDom = $("<div />");
                 $(dom).prepend(prevDom);
                 $(dom).append(nextDom);
-                var api = new ShowTitleApi(url,json);
+                var api = new ShowTitleApi(url, json);
                 var tagCloud = _this._getTagCloud(json);
-                _this._showTagCloud(nextDom,tagCloud);
+                _this._showTagCloud(nextDom, tagCloud);
                 api.setTooltip(dom);
             },
             error : function(){}
@@ -304,9 +305,9 @@ NormalLink.prototype = new DomModifier();
 
     this.execute = function() {
         var _this = this;
-        $(this.domPattern).each(function(){
-            var url = $(this).find("a").attr("class","link").attr("href").replace("/href?location=","");
-            _this._getTitleAndTagCloud(this,url);
+        $(this.domPattern).each(function() {
+            var url = $(this).find("a").attr("class","link").attr("href").replace("/href?location=", "");
+            _this._getTitleAndTagCloud(this, url);
             $(this).removeClass(_this.domPattern);
         });
     }
@@ -330,7 +331,7 @@ GistPreview.prototype = new DomModifier();
         var _this = this;
         $(this.domPattern).each(function(){
             var gist_id = $(this).attr("data-gistid");
-            var src = "https://gist.github.com/" + gist_id + ".js";
+            var src = "https://gist.github.com/%d.js".replace("%d", gist_id);
             _this.lazyScriptLoader.append({
                 "dom" : this,
                 "src_url" : src,
@@ -355,10 +356,10 @@ TumblrThumnail.prototype = new DomModifier();
     this.execute = function() {
         var _this = this;
 
-        $(this.domPattern).each(function(){
+        $(this.domPattern).each(function() {
             var tumblr_id = $(this).attr("data-tumblrid");
             var post_id = $(this).attr("data-postid");
-            var tumblr_api_url = "http://" + tumblr_id + ".tumblr.com/api/read/json";
+            var tumblr_api_url = "http://%d.tumblr.com/api/read/json".replace("%d", tumblr_id);
             var dom = this;
             $.ajax({
                 type: "GET",
@@ -406,7 +407,7 @@ TwitterThumnail.prototype = new DomModifier();
     this.execute = function() {
         var _this = this;
 
-        $(this.domPattern).each(function(){
+        $(this.domPattern).each(function() {
             var twitterId = $(this).attr("data-twitter_id");
             var statusNum = $(this).attr("data-status_num");
             var dom = this;
@@ -423,9 +424,9 @@ TwitterThumnail.prototype = new DomModifier();
                     if(!data) return;
                     $(dom).empty();
                     var cite = $('<cite />').html(
-                        "<a href='http://twitter.com/"+ twitterId +"/'>" +
-                        twitterId +'</a> on ' +
-                        decodeURI(data.date));
+                        "<a href='http://twitter.com/%d/'>%d</a> on ".replace(/%d/g, twitterId) +
+                        decodeURI(data.date)     
+                    );
                     var comment = $('<span />').attr('class','twitter')
                         .html(decodeURI(data.entry));
                     var twit_entry = $('<blockquote />').attr('class','twitter')
@@ -456,7 +457,7 @@ InstagrThumnail.prototype = new DomModifier();
     this.execute = function() {
         var _this = this;
 
-        $(this.domPattern).each(function(){
+        $(this.domPattern).each(function() {
             var url = $(this).attr("data-url");
             var api_url = "http://instagr.am/api/v1/oembed";
             var dom = this;
@@ -495,7 +496,7 @@ var ShowTitleApi = function() {
 }
 
 ShowTitleApi.prototype = {
-    initialize : function(url,json) {
+    initialize : function(url, json) {
         this.url = url;
         this.json = json;
     },
@@ -504,7 +505,7 @@ ShowTitleApi.prototype = {
         var hatena_screen =  this.json.screenshot.replace('/120x90/', '/200x150/');
         var thumbnail = $('<div />');
         $(thumbnail).addClass('url_title').append(this.json.title.substr(0,60))
-            .append($('<img />').attr('src',hatena_screen)).append($('<br />'))
+            .append($('<img />').attr('src', hatena_screen)).append($('<br />'))
             .append(Api.getHatebuImage(this.url))
             .append(Api.getLdclipImage(this.url));
         return thumbnail;
@@ -513,7 +514,7 @@ ShowTitleApi.prototype = {
     setTooltip : function(dom) {
         var _this = this;
         $(dom).find("a").tooltip({
-            bodyHandler: function(){
+            bodyHandler: function() {
                 return _this._getThumbnailDom();
             },
             showURL: false,
@@ -531,12 +532,12 @@ var Api = function() {}
 
 Api.getHatebuImage = function(url) {
     var api = 'http://b.hatena.ne.jp/entry/image/';
-    return $('<img />').attr('src',api + url);
+    return $('<img />').attr('src', api + url);
 }
 
 Api.getLdclipImage = function(url) {
     var api = 'http://image.clip.livedoor.com/counter/medium/';
-    return $('<img />').attr('src',api + url);
+    return $('<img />').attr('src', api + url);
 }
 
 var LazyScriptLoader = function() {
