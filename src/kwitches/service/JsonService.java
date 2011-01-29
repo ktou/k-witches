@@ -3,6 +3,7 @@ package kwitches.service;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.slim3.datastore.Datastore;
 
@@ -22,6 +23,49 @@ public class JsonService {
         "<'name':'{0}','ip':'{1}','date':'{2}'," +
         "'comment':'{3}','id':'{4}','classtype':'{5}','icon':'{6}'>";
 
+    /**
+     * RequestMapによる条件指定でBBSDataModelのJSONデータを取得する
+     * 指定できる値は数字のみで、以下のパラメータを指定できる。
+     * <ul>
+     * <li>res_num</li>
+     * <li>offset</li>
+     * <li>limit</li>
+     * <li>page</li>
+     * </ul>
+     * <br>
+     * パラメータ{@code res_num}が設定されている場合、他のパラメータに関わらずレス番号が
+     * {@code res_num}のBBSDataModelのみのJSONデータを返却する。
+     * <br>
+     * パラメータ{@code offset}は取得するオフセット位置を指定できる。デフォルト値は0。
+     * <br>
+     * パラメータ{@code limit}は取得する件数制限を指定できる。デフォルト値は{@link BBSDataModelDao#DEFAULT_LIMIT}。
+     * <br>
+     * パラメータ{@code page}は取得する位置を{@code limit}の値飛ばしで指定できる。デフォルト値は1。
+     * @param input 条件指定するRequestMap
+     * @return BBSDataModelのJSON形式データを返却する。数値以外が存在した場合は空文字列を返す。
+     * @throws Exception
+     */
+    public String getJson(Map<String, Object> input) throws Exception {
+        boolean hasResNumber = input.containsKey("res_num");
+        boolean hasOffset = input.containsKey("offset");
+        boolean hasLimit = input.containsKey("limit");
+        boolean hasPage = input.containsKey("page");
+        try {
+            if (hasResNumber) {
+                int resNumber = Integer.parseInt((String) input.get("res_num"));
+                return this.getJson(resNumber);
+            }
+            int offset = hasOffset ? Integer.parseInt((String) input.get("offset")) : 0;
+            int limit = hasLimit ? Integer.parseInt((String) input.get("limit")) 
+                                          : BBSDataModelDao.DEFAULT_LIMIT;
+            int page = hasPage ? Integer.parseInt((String) input.get("page")) : 1;
+            offset += limit * (page - 1);
+            return this.getJson(offset, limit);
+        } catch (NumberFormatException e) {
+            return "";
+        }
+    }
+    
     public String getJson() throws Exception {
         List<BBSDataModel> bbsDataList = bbsDao.getBBSDataList();
         return this.getJson(bbsDataList);
