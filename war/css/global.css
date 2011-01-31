@@ -163,6 +163,7 @@ blockquote cite {
 }
 
 .cluster_info .body,.entry .body,.user_info .body {
+	word-wrap: break-word;
 	margin: 8px 30px 0px 42px;
 }
 
