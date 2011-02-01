@@ -30,7 +30,6 @@
         <p>守りたいから私は飛ぶ！！パンツじゃないから恥ずかしくないもん！</p>
         <c:if test="${isKAuth}">
         <div class="postlocate">
-            <div class="title"></div>
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
                 <textarea rows="1" name="comment" id="textarea" class=""></textarea><br>
                 <div class="buttons">
