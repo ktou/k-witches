@@ -14,6 +14,7 @@ import kwitches.service.dao.BBSDataModelDao;
 public class SignService {
 
     private static BBSDataModelDao bbsDao = BBSDataModelDao.GetInstance();
+    private static MessageService ms = new MessageService();
     
     public BBSDataModel sign(Map<String, Object> input, String ipAddress, Date createdDate, UserModel userModel) {
         BBSDataModel bbsDataModel = new BBSDataModel();
@@ -26,7 +27,7 @@ public class SignService {
         MessageInterface message = 
             MessageFactory.create(MessageFactory.Type.SIGN);
         message.setInformation(bbsDataModel);
-        MessageService.sendMessage(message.getMessage());
+        ms.sendMessageAll(message.getMessage());
         return bbsDataModel;
      }
 
