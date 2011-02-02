@@ -17,6 +17,7 @@
     <!--
     // Global
     channelToken = "${f:h(channelToken)}";
+    g_maxId = ${f:h(maxId)};
     //-->
     </script>
     </c:if>
@@ -50,7 +51,8 @@
             </form>
             <iframe id="dammy" name="dammy" style="display:none"></iframe>
         </div>
-        <div id="articles" />
+        <div id="articles"></div>
+        <div id="pagelink"></div>
         </c:if>
     </c:if>
 </body>
