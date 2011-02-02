@@ -10,6 +10,12 @@ $(function(){
     socket.onmessage = function(msg) {
         var data = $.parseJSON(msg.data);
         if (data.type == "sign") {
+            if (g_maxId == data.content.id) {
+                return;
+            }
+            g_maxId = data.content.id;
+            pageFooter.setMaxId(g_maxId);
+            pageFooter.drawPageLink();
             $("#articles").prepend(article.createDom(data.content));
             article.decorate();
         }
