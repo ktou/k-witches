@@ -3,7 +3,7 @@ $(function(){
     article.drawArticles();
     var channel = new goog.appengine.Channel(channelToken);
     var socket = channel.open();
-    
+
     socket.onmessage = function(msg) {
         var data = $.parseJSON(msg.data);
         if (data.type == "sign") {
@@ -74,16 +74,15 @@ Article.prototype = {
                 $("<img/>").attr("src", icon_url)
             )
         ).append(
-            $("<div/>").addClass("entry").attr("data-entrynumber", e.id).append(
-                $("<div/>").addClass("creater").attr("align", "right").append(
-                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
-                )
+            $("<div/>").addClass("entry").attr("data-entrynumber", e.id
             ).append(
                 $("<div/>").addClass("title").append(
-                    $("<a/>").attr("href","#").text(e.id).click(function() {
+                    $("<a/>").addClass("number").attr("href","#").text(e.id).click(function() {
                         Res.appendTextarea(e.id);
                         $("#textarea").focus().addClass("expand");
                     })
+                ).append(" : ").append(
+                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
                 )
             ).append(
                 $("<div/>").addClass("body").html(
@@ -433,7 +432,7 @@ TwitterThumnail.prototype = new DomModifier();
                     $(dom).empty();
                     var cite = $('<cite />').html(
                         "<a href='http://twitter.com/%d/'>%d</a> on ".replace(/%d/g, twitterId) +
-                        decodeURI(data.date)     
+                        decodeURI(data.date)
                     );
                     var comment = $('<span />').attr('class','twitter')
                         .html(decodeURI(data.entry));

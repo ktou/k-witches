@@ -124,6 +124,7 @@ blockquote cite {
 .article{
 	border-bottom: 1px solid #D1D1D1;
 	padding-bottom: 16px;
+	padding-top: 10px;
 }
 
 .entry {
@@ -134,12 +135,9 @@ blockquote cite {
 	margin-left: 20px;
 }
 
-.entry .title,.user_info .title {
-	margin-top: 12px;
-}
-
 .creater {
-	margin-right: 12px;
+	padding-top: 12px;
+	margin-left: 60px;
 }
 
 .creater p {
@@ -147,12 +145,13 @@ blockquote cite {
 }
 
 .title {
+	margin-top: 12px;
 	margin-left: 12px;
 	color: #990000;
 	font: bold 110% sans-serif;
 }
 
-.title a {
+.title .number {
 	color: blue;
 	font-size: 110%;
 	line-height: 16px;
