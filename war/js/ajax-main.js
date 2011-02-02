@@ -140,7 +140,7 @@ Article.prototype = {
             $("<div/>").addClass("entry").attr("data-entrynumber", e.id
             ).append(
                 $("<div/>").addClass("title").append(
-                    $("<a/>").attr("href","#").text(e.id).click(function() {
+                    $("<a/>").addClass("number").attr("href","#").text(e.id).click(function() {
                         Res.appendTextarea(e.id);
                         $("#textarea").focus().addClass("expand");
                     })
