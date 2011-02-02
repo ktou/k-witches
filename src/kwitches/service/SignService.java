@@ -27,7 +27,7 @@ public class SignService {
         MessageInterface message = 
             MessageFactory.create(MessageFactory.Type.SIGN);
         message.setInformation(bbsDataModel);
-        ms.sendMessageAll(message.getMessage());
+        ms.sendMessageAll(message);
         return bbsDataModel;
      }
 

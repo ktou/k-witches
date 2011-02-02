@@ -4,7 +4,7 @@ package kwitches.message;
  * @author voidy21
  */
 public class MessageFactory {
-    public enum Type {SIGN};
+    public enum Type {SIGN, BOOTH_IN};
     
     private MessageFactory() {}
     
@@ -13,6 +13,10 @@ public class MessageFactory {
         switch (type) {
             case SIGN : {
                 mi = new SignMessageImpl();
+                break;
+            }
+            case BOOTH_IN : {
+                mi = new BoothInMessageImpl();
                 break;
             }
         }

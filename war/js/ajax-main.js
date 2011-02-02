@@ -18,6 +18,10 @@ $(function(){
             pageFooter.drawPageLink();
             $("#articles").prepend(article.createDom(data.content));
             article.decorate();
+        } else if (data.type == "booth_in") {
+           $.jGrowl(data.content + "さんがブースインしました", { 
+               speed: 'fast'
+           });
         }
     };
 

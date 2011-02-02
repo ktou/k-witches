@@ -5,14 +5,19 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/global.css">
+    <link type="text/css" rel="stylesheet" href="css/global.css" />
+    <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-    <script type="text/javascript">google.load("jquery", "1.4");</script>
+    <script type="text/javascript">
+        google.load("jquery", "1.4");
+        google.load("jqueryui", "1.5");
+    </script>    
     <c:if test="${isKAuth}">
     <script src='./_ah/channel/jsapi'></script>
     <script src="js/object-prototype.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery.pack.js" type="text/javascript"></script>
+    <script src="js/jquery.jgrowl_google.js" type="text/javascript"></script>
     <script type="text/javascript">
     <!--
     // Global

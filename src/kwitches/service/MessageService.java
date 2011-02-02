@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.slim3.datastore.Datastore;
 
+import kwitches.message.MessageInterface;
 import kwitches.model.UserModel;
 import kwitches.service.dao.UserModelDao;
 
@@ -39,6 +40,10 @@ public class MessageService {
             ChannelMessage cm = new ChannelMessage(channelId, message);
             channel.sendMessage(cm);
         }
+    }
+    
+    public void sendMessageAll(MessageInterface message) {
+        this.sendMessageAll(message.getMessage());
     }
     
     @SuppressWarnings("unchecked")
