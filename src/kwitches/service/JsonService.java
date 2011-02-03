@@ -13,6 +13,7 @@ import kwitches.model.BBSDataModel;
 import kwitches.model.UserModel;
 import kwitches.service.dao.BBSDataModelDao;
 import kwitches.text.TextTransformer;
+import kwitches.text.tokenizer.SimpleAnalyzer;
 import kwitches.util.TimeUtils;
 
 public class JsonService {

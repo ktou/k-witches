@@ -15,8 +15,8 @@
     <c:if test="${isKAuth}">
     <script src='./_ah/channel/jsapi'></script>
     <script src="js/object-prototype.js" type="text/javascript"></script>
-    <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery.pack.js" type="text/javascript"></script>
+    <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery.jgrowl_google.js" type="text/javascript"></script>
     <script type="text/javascript">
     <!--
@@ -55,6 +55,9 @@
               </div>
             </form>
             <iframe id="dammy" name="dammy" style="display:none"></iframe>
+        </div>
+        <div id="gadgets">
+            <input id="search" type="text" class="clearField" value="検索" />
         </div>
         <div id="articles"></div>
         <div id="pagelink"></div>

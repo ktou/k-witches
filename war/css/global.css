@@ -727,3 +727,10 @@ div.sabrosus span.disabled {
 	border: 1px solid #929292;
 	color: #929292;
 }
+
+#search {
+	position:absolute;
+    left: 700px;
+    top:  5px;
+    width:200px;
+}

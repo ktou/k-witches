@@ -1,4 +1,6 @@
 $(function(){
+    $('.clearField').clearField();
+
     var article = new Article();
     article.drawArticles(1, 30);
     var pageFooter = new PagingFooter();
@@ -52,6 +54,12 @@ $(function(){
         }
     });
     
+    $("#search").keypress(function(e) {
+        if (e.keyCode == 13) {
+            var searchWord = $("#search").val();
+            article.search(searchWord);
+        }
+    });
 });
 
 var Res = function() {}
@@ -178,6 +186,26 @@ Article.prototype = {
         $.ajax({
             type: "GET",
             url: "./json?page=" + page + "&limit=" + limit,
+            dataType: "json",
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
+            },
+            success: function(data) {
+                $("#articles").empty();
+                data.articles.forEach(function(e) {
+                    $("#articles").append(_this.createDom(e));
+                });
+                _this.decorate();
+            }
+        });
+    },
+    
+    search : function(word, page, limit) {
+        var _this = this;
+        $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
+        $.ajax({
+            type: "GET",
+            url: "./search?word=" + word,
             dataType: "json",
             beforeSend : function(xhr) {
                 xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
