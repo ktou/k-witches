@@ -31,7 +31,7 @@ public class MessageService {
         return channel.createChannel(channelId);
     }
     
-    public void sendMessageAll(String message)  {
+    public void sendMessageAll(String message) {
         Set<String> clients = this.getClients();
         if (clients == null) {
             return;
