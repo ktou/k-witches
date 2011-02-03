@@ -39,7 +39,6 @@ public class SimpleAnalyzer implements AnalyzerInterface {
                 result.add(s2.replace("\r\n", "").replace("\n", "").replace("\r", ""));
             }
         }
-        System.out.println(Arrays.toString(result.toArray()));
         return result;
     }
 
