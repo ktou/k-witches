@@ -6,7 +6,6 @@ import kwitches.service.SearchService;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
-import org.slim3.util.RequestMap;
 
 public class SearchController extends Controller {
     
