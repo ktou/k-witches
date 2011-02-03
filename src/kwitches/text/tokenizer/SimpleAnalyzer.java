@@ -33,7 +33,7 @@ public class SimpleAnalyzer implements AnalyzerInterface {
             String token = m2.replaceAll("$0|");
             String[] sp2 = token.split("\\|");
             for (String s2 : sp2) {
-                result.add(s2);
+                result.add(s2.replace("\r\n", "").replace("\n", "").replace("\r", ""));
             }
         }
         System.out.println(Arrays.toString(result.toArray()));
