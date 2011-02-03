@@ -32,4 +32,16 @@ public class SimpleAnalyzerTest {
         }}.toArray());
     }
 
+    
+    /**
+     * {@link kwitches.text.tokenizer.SimpleAnalyzer#parse(java.lang.String)} のためのテスト・メソッド。
+     */
+    @Test
+    public void testParse2() {
+        AnalyzerInterface analyzer = new SimpleAnalyzer();
+        assertArrayEquals(analyzer.parse("google yahoo").toArray(), new ArrayList<String>(){{
+            add("google");
+            add("yahoo");
+        }}.toArray());
+    }
 }
