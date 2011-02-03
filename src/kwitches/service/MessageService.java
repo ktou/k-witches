@@ -31,14 +31,18 @@ public class MessageService {
         return channel.createChannel(channelId);
     }
     
-    public void sendMessageAll(String message) {
+    public void sendMessageAll(String message)  {
         Set<String> clients = this.getClients();
         if (clients == null) {
             return;
         }
         for (String channelId: clients) {
             ChannelMessage cm = new ChannelMessage(channelId, message);
-            channel.sendMessage(cm);
+            try {
+                channel.sendMessage(cm);
+            }catch(Exception e) {
+               
+            }
         }
     }
     
