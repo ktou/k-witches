@@ -22,6 +22,9 @@ public class SimpleAnalyzer implements AnalyzerInterface {
      * @see kwitches.text.tokenizer.AnalyzerInterface#parse(java.lang.String)
      */
     public List<String> parse(String rawString) {
+        if (rawString == null) {
+            return null;
+        }
         Pattern p = Pattern.compile(REGEXP_JOSHI);
         Matcher m = p.matcher(rawString);
         rawString = m.replaceAll("$0|");
