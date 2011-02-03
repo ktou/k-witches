@@ -7,11 +7,11 @@
 <c:if test="${'LOGIN' == isLogin}">
 ${userInfo.email} | <a href="${urlpath}">logout</a>
 </c:if>
- | 
+ | <a href="../user/config">ユーザ設定</a> |
 <c:if test="${!isKAuth}">
 許可されていません
 </c:if>
 <c:if test="${isKAuth}">
-<a href="./admin/authlist">管理画面</a>
+<a href="../admin/authlist">管理画面</a>
 </c:if>
 </div>
