@@ -19,9 +19,10 @@ $(function(){
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
             $("#articles").prepend(article.createDom(data.content));
+            article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-           $.jGrowl(data.content + "さんがブースインしました", { 
+           $.jGrowl(data.content + "さんがブースインしました", {
                speed: 'fast'
            });
         }
@@ -53,7 +54,7 @@ $(function(){
             textarea.addClass("expand");
         }
     });
-    
+
     $("#search").keypress(function(e) {
         if (e.keyCode == 13) {
             var searchWord = $("#search").val();
@@ -82,12 +83,12 @@ PagingFooter.prototype = {
         this.maxId = 0;
         this.pageLength = 30;
     },
-    
+
     setMaxId : function(maxId) {
         this.maxId = maxId;
         this.maxPage = Math.floor(this.maxId / this.pageLength + 1);
     },
-    
+
     drawPageLink : function() {
         var _this = this;
         var pagediv = $("#pagelink").addClass("sabrosus");
@@ -120,7 +121,7 @@ PagingFooter.prototype = {
             $(pagediv).append($("<span>").addClass("disabled").text(">>"));
         }
     },
-    
+
     movePage : function(moveTo){
         this.currentPage = moveTo;
         this.maxId = 0;
@@ -195,11 +196,12 @@ Article.prototype = {
                 data.articles.forEach(function(e) {
                     $("#articles").append(_this.createDom(e));
                 });
+                _this.rewritePageTitle(data.articles[0].id,data.articles[0].name);
                 _this.decorate();
             }
         });
     },
-    
+
     search : function(word, page, limit) {
         var _this = this;
         $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
@@ -235,6 +237,10 @@ Article.prototype = {
             decoratorer[i].execute();
         }
         lazyScriptLoader.execute();
+    },
+
+    rewritePageTitle : function(number,name) {
+    	document.title = "K-witches "+number+" : "+name;
     }
 }
 
