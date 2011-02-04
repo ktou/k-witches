@@ -6,6 +6,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="../images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link type="text/css" rel="stylesheet" href="../css/global.css">
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">google.load("jquery", "1.4");</script>

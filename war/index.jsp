@@ -5,13 +5,15 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link type="text/css" rel="stylesheet" href="css/global.css" />
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">
         google.load("jquery", "1.4");
         google.load("jqueryui", "1.5");
-    </script>    
+    </script>
     <c:if test="${isKAuth}">
     <script src='./_ah/channel/jsapi'></script>
     <script src="js/object-prototype.js" type="text/javascript"></script>
