@@ -6,6 +6,7 @@ import kwitches.meta.BBSDataModelMeta;
 import kwitches.model.BBSDataModel;
 
 import org.slim3.datastore.Datastore;
+import org.slim3.datastore.ModelQuery;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
@@ -60,6 +61,17 @@ public class BBSDataModelDao {
         Transaction tx = Datastore.beginTransaction();
         Datastore.delete(key);
         tx.commit();
+    }
+    
+    public List<BBSDataModel> searchBBSData(List<String> token) {
+        if (token == null) {
+            return null;
+        }
+        ModelQuery<BBSDataModel> query = Datastore.query(meta);
+        for (String t : token) {
+            query = query.filterInMemory(meta.invertedIndex.contains(t));
+        }
+        return query.sort(meta.id.desc).asList();
     }
     
     public static int getMaxId() {

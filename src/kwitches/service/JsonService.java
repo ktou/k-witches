@@ -81,32 +81,37 @@ public class JsonService {
         return this.getJson(bbsDataList);
     }
     
-    private String getJson(List<BBSDataModel> bbsDataList) throws Exception {
+    public static String getSingleData(BBSDataModel bbsData) throws Exception {
+        String comment = bbsData.getComment();
+        comment = TextTransformer.transform(comment);
+        comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
+        UserModel userModel = bbsData.getUserModelRef().getModel();
+        String name = (userModel != null) ? userModel.getName() : "null";
+        Key iconKey = (userModel != null) ? userModel.getIconRef().getKey() : null;
+        String iconKeyString = (iconKey != null) ? Datastore.keyToString(iconKey) : "";
+       return MessageFormat.format(
+            JSON_DATA_FORMAT.replace("'", "\""),
+            new Object[] {
+                name,
+                bbsData.getIpAddress(),
+                TimeUtils.getDateString(bbsData.getCreatedDate()),
+                comment,
+                bbsData.getId(),
+                "text",
+                iconKeyString
+            }
+        );
+    }
+    
+    protected String getJson(List<BBSDataModel> bbsDataList) throws Exception {
+        if (bbsDataList == null) {
+            return "{\"articles\":[]}";
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("{\"articles\":[");
         for (int i = 0, len = bbsDataList.size(); i < len; i++) {
             BBSDataModel bbsData = bbsDataList.get(i);
-            String comment = bbsData.getComment();
-            comment = TextTransformer.transform(comment);
-            comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
-            UserModel userModel = bbsData.getUserModelRef().getModel();
-            String name = (userModel != null) ? userModel.getName() : "null";
-            Key iconKey = (userModel != null) ? userModel.getIconRef().getKey() : null;
-            String iconKeyString = (iconKey != null) ? Datastore.keyToString(iconKey) : "";
-            sb.append(
-                MessageFormat.format(
-                    JSON_DATA_FORMAT.replace("'", "\""),
-                    new Object[] {
-                        name,
-                        bbsData.getIpAddress(),
-                        TimeUtils.getDateString(bbsData.getCreatedDate()),
-                        comment,
-                        bbsData.getId(),
-                        "text",
-                        iconKeyString
-                    }
-                )
-            );
+            sb.append(JsonService.getSingleData(bbsData));
             if (i != len - 1) {
                 sb.append(",");
             }

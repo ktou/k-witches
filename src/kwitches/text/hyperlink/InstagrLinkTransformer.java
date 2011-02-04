@@ -49,7 +49,7 @@ public class InstagrLinkTransformer
             put("class", "new_instagr_thumb");
             put("data-url", url);
         }};
-        return String.format("<a href='%1$s'>%1$s</a><br>%2$s", 
+        return String.format("<a href='%1$s' target='_blank'>%1$s</a><br>%2$s", 
             url, getDivHtml(thumbnailProperties));
     }
 

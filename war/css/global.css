@@ -44,7 +44,7 @@ input[type="text"]:focus,textarea:focus {
 	outline: medium none;
 }
 
-blockquote.res {
+blockquote.res_quote {
 	background-color: #faebbc;
 }
 
@@ -52,14 +52,13 @@ blockquote.file {
 	background-color: #FFCCCC;
 }
 
-blockquote.file,blockquote.res {
+blockquote.file,blockquote.res_quote {
 	font: 14px/20px MeiryoKe_PGothic;
 	padding: 8px;
 	border-top: 1px solid #e1cc89;
 	border-bottom: 1px solid #e1cc89;
 	margin: 20px;
 	margin-left: 40px;
-	text-indent: 23px;
 }
 
 blockquote.twitter {
@@ -110,7 +109,6 @@ blockquote cite {
 
 .expand {
 	height: 4.9em !important;
-	font-size: 100% !important;
 }
 
 #articles{
@@ -125,6 +123,7 @@ blockquote cite {
 .article{
 	border-bottom: 1px solid #D1D1D1;
 	padding-bottom: 16px;
+	padding-top: 10px;
 }
 
 .entry {
@@ -135,12 +134,9 @@ blockquote cite {
 	margin-left: 20px;
 }
 
-.entry .title,.user_info .title {
-	margin-top: 12px;
-}
-
 .creater {
-	margin-right: 12px;
+	padding-top: 12px;
+	margin-left: 60px;
 }
 
 .creater p {
@@ -148,12 +144,13 @@ blockquote cite {
 }
 
 .title {
+	margin-top: 12px;
 	margin-left: 12px;
 	color: #990000;
 	font: bold 110% sans-serif;
 }
 
-.title a {
+.title .number {
 	color: blue;
 	font-size: 110%;
 	line-height: 16px;
@@ -164,6 +161,7 @@ blockquote cite {
 }
 
 .cluster_info .body,.entry .body,.user_info .body {
+	word-wrap: break-word;
 	margin: 8px 30px 0px 42px;
 }
 
@@ -696,6 +694,7 @@ div.sabrosus {
 	padding: 3px;
 	margin: 3px;
 	text-align: center;
+	width: 900px;
 }
 
 div.sabrosus a.other {
@@ -726,4 +725,11 @@ div.sabrosus span.disabled {
 	margin-right: 2px;
 	border: 1px solid #929292;
 	color: #929292;
+}
+
+#search {
+	position:absolute;
+    left: 700px;
+    top:  5px;
+    width:200px;
 }

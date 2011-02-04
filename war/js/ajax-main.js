@@ -1,10 +1,38 @@
 $(function(){
+    $('.clearField').clearField();
+
+    var article = new Article();
+    article.drawArticles(1, 30);
+    var pageFooter = new PagingFooter();
+    pageFooter.setMaxId(g_maxId);
+    pageFooter.drawPageLink();
+    var channel = new goog.appengine.Channel(channelToken);
+    var socket = channel.open();
+
+    socket.onmessage = function(msg) {
+        var data = $.parseJSON(msg.data);
+        if (data.type == "sign") {
+            if (g_maxId == data.content.id) {
+                return;
+            }
+            g_maxId = data.content.id;
+            pageFooter.setMaxId(g_maxId);
+            pageFooter.drawPageLink();
+            $("#articles").prepend(article.createDom(data.content));
+            article.rewritePageTitle(data.content.id, data.content.name);
+            article.decorate();
+        } else if (data.type == "booth_in") {
+           $.jGrowl(data.content + "さんがブースインしました", {
+               speed: 'fast'
+           });
+        }
+    };
+
     $("#post_button").click(function() {
         $("#post_form").submit();
         setTimeout(function() {
             $("#textarea").val("");
             $("#file").val("");
-            article.drawArticles();
             $("#post_form").submit();  //わざとPOSTすることで二重送信防止
         }, 100);
     });
@@ -27,9 +55,47 @@ $(function(){
         }
     });
 
-    var article = new Article();
-    article.drawArticles();
+    $("#search").keypress(function(e) {
+        if (e.keyCode == 13) {
+            var searchWord = $("#search").val();
+            article.search(searchWord);
+        }
+    });
+
+    $(".res").live("click",function(){
+        createResDom(this);
+    });
 });
+
+function createResDom(resAnchor) {
+    var entryDom = $(resAnchor).parent();
+    var resDom = entryDom.find(".res");
+    if ($(resAnchor).next("blockquote").html() != null) {
+        $(resAnchor).next("blockquote").toggle();
+        return;
+    }
+    var resNumber = $(resAnchor).attr("data-resnum");
+    var params = {
+        "res_num": resNumber
+    }
+    var bq = $("<blockquote />").attr("class","res_quote");
+    bq.insertAfter(resAnchor);
+    var image = $("<img />").attr("src","../../images/ajax-loader.gif");
+    bq.html(image);
+
+    var param_arr = [];
+    for (var key in params) {
+        param_arr.push(key + "=" + params[key]);
+    }
+    $.getJSON(
+        "./json?" + param_arr.join('&'),
+        function(data) {
+           var artcle = new Article();
+           bq.html(artcle.createDom(data.articles[0]).removeClass("article"));
+           artcle.decorate();
+        }
+    );
+}
 
 var Res = function() {}
 Res.appendTextarea = function(resNumber) {
@@ -38,6 +104,65 @@ Res.appendTextarea = function(resNumber) {
         textarea.value = "";
     }
     $("#textarea").get(0).value += ">>%d\n".replace("%d", resNumber);
+}
+
+var PagingFooter = function() {
+    this.initialize.apply(this, arguments);
+}
+
+PagingFooter.prototype = {
+    initialize : function() {
+        this.currentPage = 1;
+        this.maxPage = 1;
+        this.maxId = 0;
+        this.pageLength = 30;
+    },
+
+    setMaxId : function(maxId) {
+        this.maxId = maxId;
+        this.maxPage = Math.floor(this.maxId / this.pageLength + 1);
+    },
+
+    drawPageLink : function() {
+        var _this = this;
+        var pagediv = $("#pagelink").addClass("sabrosus");
+        var nextLink = function(isNext) {
+            $(pagediv).append($("<a>").addClass("other").click(function(){
+                _this.movePage(_this.currentPage + (isNext ? 1 :-1));
+            }).text(isNext ? ">>" : "<<").css("cursor","pointer"));
+        };
+        $("#pagelink").empty();
+        if (this.currentPage > 1) {
+            nextLink(false);
+        } else {
+            $(pagediv).append($("<span>").addClass("disabled").text("<<"));
+        }
+        for (var i = 1; i <= this.maxPage; i++){
+            if (i != this.currentPage) {
+                $(pagediv).append($("<a/>").addClass("other").click(function(){
+                    _this.movePage(parseInt(this.innerHTML));
+                }).text("" + i).css("cursor","pointer"));
+            } else {
+                $(pagediv).append($("<span/>").addClass("current").text("" + i));
+            }
+            if((i % 25 == 0 && i != 0 && i < 101)||(i%20 == 0 && i != 0 && i > 101)){
+                $(pagediv).append($("<br>"));
+            }
+        }
+        if (this.currentPage < this.maxPage) {
+            nextLink(true);
+        } else {
+            $(pagediv).append($("<span>").addClass("disabled").text(">>"));
+        }
+    },
+
+    movePage : function(moveTo){
+        this.currentPage = moveTo;
+        this.maxId = 0;
+        $("#articles").empty();
+        new Article().drawArticles(this.currentPage, this.pageLength);
+        this.drawPageLink();
+    }
 }
 
 var Article = function() {
@@ -60,22 +185,20 @@ Article.prototype = {
 
    createDom : function(e) {
         var icon_url = this._getIconUrl(e);
-
         var article = $("<div/>").addClass("article").append(
             $("<div/>").addClass("photo").append(
                 $("<img/>").attr("src", icon_url)
             )
         ).append(
-            $("<div/>").addClass("entry").attr("data-entrynumber", e.id).append(
-                $("<div/>").addClass("creater").attr("align", "right").append(
-                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
-                )
+            $("<div/>").addClass("entry").attr("data-entrynumber", e.id
             ).append(
                 $("<div/>").addClass("title").append(
-                    $("<a/>").attr("href","#").text(e.id).click(function() {
+                    $("<a/>").addClass("number").attr("href","#").text(e.id).click(function() {
                         Res.appendTextarea(e.id);
                         $("#textarea").focus().addClass("expand");
                     })
+                ).append(" : ").append(
+                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
                 )
             ).append(
                 $("<div/>").addClass("body").html(
@@ -85,24 +208,46 @@ Article.prototype = {
                 $("<div/>").addClass("bottom").attr("align", "right").append(
                     $("<a/>").addClass("time").attr("href", "#").text(e.date)
                 )
-             ).append(
+            ).append(
                 $("<div/>").addClass("res")
-             )
+            )
         );
         return article;
     },
 
-    drawArticles : function(num, page) {
+    drawArticles : function(page, limit) {
         var _this = this;
-        $("#articles").html("");
+        $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
         $.ajax({
             type: "GET",
-            url: "./json",
+            url: "./json?page=" + page + "&limit=" + limit,
             dataType: "json",
             beforeSend : function(xhr) {
                 xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
             },
             success: function(data) {
+                $("#articles").empty();
+                data.articles.forEach(function(e) {
+                    $("#articles").append(_this.createDom(e));
+                });
+                _this.rewritePageTitle(data.articles[0].id,data.articles[0].name);
+                _this.decorate();
+            }
+        });
+    },
+
+    search : function(word, page, limit) {
+        var _this = this;
+        $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
+        $.ajax({
+            type: "GET",
+            url: "./search?word=" + word,
+            dataType: "json",
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
+            },
+            success: function(data) {
+                $("#articles").empty();
                 data.articles.forEach(function(e) {
                     $("#articles").append(_this.createDom(e));
                 });
@@ -126,6 +271,10 @@ Article.prototype = {
             decoratorer[i].execute();
         }
         lazyScriptLoader.execute();
+    },
+
+    rewritePageTitle : function(number,name) {
+    	document.title = "K-witches "+number+" : "+name;
     }
 }
 
@@ -308,7 +457,7 @@ NormalLink.prototype = new DomModifier();
         $(this.domPattern).each(function() {
             var url = $(this).find("a").attr("class","link").attr("href").replace("/href?location=", "");
             _this._getTitleAndTagCloud(this, url);
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 }).apply(NormalLink.prototype);
@@ -387,7 +536,7 @@ TumblrThumnail.prototype = new DomModifier();
                     }
                 }
             });
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 
@@ -425,7 +574,7 @@ TwitterThumnail.prototype = new DomModifier();
                     $(dom).empty();
                     var cite = $('<cite />').html(
                         "<a href='http://twitter.com/%d/'>%d</a> on ".replace(/%d/g, twitterId) +
-                        decodeURI(data.date)     
+                        decodeURI(data.date)
                     );
                     var comment = $('<span />').attr('class','twitter')
                         .html(decodeURI(data.entry));
@@ -437,7 +586,7 @@ TwitterThumnail.prototype = new DomModifier();
                     $(dom).append(twit_entry);
                 }
             });
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 
@@ -485,7 +634,7 @@ InstagrThumnail.prototype = new DomModifier();
                     );
                 }
             });
-            $(this).removeClass(_this.domPattern);
+            $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }
 
@@ -571,7 +720,7 @@ LazyScriptLoader.prototype = {
         document.write = function(s){ alts.push(s); }; // d.writeを新たに定義
         $.getScript(src, function(){
             var write = alts.join("");
-            $(dom).html(write).removeClass(dom_pattern); // 指定した場所に流し込む
+            $(dom).html(write).removeClass(dom_pattern.split(".")[1]); // 指定した場所に流し込む
             document.write = d._write; // d.writeを元の定義に戻しておく
             if (++count < _this.count) {
                 _this._execute(count);

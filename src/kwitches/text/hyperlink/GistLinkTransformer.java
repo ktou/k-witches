@@ -50,7 +50,7 @@ public class GistLinkTransformer
             put("data-gistid", gistId);
         }};
         
-        return String.format("<a href='%1$s'>%1$s</a><br>%2$s",
+        return String.format("<a href='%1$s' target='_blank'>%1$s</a><br>%2$s",
             url,
             getDivHtml(gistProperties)
         );
