@@ -1,14 +1,29 @@
 $(function(){
+    $('.clearField').clearField();
+
     var article = new Article();
-    article.drawArticles();
+    article.drawArticles(1, 30);
+    var pageFooter = new PagingFooter();
+    pageFooter.setMaxId(g_maxId);
+    pageFooter.drawPageLink();
     var channel = new goog.appengine.Channel(channelToken);
     var socket = channel.open();
 
     socket.onmessage = function(msg) {
         var data = $.parseJSON(msg.data);
         if (data.type == "sign") {
+            if (g_maxId == data.content.id) {
+                return;
+            }
+            g_maxId = data.content.id;
+            pageFooter.setMaxId(g_maxId);
+            pageFooter.drawPageLink();
             $("#articles").prepend(article.createDom(data.content));
             article.decorate();
+        } else if (data.type == "booth_in") {
+           $.jGrowl(data.content + "さんがブースインしました", { 
+               speed: 'fast'
+           });
         }
     };
 
@@ -38,6 +53,13 @@ $(function(){
             textarea.addClass("expand");
         }
     });
+    
+    $("#search").keypress(function(e) {
+        if (e.keyCode == 13) {
+            var searchWord = $("#search").val();
+            article.search(searchWord);
+        }
+    });
 });
 
 var Res = function() {}
@@ -47,6 +69,65 @@ Res.appendTextarea = function(resNumber) {
         textarea.value = "";
     }
     $("#textarea").get(0).value += ">>%d\n".replace("%d", resNumber);
+}
+
+var PagingFooter = function() {
+    this.initialize.apply(this, arguments);
+}
+
+PagingFooter.prototype = {
+    initialize : function() {
+        this.currentPage = 1;
+        this.maxPage = 1;
+        this.maxId = 0;
+        this.pageLength = 30;
+    },
+    
+    setMaxId : function(maxId) {
+        this.maxId = maxId;
+        this.maxPage = Math.floor(this.maxId / this.pageLength + 1);
+    },
+    
+    drawPageLink : function() {
+        var _this = this;
+        var pagediv = $("#pagelink").addClass("sabrosus");
+        var nextLink = function(isNext) {
+            $(pagediv).append($("<a>").addClass("other").click(function(){
+                _this.movePage(_this.currentPage + (isNext ? 1 :-1));
+            }).text(isNext ? ">>" : "<<").css("cursor","pointer"));
+        };
+        $("#pagelink").empty();
+        if (this.currentPage > 1) {
+            nextLink(false);
+        } else {
+            $(pagediv).append($("<span>").addClass("disabled").text("<<"));
+        }
+        for (var i = 1; i <= this.maxPage; i++){
+            if (i != this.currentPage) {
+                $(pagediv).append($("<a/>").addClass("other").click(function(){
+                    _this.movePage(parseInt(this.innerHTML));
+                }).text("" + i).css("cursor","pointer"));
+            } else {
+                $(pagediv).append($("<span/>").addClass("current").text("" + i));
+            }
+            if((i % 25 == 0 && i != 0 && i < 101)||(i%20 == 0 && i != 0 && i > 101)){
+                $(pagediv).append($("<br>"));
+            }
+        }
+        if (this.currentPage < this.maxPage) {
+            nextLink(true);
+        } else {
+            $(pagediv).append($("<span>").addClass("disabled").text(">>"));
+        }
+    },
+    
+    movePage : function(moveTo){
+        this.currentPage = moveTo;
+        this.maxId = 0;
+        $("#articles").empty();
+        new Article().drawArticles(this.currentPage, this.pageLength);
+        this.drawPageLink();
+    }
 }
 
 var Article = function() {
@@ -92,24 +173,45 @@ Article.prototype = {
                 $("<div/>").addClass("bottom").attr("align", "right").append(
                     $("<a/>").addClass("time").attr("href", "#").text(e.date)
                 )
-             ).append(
+            ).append(
                 $("<div/>").addClass("res")
-             )
+            )
         );
         return article;
     },
 
-    drawArticles : function(num, page) {
+    drawArticles : function(page, limit) {
         var _this = this;
-        $("#articles").html("");
+        $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
         $.ajax({
             type: "GET",
-            url: "./json",
+            url: "./json?page=" + page + "&limit=" + limit,
             dataType: "json",
             beforeSend : function(xhr) {
                 xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
             },
             success: function(data) {
+                $("#articles").empty();
+                data.articles.forEach(function(e) {
+                    $("#articles").append(_this.createDom(e));
+                });
+                _this.decorate();
+            }
+        });
+    },
+    
+    search : function(word, page, limit) {
+        var _this = this;
+        $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
+        $.ajax({
+            type: "GET",
+            url: "./search?word=" + word,
+            dataType: "json",
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
+            },
+            success: function(data) {
+                $("#articles").empty();
                 data.articles.forEach(function(e) {
                     $("#articles").append(_this.createDom(e));
                 });

@@ -51,7 +51,7 @@ public class TwitterLinkTransformer
         properties.put("data-twitter_id", userId);
         properties.put("data-status_num", statusNum);
 
-        return String.format("<a href='%1$s'>%1$s</a><br>%2$s",
+        return String.format("<a href='%1$s' target='_blank'>%1$s</a><br>%2$s",
             url,
             getDivHtml(properties)
         );

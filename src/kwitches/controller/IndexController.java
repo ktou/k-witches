@@ -1,7 +1,10 @@
 package kwitches.controller;
 
+import kwitches.message.MessageFactory;
+import kwitches.message.MessageInterface;
 import kwitches.model.UserModel;
 import kwitches.service.MessageService;
+import kwitches.service.dao.BBSDataModelDao;
 import kwitches.service.dao.UserModelDao;
 
 import org.slim3.controller.Controller;
@@ -18,7 +21,13 @@ public class IndexController extends Controller {
             ms.putClients(userModel);
             String channelToken = MessageService.getToken(userModel);
             requestScope("channelToken", channelToken);
+            
+            MessageInterface message = 
+                MessageFactory.create(MessageFactory.Type.BOOTH_IN);
+            message.setInformation(userModel.getName());
+            ms.sendMessageAll(message);
         }
+        requestScope("maxId", BBSDataModelDao.getMaxId());
         return forward("index.jsp");
     }
 }

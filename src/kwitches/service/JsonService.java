@@ -103,7 +103,10 @@ public class JsonService {
         );
     }
     
-    private String getJson(List<BBSDataModel> bbsDataList) throws Exception {
+    protected String getJson(List<BBSDataModel> bbsDataList) throws Exception {
+        if (bbsDataList == null) {
+            return "{\"articles\":[]}";
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("{\"articles\":[");
         for (int i = 0, len = bbsDataList.size(); i < len; i++) {

@@ -695,6 +695,7 @@ div.sabrosus {
 	padding: 3px;
 	margin: 3px;
 	text-align: center;
+	width: 900px;
 }
 
 div.sabrosus a.other {
@@ -725,4 +726,11 @@ div.sabrosus span.disabled {
 	margin-right: 2px;
 	border: 1px solid #929292;
 	color: #929292;
+}
+
+#search {
+	position:absolute;
+    left: 700px;
+    top:  5px;
+    width:200px;
 }

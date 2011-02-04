@@ -2,6 +2,7 @@ package kwitches.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Key;
@@ -33,6 +34,8 @@ public class BBSDataModel implements Serializable {
     private String comment;
     /** ファイル */
     private Blob file;
+    /** 検索用転置インデックス */
+    private List<String> invertedIndex;
 
     /**
      * Returns the key.
@@ -177,6 +180,20 @@ public class BBSDataModel implements Serializable {
      */
     public ModelRef<UserModel> getUserModelRef() {
         return UserModelRef;
+    }
+
+    /**
+     * @param invertedIndex セットする invertedIndex
+     */
+    public void setInvertedIndex(List<String> invertedIndex) {
+        this.invertedIndex = invertedIndex;
+    }
+
+    /**
+     * @return invertedIndex
+     */
+    public List<String> getInvertedIndex() {
+        return invertedIndex;
     }
 
 }

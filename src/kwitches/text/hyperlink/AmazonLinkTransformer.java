@@ -49,7 +49,8 @@ public class AmazonLinkTransformer
                 amazonAffiliateId = aid;
             }
         }
-        String formatString = "<a href='%1$s'>%1$s</a><br><iframe src='http://rcm-jp.amazon.co.jp/e/cm" +
+        String formatString = "<a href='%1$s' target='_blank'>%1$s</a><br>" +
+            "<iframe src='http://rcm-jp.amazon.co.jp/e/cm" +
             "?t=%2$s&o=9&p=8&l=as1&asins=%3$s&IS2=1&fc1=000000" +
             "&lt1=_blank&lc1=0000FF&bc1=FFFFFF&bg1=FFFFFF&f=ifr'" +
             " style='width:120px;height:240px;' scrolling='no'" +
