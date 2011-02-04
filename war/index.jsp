@@ -11,7 +11,7 @@
     <script type="text/javascript">
         google.load("jquery", "1.4");
         google.load("jqueryui", "1.5");
-    </script>    
+    </script>
     <c:if test="${isKAuth}">
     <script src='./_ah/channel/jsapi'></script>
     <script src="js/object-prototype.js" type="text/javascript"></script>
@@ -39,10 +39,10 @@
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
                 <textarea rows="1" name="comment" id="textarea" class=""></textarea><br>
                 <div class="buttons">
-                    <a id="post_button" class="positive" href="javascript:void(0)">
+                    <button id="post_button" class="positive" href="javascript:void(0)">
                         <img alt="" src="images/apply2.png">
                         送信
-                    </a>
+                    </button>
                       <!--
                     <a id="preview_link" class="regular" href="javascript:void(0)">
                         <img alt="" src="images/preview.png">
