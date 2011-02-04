@@ -61,7 +61,41 @@ $(function(){
             article.search(searchWord);
         }
     });
+
+    $(".res").live("click",function(){
+        createResDom(this);
+    });
 });
+
+function createResDom(resAnchor) {
+    var entryDom = $(resAnchor).parent();
+    var resDom = entryDom.find(".res");
+    if ($(resAnchor).next("blockquote").html() != null) {
+        $(resAnchor).next("blockquote").toggle();
+        return;
+    }
+    var resNumber = $(resAnchor).attr("data-resnum");
+    var params = {
+        "res_num": resNumber
+    }
+    var bq = $("<blockquote />").attr("class","res_quote");
+    bq.insertAfter(resAnchor);
+    var image = $("<img />").attr("src","../../images/ajax-loader.gif");
+    bq.html(image);
+
+    var param_arr = [];
+    for (var key in params) {
+        param_arr.push(key + "=" + params[key]);
+    }
+    $.getJSON(
+        "./json?" + param_arr.join('&'),
+        function(data) {
+           var artcle = new Article();
+           bq.html(artcle.createDom(data.articles[0]).removeClass("article"));
+           artcle.decorate();
+        }
+    );
+}
 
 var Res = function() {}
 Res.appendTextarea = function(resNumber) {

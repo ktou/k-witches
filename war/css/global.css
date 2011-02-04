@@ -44,7 +44,7 @@ input[type="text"]:focus,textarea:focus {
 	outline: medium none;
 }
 
-blockquote.res {
+blockquote.res_quote {
 	background-color: #faebbc;
 }
 
@@ -52,14 +52,13 @@ blockquote.file {
 	background-color: #FFCCCC;
 }
 
-blockquote.file,blockquote.res {
+blockquote.file,blockquote.res_quote {
 	font: 14px/20px MeiryoKe_PGothic;
 	padding: 8px;
 	border-top: 1px solid #e1cc89;
 	border-bottom: 1px solid #e1cc89;
 	margin: 20px;
 	margin-left: 40px;
-	text-indent: 23px;
 }
 
 blockquote.twitter {
