@@ -5,6 +5,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link type="text/css" rel="stylesheet" href="css/global.css" />
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
