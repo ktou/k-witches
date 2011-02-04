@@ -21,7 +21,7 @@ $(function(){
             $("#articles").prepend(article.createDom(data.content));
             article.decorate();
         } else if (data.type == "booth_in") {
-           $.jGrowl(data.content + "さんがブースインしました", { 
+           $.jGrowl(data.content + "さんがブースインしました", {
                speed: 'fast'
            });
         }
@@ -53,14 +53,48 @@ $(function(){
             textarea.addClass("expand");
         }
     });
-    
+
     $("#search").keypress(function(e) {
         if (e.keyCode == 13) {
             var searchWord = $("#search").val();
             article.search(searchWord);
         }
     });
+
+    $(".res").live("click",function(){
+        createResDom(this);
+    });
 });
+
+function createResDom(resAnchor) {
+    var entryDom = $(resAnchor).parent();
+    var resDom = entryDom.find(".res");
+    if ($(resAnchor).next("blockquote").html() != null) {
+        $(resAnchor).next("blockquote").toggle();
+        return;
+    }
+    var resNumber = $(resAnchor).attr("data-resnum");
+    var params = {
+        "res_num": resNumber
+    }
+    var bq = $("<blockquote />").attr("class","res_quote");
+    bq.insertAfter(resAnchor);
+    var image = $("<img />").attr("src","../../images/ajax-loader.gif");
+    bq.html(image);
+
+    var param_arr = [];
+    for (var key in params) {
+        param_arr.push(key + "=" + params[key]);
+    }
+    $.getJSON(
+        "./json?" + param_arr.join('&'),
+        function(data) {
+           var artcle = new Article();
+           bq.html(artcle.createDom(data.articles[0]).removeClass("article"));
+           artcle.decorate();
+        }
+    );
+}
 
 var Res = function() {}
 Res.appendTextarea = function(resNumber) {
@@ -82,12 +116,12 @@ PagingFooter.prototype = {
         this.maxId = 0;
         this.pageLength = 30;
     },
-    
+
     setMaxId : function(maxId) {
         this.maxId = maxId;
         this.maxPage = Math.floor(this.maxId / this.pageLength + 1);
     },
-    
+
     drawPageLink : function() {
         var _this = this;
         var pagediv = $("#pagelink").addClass("sabrosus");
@@ -120,7 +154,7 @@ PagingFooter.prototype = {
             $(pagediv).append($("<span>").addClass("disabled").text(">>"));
         }
     },
-    
+
     movePage : function(moveTo){
         this.currentPage = moveTo;
         this.maxId = 0;
@@ -199,7 +233,7 @@ Article.prototype = {
             }
         });
     },
-    
+
     search : function(word, page, limit) {
         var _this = this;
         $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
