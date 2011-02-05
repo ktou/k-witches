@@ -227,10 +227,11 @@ Article.prototype = {
             },
             success: function(data) {
                 $("#articles").empty();
+                if (!data.articles[0]) return;
                 data.articles.forEach(function(e) {
                     $("#articles").append(_this.createDom(e));
                 });
-                _this.rewritePageTitle(data.articles[0].id,data.articles[0].name);
+                _this.rewritePageTitle(data.articles[0].id, data.articles[0].name);
                 _this.decorate();
             }
         });
@@ -273,8 +274,8 @@ Article.prototype = {
         lazyScriptLoader.execute();
     },
 
-    rewritePageTitle : function(number,name) {
-    	document.title = "K-witches "+number+" : "+name;
+    rewritePageTitle : function(number, name) {
+    	document.title = "K-witches " + number + " : " + name;
     }
 }
 
