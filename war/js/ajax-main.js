@@ -205,6 +205,8 @@ Article.prototype = {
             ).append(
                 $("<div/>").addClass("body").html(
                     decodeURL(e.comment).replace(/\n\n/g, "<br />")
+                ).append(
+                    this._getFileDom(e)
                 )
             ).append(
                 $("<div/>").addClass("bottom").attr("align", "right").append(
@@ -278,6 +280,42 @@ Article.prototype = {
 
     rewritePageTitle : function(number, name) {
     	document.title = "K-witches " + number + " : " + name;
+    },
+    
+    _getFileDom : function(data) {
+        var fileDom = "";
+        if (!data.file.filename) return "";
+        if (data.file.filename.match(/\.(jpeg|jpg|png|gif|bmp)$/i)) {
+            fileDom = $("<blockquote />").addClass("file")
+                .append(
+                    decodeURI(data.file.filename) + " " + data.file.length + "KB"
+                ).append(
+                    $("<br />")
+                ).append(
+                    $("<a />").attr({
+                        "href":"./file?key=" + data.file.key + "&version=" + data.file.version,
+                        "target":"_blank"
+                    }).append(
+                        $("<img />").attr({
+                            "src":"./file?key=" + data.file.key + "&version=" + data.file.version,
+                            "width":"200"
+                        }).css("border", "1px solid")
+                    )
+                );
+        } else {
+            fileDom = $("<blockquote />").addClass("file")
+                .append(
+                    $("<a />").attr({
+                        "href":"./file?key=" + data.file.key + "&version=" + data.file.version,
+                        "target":"_blank"
+                    }).append(
+                        decodeURI(data.file.filename)
+                    )
+                ).append(
+                    " " + data.file.length + "KB"
+                )
+        }
+        return fileDom;
     }
 }
 

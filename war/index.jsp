@@ -52,9 +52,9 @@
                         <img alt="" src="images/preview.png">
                         プレビュー
                     </a>
-
+                -->
                    <input type="file" id="file" name="file"/>
-                     -->
+                
                    <br />
               </div>
             </form>

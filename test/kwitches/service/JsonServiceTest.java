@@ -42,7 +42,7 @@ public class JsonServiceTest extends AppEngineTestCase {
         Date createdDate = new Date();
         Map<String, Object> input = new HashMap<String, Object>();
         input.put("comment", comment);
-        BBSDataModel signed = signService.sign(input, ip, createdDate, userModel);
+        BBSDataModel signed = signService.sign(input, ip, createdDate, userModel, null);
         assertThat(signed, is(notNullValue()));
         BBSDataModel stored = Datastore.get(BBSDataModel.class, signed.getKey());
         assertThat(stored.getBBSComment(), is(comment));
@@ -50,7 +50,7 @@ public class JsonServiceTest extends AppEngineTestCase {
         assertThat(stored.getIpAddress(), is(ip));
         assertThat(stored.getId(), is(1));
         String jsonString = "<'articles':[<'name':'{0}','ip':'{1}'," +
-            "'date':'{2}','comment':'{3}','id':'1','classtype':'text','icon':''>]>";
+            "'date':'{2}','comment':'{3}','id':'1','classtype':'text','icon':'','file':<>>]>";
         Object[] argument = {
             name,
             ip,

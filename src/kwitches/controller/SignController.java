@@ -9,6 +9,7 @@ import kwitches.util.TimeUtils;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
+import org.slim3.controller.upload.FileItem;
 import org.slim3.util.RequestMap;
 
 public class SignController extends Controller {
@@ -23,7 +24,8 @@ public class SignController extends Controller {
         UserModel userModel =  UserModelDao.getCurrentUser();
         String ipAddress = request.getRemoteAddr();
         Date date = TimeUtils.getJstDate();
-        service.sign(new RequestMap(request), ipAddress , date, userModel);
+        FileItem formFile = requestScope("file");
+        service.sign(new RequestMap(request), ipAddress , date, userModel, formFile);
         return null;
     }
 }

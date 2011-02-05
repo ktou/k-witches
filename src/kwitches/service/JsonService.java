@@ -21,7 +21,7 @@ public class JsonService {
     
     private static final String JSON_DATA_FORMAT =
         "<'name':'{0}','ip':'{1}','date':'{2}'," +
-        "'comment':'{3}','id':'{4}','classtype':'{5}','icon':'{6}'>";
+        "'comment':'{3}','id':'{4}','classtype':'{5}','icon':'{6}','file':<{7}>>";
 
     /**
      * RequestMapによる条件指定でBBSDataModelのJSONデータを取得する
@@ -89,6 +89,7 @@ public class JsonService {
         String name = (userModel != null) ? userModel.getName() : "null";
         Key iconKey = (userModel != null) ? userModel.getIconRef().getKey() : null;
         String iconKeyString = (iconKey != null) ? Datastore.keyToString(iconKey) : "";
+        String fileJsonString = bbsData.getFileJsonString();
        return MessageFormat.format(
             JSON_DATA_FORMAT.replace("'", "\""),
             new Object[] {
@@ -98,7 +99,8 @@ public class JsonService {
                 comment,
                 bbsData.getId(),
                 "text",
-                iconKeyString
+                iconKeyString,
+                fileJsonString
             }
         );
     }
