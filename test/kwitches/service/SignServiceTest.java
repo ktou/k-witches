@@ -42,7 +42,7 @@ public class SignServiceTest extends AppEngineTestCase {
         BBSDataModel signed = service.sign(input, ip, createdDate, userModel);
         assertThat(signed, is(notNullValue()));
         BBSDataModel stored = Datastore.get(BBSDataModel.class, signed.getKey());
-        assertThat(stored.getComment(), is("Hello"));
+        assertThat(stored.getBBSComment(), is("Hello"));
         assertThat(stored.getUserModelRef().getModel(), is(userModel));
         assertThat(stored.getIpAddress(), is(ip));
         assertThat(stored.getId(), is(1));

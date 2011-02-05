@@ -21,7 +21,7 @@ public class BBSDataModelDaoTest extends AppEngineTestCase {
         Datastore.put(bbsDataModel);
         List<BBSDataModel> bbsDataList = service.getBBSDataList();
         assertThat(bbsDataList.size(), is(1));
-        assertThat(bbsDataList.get(0).getComment(), is("test"));
+        assertThat(bbsDataList.get(0).getBBSComment(), is("test"));
     }
     
     @Test
@@ -31,7 +31,7 @@ public class BBSDataModelDaoTest extends AppEngineTestCase {
         Datastore.put(bbsDataModel);
         List<BBSDataModel> bbsDataList = service.getBBSDataList(0, 1);
         assertThat(bbsDataList.size(), is(1));
-        assertThat(bbsDataList.get(0).getComment(), is("test"));
+        assertThat(bbsDataList.get(0).getBBSComment(), is("test"));
     }
     
     @Test
@@ -46,9 +46,9 @@ public class BBSDataModelDaoTest extends AppEngineTestCase {
         Datastore.put(bbsDataModel);
         List<BBSDataModel> bbsDataList = service.getBBSData(1);
         assertThat(bbsDataList.size(), is(1));
-        assertThat(bbsDataList.get(0).getComment(), is("test"));
+        assertThat(bbsDataList.get(0).getBBSComment(), is("test"));
         bbsDataList = service.getBBSData(2);
         assertThat(bbsDataList.size(), is(1));
-        assertThat(bbsDataList.get(0).getComment(), is("test2"));
+        assertThat(bbsDataList.get(0).getBBSComment(), is("test2"));
     }
 }

@@ -82,7 +82,7 @@ public class JsonService {
     }
     
     public static String getSingleData(BBSDataModel bbsData) throws Exception {
-        String comment = bbsData.getComment();
+        String comment = bbsData.getBBSComment();
         comment = TextTransformer.transform(comment);
         comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
         UserModel userModel = bbsData.getUserModelRef().getModel();

@@ -27,6 +27,10 @@ public class SignService {
         input.put("createdDate", createdDate);
         input.put("ipAddress", ipAddress);
         input.put("invertedIndex", analizer.parse(comment));
+        if (comment != null && comment.length() >= 500) {
+            input.put("longComment", comment);
+            input.remove("comment");
+        }
         BeanUtil.copy(input, bbsDataModel);
         bbsDao.putBBSData(bbsDataModel);
         MessageInterface message = 

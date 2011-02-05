@@ -32,6 +32,9 @@ public class BBSDataModel implements Serializable {
     private String ipAddress;
     /** コメント */
     private String comment;
+    /** コメント */
+    @Attribute(lob = true)
+    private String longComment;
     /** ファイル */
     private Blob file;
     /** 検索用転置インデックス */
@@ -194,6 +197,24 @@ public class BBSDataModel implements Serializable {
      */
     public List<String> getInvertedIndex() {
         return invertedIndex;
+    }
+
+    /**
+     * @param longComment セットする longComment
+     */
+    public void setLongComment(String longComment) {
+        this.longComment = longComment;
+    }
+
+    /**
+     * @return longComment
+     */
+    public String getLongComment() {
+        return longComment;
+    }
+    
+    public String getBBSComment() {
+        return comment != null ? comment : longComment;
     }
 
 }
