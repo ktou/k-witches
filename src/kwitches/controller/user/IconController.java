@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
 
-import kwitches.meta.UserModelMeta;
+import kwitches.meta.ImageModelMeta;
 import kwitches.model.ImageModel;
 
 import org.slim3.controller.Controller;
@@ -15,7 +15,7 @@ import com.google.appengine.api.datastore.Key;
 
 public class IconController extends Controller {
 
-    private static final UserModelMeta meta =  UserModelMeta.get();
+    private static final ImageModelMeta meta =  ImageModelMeta.get();
     
     @Override
     public Navigation run() throws Exception {
@@ -27,10 +27,8 @@ public class IconController extends Controller {
             return redirect("../images/avater.jpg");
         }
         ImageModel imageModel = Datastore.query(meta)
-           .filter(meta.IconRef.equal(key))
-           .asSingle()
-           .getIconRef()
-           .getModel();
+           .filter(meta.key.equal(key))
+           .asSingle();
 
         String contentType = imageModel.getFileContentType();
         byte[] image = imageModel.getFileImage().getBytes();

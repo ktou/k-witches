@@ -200,7 +200,7 @@ Article.prototype = {
                         $("#textarea").focus().addClass("expand");
                     })
                 ).append(" : ").append(
-                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
+                    $("<a/>").addClass("name").attr("href", "#").text(decodeURL(e.name))
                 )
             ).append(
                 $("<div/>").addClass("body").html(
@@ -279,7 +279,7 @@ Article.prototype = {
     },
 
     rewritePageTitle : function(number, name) {
-    	document.title = "K-witches " + number + " : " + name;
+    	document.title = "K-witches " + number + " : " + decodeURI(name);
     },
     
     _getFileDom : function(data) {
