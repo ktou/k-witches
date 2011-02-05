@@ -33,6 +33,8 @@
 <body>
     <jsp:include page="user_account.jsp" />
     <c:if test="${'LOGIN' == isLogin}">
+        <script type="text/javascript" src="js/swfobject.js"></script>
+        <script type="text/javascript" src="js/soundapi.js"></script>
         <img src="images/kw-logo.png"/>
         <br />
         <p>守りたいから私は飛ぶ！！パンツじゃないから恥ずかしくないもん！</p>
