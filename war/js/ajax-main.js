@@ -200,7 +200,7 @@ Article.prototype = {
                         $("#textarea").focus().addClass("expand");
                     })
                 ).append(" : ").append(
-                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
+                    $("<a/>").addClass("name").attr("href", "#").text(decodeURL(e.name))
                 )
             ).append(
                 $("<div/>").addClass("body").html(
