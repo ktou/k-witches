@@ -277,7 +277,7 @@ Article.prototype = {
     },
 
     rewritePageTitle : function(number, name) {
-    	document.title = "K-witches " + number + " : " + name;
+    	document.title = "K-witches " + number + " : " + decodeURI(name);
     }
 }
 
