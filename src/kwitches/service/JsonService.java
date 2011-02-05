@@ -10,7 +10,6 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 
 import kwitches.model.BBSDataModel;
-import kwitches.model.UserModel;
 import kwitches.service.dao.BBSDataModelDao;
 import kwitches.text.TextTransformer;
 import kwitches.util.TimeUtils;
@@ -85,9 +84,8 @@ public class JsonService {
         String comment = bbsData.getBBSComment();
         comment = TextTransformer.transform(comment);
         comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
-        UserModel userModel = bbsData.getUserModelRef().getModel();
         String name = (bbsData.getName() != null) ? URLEncoder.encode(bbsData.getName(), "UTF-8") : "null";
-        Key iconKey = (userModel != null) ? userModel.getIconRef().getKey() : null;
+        Key iconKey = (bbsData.getIconRef() != null) ? bbsData.getIconRef().getKey() : null;
         String iconKeyString = (iconKey != null) ? Datastore.keyToString(iconKey) : "";
        return MessageFormat.format(
             JSON_DATA_FORMAT.replace("'", "\""),

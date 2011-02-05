@@ -41,7 +41,9 @@ public class BBSDataModel implements Serializable {
     private List<String> invertedIndex;
     /** 書き込み名 */
     private String name;
-    /** */
+    /** アイコンへの参照 */
+    private ModelRef<ImageModel> iconRef =
+        new ModelRef<ImageModel>(ImageModel.class);
 
     /**
      * Returns the key.
@@ -227,6 +229,11 @@ public class BBSDataModel implements Serializable {
     public String getName() {
         UserModel model = getUserModelRef().getModel();
         return name != null ? name : model != null ? model.getName() : "null";
+    }
+
+    public ModelRef<ImageModel> getIconRef() {
+        UserModel model = getUserModelRef().getModel();
+        return iconRef != null && iconRef.getModel() != null ? iconRef : model != null ? model.getIconRef() : null;
     }
 
 }
