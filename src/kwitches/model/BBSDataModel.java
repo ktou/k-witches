@@ -39,6 +39,9 @@ public class BBSDataModel implements Serializable {
     private Blob file;
     /** 検索用転置インデックス */
     private List<String> invertedIndex;
+    /** 書き込み名 */
+    private String name;
+    /** */
 
     /**
      * Returns the key.
@@ -215,6 +218,15 @@ public class BBSDataModel implements Serializable {
     
     public String getBBSComment() {
         return comment != null ? comment : longComment;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        UserModel model = getUserModelRef().getModel();
+        return name != null ? name : model != null ? model.getName() : "null";
     }
 
 }

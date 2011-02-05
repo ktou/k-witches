@@ -86,7 +86,7 @@ public class JsonService {
         comment = TextTransformer.transform(comment);
         comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
         UserModel userModel = bbsData.getUserModelRef().getModel();
-        String name = (userModel != null) ? userModel.getName() : "null";
+        String name = (bbsData.getName() != null) ? URLEncoder.encode(bbsData.getName(), "UTF-8") : "null";
         Key iconKey = (userModel != null) ? userModel.getIconRef().getKey() : null;
         String iconKeyString = (iconKey != null) ? Datastore.keyToString(iconKey) : "";
        return MessageFormat.format(
