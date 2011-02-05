@@ -22,14 +22,7 @@ public class UploadImageService {
         String isIconReset = (String) input.get("icon_reset");
   
         if ( (isIconReset != null && isIconReset.equals("yes")) || (fileImage != null)) {
-            ImageModel oldData = userModel.getIconRef().getModel();
-            if (oldData != null) {
-                Datastore.delete(oldData.getKey());
-            }
             if (isIconReset != null && isIconReset.equals("yes")) {
-                if (oldData != null) {
-                    Datastore.delete(oldData.getKey());
-                }
                 userModel.getIconRef().setModel(null);
             } else if (fileImage != null) {
                 newData.setFilename((String)fileImage.getShortFileName());

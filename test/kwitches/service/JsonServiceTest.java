@@ -45,7 +45,7 @@ public class JsonServiceTest extends AppEngineTestCase {
         BBSDataModel signed = signService.sign(input, ip, createdDate, userModel);
         assertThat(signed, is(notNullValue()));
         BBSDataModel stored = Datastore.get(BBSDataModel.class, signed.getKey());
-        assertThat(stored.getComment(), is(comment));
+        assertThat(stored.getBBSComment(), is(comment));
         assertThat(stored.getUserModelRef().getModel(), is(userModel));
         assertThat(stored.getIpAddress(), is(ip));
         assertThat(stored.getId(), is(1));

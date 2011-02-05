@@ -15,6 +15,7 @@ $(function(){
             if (g_maxId == data.content.id) {
                 return;
             }
+            soundapi.playFile('../swf/notify_sound1.mp3');
             g_maxId = data.content.id;
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
@@ -22,6 +23,7 @@ $(function(){
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
+           soundapi.playFile('../swf/notify_sound2.mp3');
            $.jGrowl(data.content + "さんがブースインしました", {
                speed: 'fast'
            });
@@ -198,7 +200,7 @@ Article.prototype = {
                         $("#textarea").focus().addClass("expand");
                     })
                 ).append(" : ").append(
-                    $("<a/>").addClass("name").attr("href", "#").text(e.name)
+                    $("<a/>").addClass("name").attr("href", "#").text(decodeURL(e.name))
                 )
             ).append(
                 $("<div/>").addClass("body").html(
@@ -227,10 +229,11 @@ Article.prototype = {
             },
             success: function(data) {
                 $("#articles").empty();
+                if (!data.articles[0]) return;
                 data.articles.forEach(function(e) {
                     $("#articles").append(_this.createDom(e));
                 });
-                _this.rewritePageTitle(data.articles[0].id,data.articles[0].name);
+                _this.rewritePageTitle(data.articles[0].id, data.articles[0].name);
                 _this.decorate();
             }
         });
@@ -273,8 +276,8 @@ Article.prototype = {
         lazyScriptLoader.execute();
     },
 
-    rewritePageTitle : function(number,name) {
-    	document.title = "K-witches "+number+" : "+name;
+    rewritePageTitle : function(number, name) {
+    	document.title = "K-witches " + number + " : " + decodeURI(name);
     }
 }
 

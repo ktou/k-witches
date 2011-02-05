@@ -20,6 +20,6 @@ public class SignControllerTest extends ControllerTestCase {
         assertThat(tester.getDestinationPath(), is(nullValue()));
         BBSDataModel stored = Datastore.query(BBSDataModel.class).asSingle();
         assertThat(stored, is(notNullValue()));
-        assertThat(stored.getComment(), is("Hello"));
+        assertThat(stored.getBBSComment(), is("Hello"));
     }
 }

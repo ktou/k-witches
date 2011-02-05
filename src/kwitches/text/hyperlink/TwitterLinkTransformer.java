@@ -17,7 +17,7 @@ public class TwitterLinkTransformer
     extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "twitter";
-    private static final String REGEXP_URL_STRING = "^http://twitter.com/(#!/)?(\\w+)/status/(\\d+)/?";
+    private static final String REGEXP_URL_STRING = "^http://twitter.com/(#!/)?(\\w+)/status(\\w*)/(\\d+)/?";
 
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
@@ -44,7 +44,7 @@ public class TwitterLinkTransformer
         }
         String url = m.group(0);
         String userId = m.group(2);
-        String statusNum = m.group(3);
+        String statusNum = m.group(4);
 
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("class", "new_twitter_thumb");
