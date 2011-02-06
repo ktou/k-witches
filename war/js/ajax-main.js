@@ -15,7 +15,9 @@ $(function(){
             if (g_maxId == data.content.id) {
                 return;
             }
-            soundapi.playFile('../swf/notify_sound1.mp3');
+            if (soundapi && soundapi.playFile) {
+                soundapi.playFile('../swf/notify_sound1.mp3');
+            }
             g_maxId = data.content.id;
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
@@ -23,7 +25,9 @@ $(function(){
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-           soundapi.playFile('../swf/notify_sound2.mp3');
+           if (soundapi && soundapi.playFile) {
+               soundapi.playFile('../swf/notify_sound2.mp3');
+           }
            $.jGrowl(data.content + "さんがブースインしました", {
                speed: 'fast'
            });
