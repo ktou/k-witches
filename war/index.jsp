@@ -62,6 +62,7 @@
         </div>
         <div id="gadgets">
             <input id="search" type="text" class="clearField" value="検索" />
+            <audio controls id="aud"><source src="./swf/notify_sound1.mp3"></audio>
         </div>
         <div id="articles"></div>
         <div id="pagelink"></div>

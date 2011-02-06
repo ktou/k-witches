@@ -1,6 +1,10 @@
-$(function(){
-    $('.clearField').clearField();
 
+$(function(){
+    if (!$.browser.safari) {
+       $("#aud").remove();
+    }
+    $('.clearField').clearField();
+    
     var article = new Article();
     article.drawArticles(1, 30);
     var pageFooter = new PagingFooter();
@@ -16,9 +20,7 @@ $(function(){
             if (g_maxId == data.content.id) {
                 return;
             }
-            if (soundapi && soundapi.playFile) {
-                soundapi.playFile('../swf/notify_sound1.mp3');
-            }
+            Api.playSound('../swf/notify_sound1.mp3');
             g_maxId = data.content.id;
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
@@ -26,12 +28,10 @@ $(function(){
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-           if (soundapi && soundapi.playFile) {
-               soundapi.playFile('../swf/notify_sound2.mp3');
-           }
-           $.jGrowl(data.content + "さんがブースインしました", {
+            Api.playSound('../swf/notify_sound2.mp3');
+            $.jGrowl(data.content + "さんがブースインしました", {
                speed: 'fast'
-           });
+            });
         }
     };
     
@@ -758,6 +758,21 @@ Api.getLdclipImage = function(url) {
 
 Api.getLoadingImage = function() {
     return $("<img/>").attr("src", "../images/ajax-loader.gif");
+}
+
+Api.playSound = function(url) {
+    if (soundapi && soundapi.playFile) {
+        soundapi.playFile(url);
+    } else if ($.browser.safari) {
+        var audio = $("#aud").get(0);
+        setTimeout(function() {
+            audio.load();
+            setTimeout(function() {
+                audio.play();
+            }, 500);
+        }, 500);
+
+    }
 }
 
 var LazyScriptLoader = function() {
