@@ -227,7 +227,7 @@ Article.prototype = {
                 )
             ).append(
                 $("<div/>").addClass("body").html(
-                    decodeURL(e.comment).replace(/\n\n/g, "<br />")
+                    decodeURL(e.comment).replace(/\n/g, "<br />")
                 ).append(
                     this._getFileDom(e)
                 )

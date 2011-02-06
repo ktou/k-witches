@@ -26,6 +26,8 @@ public class SignService {
             String ipAddress, Date createdDate, 
             UserModel userModel, FileItem formFile) {
         String comment = (String) input.get("comment");
+        comment = comment.replace("\r\n", "\n");
+        input.put("comment", comment);
         BBSDataModel bbsDataModel = new BBSDataModel();
         bbsDataModel.getUserModelRef().setModel(userModel);
         input.put("id", BBSDataModelDao.getMaxId() + 1);
