@@ -8,6 +8,7 @@ $(function(){
     pageFooter.drawPageLink();
     var channel = new goog.appengine.Channel(channelToken);
     var socket = channel.open();
+    var isFileUpload = false;
 
     socket.onmessage = function(msg) {
         var data = $.parseJSON(msg.data);
@@ -33,14 +34,32 @@ $(function(){
            });
         }
     };
+    
+    $("#file").change(function() {
+        isFileUpload = true;
+    });
 
     $("#post_button").click(function() {
-        $("#post_form").submit();
-        setTimeout(function() {
-            $("#textarea").val("");
-            $("#file").val("");
-            $("#post_form").submit();  //わざとPOSTすることで二重送信防止
-        }, 100);
+        if (isFileUpload) {
+            $("#post_form").submit();
+            setTimeout(function() {
+                $("#textarea").val("");
+                $("#file").val("");
+                $("#post_form").submit();  //わざとPOSTすることで二重送信防止
+            }, 100);
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "./sign",
+                data : {
+                    comment : $("#textarea").val()
+                },
+                success: function(data) {
+                    $("#textarea").val("");
+                }
+            });
+            return false;
+        }
     });
 
     $("#textarea").bind('paste', function(e) {
