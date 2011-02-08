@@ -763,15 +763,6 @@ Api.getLoadingImage = function() {
 Api.playSound = function(url) {
     if (soundapi && soundapi.playFile) {
         soundapi.playFile(url);
-    } else if ($.browser.safari) {
-        var audio = $("#aud").get(0);
-        setTimeout(function() {
-            audio.load();
-            setTimeout(function() {
-                audio.play();
-            }, 500);
-        }, 500);
-
     }
 }
 
