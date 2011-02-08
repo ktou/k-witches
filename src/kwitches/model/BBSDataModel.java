@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Key;
 
 import org.slim3.datastore.Attribute;
+import org.slim3.datastore.Datastore;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
@@ -36,7 +36,8 @@ public class BBSDataModel implements Serializable {
     @Attribute(lob = true)
     private String longComment;
     /** ファイル */
-    private Blob file;
+    private ModelRef<UploadedData> uploadedDataRef =
+        new ModelRef<UploadedData>(UploadedData.class);
     /** 検索用転置インデックス */
     private List<String> invertedIndex;
     /** 書き込み名 */
@@ -170,20 +171,6 @@ public class BBSDataModel implements Serializable {
     }
 
     /**
-     * @param file セットする file
-     */
-    public void setFile(Blob file) {
-        this.file = file;
-    }
-
-    /**
-     * @return file
-     */
-    public Blob getFile() {
-        return file;
-    }
-
-    /**
      * @return userModelRef
      */
     public ModelRef<UserModel> getUserModelRef() {
@@ -234,6 +221,26 @@ public class BBSDataModel implements Serializable {
     public ModelRef<ImageModel> getIconRef() {
         UserModel model = getUserModelRef().getModel();
         return iconRef != null && iconRef.getModel() != null ? iconRef : model != null ? model.getIconRef() : null;
+    }
+
+    /**
+     * @return uploadedDataRef
+     */
+    public ModelRef<UploadedData> getUploadedDataRef() {
+        return uploadedDataRef;
+    }
+
+    public String getFileJsonString() {
+        UploadedData file = this.uploadedDataRef.getModel();
+        if (file == null) {
+            return "";
+        } 
+        String filename = file.getFileName();
+        String key = Datastore.keyToString(file.getKey());
+        int filesize = file.getLength() / 1024;
+        long version = file.getVersion();
+        return ("'filename':'" + filename + "','key':'" + key +"','length':'" +
+                filesize + "','version':'" + version + "'").replace("'", "\""); 
     }
 
 }

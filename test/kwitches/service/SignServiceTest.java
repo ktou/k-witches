@@ -39,7 +39,7 @@ public class SignServiceTest extends AppEngineTestCase {
         Date createdDate = TimeUtils.getJstDate();
         Map<String, Object> input = new HashMap<String, Object>();
         input.put("comment", "Hello");
-        BBSDataModel signed = service.sign(input, ip, createdDate, userModel);
+        BBSDataModel signed = service.sign(input, ip, createdDate, userModel, null);
         assertThat(signed, is(notNullValue()));
         BBSDataModel stored = Datastore.get(BBSDataModel.class, signed.getKey());
         assertThat(stored.getBBSComment(), is("Hello"));
@@ -62,7 +62,7 @@ public class SignServiceTest extends AppEngineTestCase {
         Date createdDate = TimeUtils.getJstDate();
         Map<String, Object> input = new HashMap<String, Object>();
         for (int i = 0; i < 10; i++) {
-            BBSDataModel signed = service.sign(input, ip, createdDate, userModel);
+            BBSDataModel signed = service.sign(input, ip, createdDate, userModel, null);
             assertThat(signed, is(notNullValue()));
             BBSDataModel stored = Datastore.get(BBSDataModel.class, signed.getKey());
             assertThat(stored.getId(), is(i + 1));

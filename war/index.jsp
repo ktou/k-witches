@@ -7,7 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link rel="icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link type="text/css" rel="stylesheet" href="css/global.css" />
+    <link type="text/css" rel="stylesheet" href="css/global.css" media="screen and (min-device-width: 481px)">
+    <link type="text/css" rel="stylesheet" href="css/iphone.css" media="only screen and (max-device-width: 480px)">
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">
@@ -52,9 +53,9 @@
                         <img alt="" src="images/preview.png">
                         プレビュー
                     </a>
-
+                -->
                    <input type="file" id="file" name="file"/>
-                     -->
+                
                    <br />
               </div>
             </form>
@@ -62,6 +63,7 @@
         </div>
         <div id="gadgets">
             <input id="search" type="text" class="clearField" value="検索" />
+            <audio controls id="aud"><source src="./swf/notify_sound1.mp3"></audio>
         </div>
         <div id="articles"></div>
         <div id="pagelink"></div>

@@ -1,6 +1,10 @@
-$(function(){
-    $('.clearField').clearField();
 
+$(function(){
+    if (!$.browser.safari) {
+       $("#aud").remove();
+    }
+    $('.clearField').clearField();
+    
     var article = new Article();
     article.drawArticles(1, 30);
     var pageFooter = new PagingFooter();
@@ -8,6 +12,7 @@ $(function(){
     pageFooter.drawPageLink();
     var channel = new goog.appengine.Channel(channelToken);
     var socket = channel.open();
+    var isFileUpload = false;
 
     socket.onmessage = function(msg) {
         var data = $.parseJSON(msg.data);
@@ -15,7 +20,7 @@ $(function(){
             if (g_maxId == data.content.id) {
                 return;
             }
-            soundapi.playFile('../swf/notify_sound1.mp3');
+            Api.playSound('../swf/notify_sound1.mp3');
             g_maxId = data.content.id;
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
@@ -23,20 +28,38 @@ $(function(){
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-           soundapi.playFile('../swf/notify_sound2.mp3');
-           $.jGrowl(data.content + "さんがブースインしました", {
+            Api.playSound('../swf/notify_sound2.mp3');
+            $.jGrowl(data.content + "さんがブースインしました", {
                speed: 'fast'
-           });
+            });
         }
     };
+    
+    $("#file").change(function() {
+        isFileUpload = true;
+    });
 
     $("#post_button").click(function() {
-        $("#post_form").submit();
-        setTimeout(function() {
-            $("#textarea").val("");
-            $("#file").val("");
-            $("#post_form").submit();  //わざとPOSTすることで二重送信防止
-        }, 100);
+        if (isFileUpload) {
+            $("#post_form").submit();
+            setTimeout(function() {
+                $("#textarea").val("");
+                $("#file").val("");
+                $("#post_form").submit();  //わざとPOSTすることで二重送信防止
+            }, 100);
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "./sign",
+                data : {
+                    comment : $("#textarea").val()
+                },
+                success: function(data) {
+                    $("#textarea").val("");
+                }
+            });
+            return false;
+        }
     });
 
     $("#textarea").bind('paste', function(e) {
@@ -77,20 +100,15 @@ function createResDom(resAnchor) {
         return;
     }
     var resNumber = $(resAnchor).attr("data-resnum");
-    var params = {
-        "res_num": resNumber
-    }
-    var bq = $("<blockquote />").attr("class","res_quote");
+    var param = $.param({
+        res_num: resNumber
+    });
+    var bq = $("<blockquote/>").attr("class","res_quote");
     bq.insertAfter(resAnchor);
-    var image = $("<img />").attr("src","../../images/ajax-loader.gif");
-    bq.html(image);
+    bq.html(Api.getLoadingImage());
 
-    var param_arr = [];
-    for (var key in params) {
-        param_arr.push(key + "=" + params[key]);
-    }
     $.getJSON(
-        "./json?" + param_arr.join('&'),
+        "./json?" + param,
         function(data) {
            var artcle = new Article();
            bq.html(artcle.createDom(data.articles[0]).removeClass("article"));
@@ -129,7 +147,7 @@ PagingFooter.prototype = {
         var _this = this;
         var pagediv = $("#pagelink").addClass("sabrosus");
         var nextLink = function(isNext) {
-            $(pagediv).append($("<a>").addClass("other").click(function(){
+            $(pagediv).append($("<a/>").addClass("other").click(function(){
                 _this.movePage(_this.currentPage + (isNext ? 1 :-1));
             }).text(isNext ? ">>" : "<<").css("cursor","pointer"));
         };
@@ -137,7 +155,7 @@ PagingFooter.prototype = {
         if (this.currentPage > 1) {
             nextLink(false);
         } else {
-            $(pagediv).append($("<span>").addClass("disabled").text("<<"));
+            $(pagediv).append($("<span/>").addClass("disabled").text("<<"));
         }
         for (var i = 1; i <= this.maxPage; i++){
             if (i != this.currentPage) {
@@ -147,14 +165,14 @@ PagingFooter.prototype = {
             } else {
                 $(pagediv).append($("<span/>").addClass("current").text("" + i));
             }
-            if((i % 25 == 0 && i != 0 && i < 101)||(i%20 == 0 && i != 0 && i > 101)){
-                $(pagediv).append($("<br>"));
+            if ((i % 25 == 0 && i != 0 && i < 101)||(i%20 == 0 && i != 0 && i > 101)) {
+                $(pagediv).append($("<br/>"));
             }
         }
         if (this.currentPage < this.maxPage) {
             nextLink(true);
         } else {
-            $(pagediv).append($("<span>").addClass("disabled").text(">>"));
+            $(pagediv).append($("<span/>").addClass("disabled").text(">>"));
         }
     },
 
@@ -204,7 +222,9 @@ Article.prototype = {
                 )
             ).append(
                 $("<div/>").addClass("body").html(
-                    decodeURL(e.comment).replace(/\n\n/g, "<br />")
+                    decodeURL(e.comment).replace(/\n/g, "<br/>")
+                ).append(
+                    this._getFileDom(e)
                 )
             ).append(
                 $("<div/>").addClass("bottom").attr("align", "right").append(
@@ -219,10 +239,14 @@ Article.prototype = {
 
     drawArticles : function(page, limit) {
         var _this = this;
-        $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
+        $("#articles").empty().append(Api.getLoadingImage());
+        var param = $.param({
+            page : page,
+            limit : limit
+        });
         $.ajax({
             type: "GET",
-            url: "./json?page=" + page + "&limit=" + limit,
+            url: "./json?" + param,
             dataType: "json",
             beforeSend : function(xhr) {
                 xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
@@ -241,7 +265,7 @@ Article.prototype = {
 
     search : function(word, page, limit) {
         var _this = this;
-        $("#articles").empty().append($("<img/>").attr("src","../../images/ajax-loader.gif"));
+        $("#articles").empty().append(Api.getLoadingImage());
         $.ajax({
             type: "GET",
             url: "./search?word=" + word,
@@ -278,6 +302,46 @@ Article.prototype = {
 
     rewritePageTitle : function(number, name) {
     	document.title = "K-witches " + number + " : " + decodeURI(name);
+    },
+    
+    _getFileDom : function(data) {
+        var fileDom = "";
+        if (!data.file.filename) return "";
+        var param = $.param({
+            key : data.file.key,
+            version : data.file.version
+        });
+        if (data.file.filename.match(/\.(jpeg|jpg|png|gif|bmp)$/i)) {
+            fileDom = $("<blockquote/>").addClass("file")
+                .append(
+                    decodeURI(data.file.filename) + " " + data.file.length + "KB"
+                ).append(
+                    $("<br/>")
+                ).append(
+                    $("<a/>").attr({
+                        "href":"./file?" + param,
+                        "target":"_blank"
+                    }).append(
+                        $("<img/>").attr({
+                            "src":"./file?" + param,
+                            "width":"200"
+                        }).css("border", "1px solid")
+                    )
+                );
+        } else {
+            fileDom = $("<blockquote/>").addClass("file")
+                .append(
+                    $("<a/>").attr({
+                        "href":"./file?" + param,
+                        "target":"_blank"
+                    }).append(
+                        decodeURI(data.file.filename)
+                    )
+                ).append(
+                    " " + data.file.length + "KB"
+                )
+        }
+        return fileDom;
     }
 }
 
@@ -343,18 +407,18 @@ NicoTags.prototype = new DomModifier();
             },
             jsonp: 'callback',
             success : function(json) {
-                if ( !json || !json.tags ) return;
+                if (!json || !json.tags) return;
                 var nicoDom = $(dom);
                 nicoDom.empty();
                 for(var i = 0 , n = json.tags.length; i < n; i++){
                     var nico_tag = json.tags[i].tag;
-                    var link_tag = $('<a />')
+                    var link_tag = $('<a/>')
                         .attr('href','http://www.nicovideo.jp/tag/' + nico_tag)
                         .css({'font-size':'13px','color':'#000080'})
                         .text(decodeURIComponent(nico_tag));
                     nicoDom.append(link_tag);
                     if (i%4 == 0 && i != 0) {
-                        nicoDom.append('<br />');
+                        nicoDom.append('<br/>');
                     } else if(i != n-1) {
                         nicoDom.append(' ');
                     }
@@ -390,7 +454,7 @@ NormalLink.prototype = new DomModifier();
 
     this._showTagCloud = function(dom, tagCloud) {
         for(var i = 0; i < this.tagLength; i++){
-            var link_tag = $('<a />');
+            var link_tag = $('<a/>');
             if(!tagCloud[i].tag) continue;
             $(link_tag)
                .attr('href', 'http://b.hatena.ne.jp/t/' + encodeURI(tagCloud[i].tag))
@@ -417,11 +481,11 @@ NormalLink.prototype = new DomModifier();
             });
         });
         var tagCloud = {};
-        for(var j= 0; j < this.tagLength; j++){
+        for (var j= 0; j < this.tagLength; j++) {
             tagCloud[j] = {};
             tagCloud[j].count = 0;
-            for(var i in hatena_tags){
-                if(tagCloud[j].count < hatena_tags[i]){
+            for (var i in hatena_tags) {
+                if (tagCloud[j].count < hatena_tags[i]) {
                     tagCloud[j].count = hatena_tags[i];
                     tagCloud[j].tag = i;
                 }
@@ -442,8 +506,8 @@ NormalLink.prototype = new DomModifier();
             jsonp : 'callback',
             success : function(json){
                 if(!json || !json.title) return;
-                var prevDom = $("<div />").css('color', 'green').text(json.title);
-                var nextDom = $("<div />");
+                var prevDom = $("<div/>").css('color', 'green').text(json.title);
+                var nextDom = $("<div/>");
                 $(dom).prepend(prevDom);
                 $(dom).append(nextDom);
                 var api = new ShowTitleApi(url, json);
@@ -527,13 +591,13 @@ TumblrThumnail.prototype = new DomModifier();
                         var photo_url = post["photo-url-1280"];
                         var photo_caption = post["photo-caption"];
                         $(dom).empty().append(
-                            $("<a />").attr({
+                            $("<a/>").attr({
                                 "href" : photo_url,
                                 "target" : "_blank"
                             }).append(
-                                $("<img />").attr("src", photo_thumbnail_url)
+                                $("<img/>").attr("src", photo_thumbnail_url)
                             ).append(
-                                $("<div />").addClass("photo_caption").html(photo_caption)
+                                $("<div/>").addClass("photo_caption").html(photo_caption)
                             )
                         );
                     }
@@ -575,17 +639,17 @@ TwitterThumnail.prototype = new DomModifier();
                 success: function(data) {
                     if(!data) return;
                     $(dom).empty();
-                    var cite = $('<cite />').html(
+                    var cite = $('<cite/>').html(
                         "<a href='http://twitter.com/%d/'>%d</a> on ".replace(/%d/g, twitterId) +
                         decodeURI(data.date)
                     );
-                    var comment = $('<span />').attr('class','twitter')
+                    var comment = $('<span/>').attr('class','twitter')
                         .html(decodeURI(data.entry));
-                    var twit_entry = $('<blockquote />').attr('class','twitter')
+                    var twit_entry = $('<blockquote/>').attr('class','twitter')
                         .attr('style','background-image: url(' +
                         decodeURI(data.image) +
                         ');background-position: left center;')
-                        .append(comment).append('<br />').append(cite);
+                        .append(comment).append('<br/>').append(cite);
                     $(dom).append(twit_entry);
                 }
             });
@@ -626,13 +690,13 @@ InstagrThumnail.prototype = new DomModifier();
                     var photo_thumbnail_url = data.url;
                     var photo_caption = data.title;
                     $(dom).empty().append(
-                        $("<a />").attr({
+                        $("<a/>").attr({
                             "href" : url,
                             "target" : "_blank"
                         }).append(
-                            $("<img />").attr("src", photo_thumbnail_url)
+                            $("<img/>").attr("src", photo_thumbnail_url)
                         ).append(
-                            $("<div />").addClass("photo_caption").html(photo_caption)
+                            $("<div/>").addClass("photo_caption").html(photo_caption)
                         )
                     );
                 }
@@ -655,9 +719,9 @@ ShowTitleApi.prototype = {
 
     _getThumbnailDom : function() {
         var hatena_screen =  this.json.screenshot.replace('/120x90/', '/200x150/');
-        var thumbnail = $('<div />');
+        var thumbnail = $('<div/>');
         $(thumbnail).addClass('url_title').append(this.json.title.substr(0,60))
-            .append($('<img />').attr('src', hatena_screen)).append($('<br />'))
+            .append($('<img/>').attr('src', hatena_screen)).append($('<br/>'))
             .append(Api.getHatebuImage(this.url))
             .append(Api.getLdclipImage(this.url));
         return thumbnail;
@@ -684,12 +748,31 @@ var Api = function() {}
 
 Api.getHatebuImage = function(url) {
     var api = 'http://b.hatena.ne.jp/entry/image/';
-    return $('<img />').attr('src', api + url);
+    return $('<img/>').attr('src', api + url);
 }
 
 Api.getLdclipImage = function(url) {
     var api = 'http://image.clip.livedoor.com/counter/medium/';
-    return $('<img />').attr('src', api + url);
+    return $('<img/>').attr('src', api + url);
+}
+
+Api.getLoadingImage = function() {
+    return $("<img/>").attr("src", "../images/ajax-loader.gif");
+}
+
+Api.playSound = function(url) {
+    if (soundapi && soundapi.playFile) {
+        soundapi.playFile(url);
+    } else if ($.browser.safari) {
+        var audio = $("#aud").get(0);
+        setTimeout(function() {
+            audio.load();
+            setTimeout(function() {
+                audio.play();
+            }, 500);
+        }, 500);
+
+    }
 }
 
 var LazyScriptLoader = function() {
@@ -703,7 +786,7 @@ LazyScriptLoader.prototype = {
     },
 
     append : function(params) {
-        $(params.dom).append($("<img/>").attr("src","../../images/ajax-loader.gif"));
+        $(params.dom).append(Api.getLoadingImage());
         this.params.push({
             "dom" : params.dom,
             "src_url" : params.src_url,

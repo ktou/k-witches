@@ -22,7 +22,7 @@
             <input type="text" name="name" value="${username}">
             <p>アイコン</p>
 
-            <img src="./icon?_=${imageKey}" width="96" height="96">
+            <img src="./icon?_=${imageKey}" width="96">
 
             <br><br>
             <input type="checkbox" name="icon_reset" value="yes">画像をデフォルトに戻す<br>
