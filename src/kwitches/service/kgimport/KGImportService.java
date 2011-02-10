@@ -49,8 +49,6 @@ public class KGImportService {
 
                 Map<String, Object> input = new HashMap<String, Object>();
                 input.put("comment", article.get("message")+"\nhttps://ktou.appspot.com/article/"+article.get("id"));
-                Logger.getLogger(this.getClass().getName()).info(
-                    "Please append user : " + IMPORT_USER_NAME);
                 input.put("name", article.get("name"));
                 String ipAddress = "192.168.0.1";
                 Date createdDate = new SimpleDateFormat().parse(article.get("date"));
