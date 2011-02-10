@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,10 +49,17 @@ public class KGImportService {
                 Map<String, String> article = parseArticleJson(articleJson);
 
                 Map<String, Object> input = new HashMap<String, Object>();
-                input.put("comment", article.get("message")+"\nhttps://ktou.appspot.com/article/"+article.get("id"));
-                input.put("name", article.get("name"));
                 String ipAddress = "192.168.0.1";
-                Date createdDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(article.get("date"));
+
+                input.put("comment", article.get("message")
+                    + "\nhttps://ktou.appspot.com/article/"
+                    + article.get("id"));
+                input.put("name",article.get("date") != null ? article.get("name") : "あぼーん");
+                Date createdDate =
+                    article.get("date") != null
+                        ? new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(article.get("date"))
+                            : TimeUtils.getJstDate();
+
                 UserModel userModel = getUserModel();
                 if (userModel == null) {
                     Logger.getLogger(this.getClass().getName()).info(
