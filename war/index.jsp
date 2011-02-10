@@ -55,7 +55,7 @@
                     </a>
                 -->
                    <input type="file" id="file" name="file"/>
-                
+
                    <br />
               </div>
             </form>
@@ -67,6 +67,7 @@
         </div>
         <div id="articles"></div>
         <div id="pagelink"></div>
+        <script src="http://l.yimg.com/a/i/us/pps/imagebadge_1.3.js">{"pipe_id":"96eb667d4f5b69673fb38eda4e4e18cb","_btype":"image","width":"900px","height":"800px","pipe_params":{"username":"thrakt"}}</script>
         </c:if>
     </c:if>
 </body>

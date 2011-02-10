@@ -116,7 +116,7 @@ blockquote cite {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	background: none repeat scroll 0 0 white;
+	background: url(../images/a70.png) repeat;
 	border: 1px solid #D1D1D1;
 	width: 900px;
 }
