@@ -38,7 +38,7 @@ public class UserModelDao {
     }
 
     public UserModel getUserByName(String name){
-        return Datastore.query(meta).filter(meta.name.equal(name)).asSingle();
+        return Datastore.query(meta).filter(meta.name.equal(name)).limit(1).asSingle();
     }
 
     public static UserModel getCurrentUser() {
