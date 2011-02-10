@@ -51,7 +51,7 @@ public class KGImportService {
                 input.put("comment", article.get("message")+"\nhttps://ktou.appspot.com/article/"+article.get("id"));
                 input.put("name", article.get("name"));
                 String ipAddress = "192.168.0.1";
-                Date createdDate = new SimpleDateFormat().parse(article.get("date"));
+                Date createdDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(article.get("date"));
                 UserModel userModel = getUserModel();
                 if (userModel == null) {
                     Logger.getLogger(this.getClass().getName()).info(
