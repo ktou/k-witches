@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions.Builder;
@@ -109,7 +111,9 @@ public class KGImportService {
     private Map<String, String> parseArticleJson(String articleJson)
             throws UnsupportedEncodingException {
         Map<String, String> result = new HashMap<String, String>();
-        for (String s : articleJson.split(",")) {
+        Matcher m = Pattern.compile("\"[^\"]*\"[^:]*:[^\"]*\"[^\"]*\"", Pattern.CASE_INSENSITIVE).matcher(articleJson);
+        while(m.find()){
+            String s = m.group();
             String key = s.substring(0, s.indexOf(":"));
             String value = s.substring(s.indexOf(":") + 1);
             result.put(washString(key), washString(value));
