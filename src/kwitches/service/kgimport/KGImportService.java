@@ -38,8 +38,7 @@ public class KGImportService {
 
     private URLFetchService ufs = URLFetchServiceFactory.getURLFetchService();
 
-    public void checkKG() {
-        try {
+    public void checkKG() throws IOException, ParseException {
             int maxid = fetchMaxId();
             int fetchedid =
                 KGFetchedIdDao.getInstance().getFetchedId(FETCHED_ID_KEY);
@@ -77,12 +76,6 @@ public class KGImportService {
                 KGFetchedIdDao.getInstance().setFetchedId(FETCHED_ID_KEY,++fetchedid);
                 QueueFactory.getDefaultQueue().add(Builder.withUrl("/kgimport"));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
-        }
 
     }
 
