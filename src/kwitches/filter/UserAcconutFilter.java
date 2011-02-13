@@ -49,8 +49,13 @@ public class UserAcconutFilter implements Filter {
         }
         if (((HttpServletRequest) request).getUserPrincipal() == null) {
             if (!isExcludePath(thisURL)) {
-                ((HttpServletResponse) response).sendRedirect(userService
-                  .createLoginURL("/"));
+                if (thisURL.equals("/")) {
+                    ((HttpServletResponse) response).sendRedirect(userService
+                      .createLoginURL("/"));
+                } else {
+                    ((HttpServletResponse) response).sendRedirect(userService
+                      .createLoginURL("/mobile"));
+                }
                 return;
             }
         }
