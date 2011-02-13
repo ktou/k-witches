@@ -21,7 +21,7 @@
 <c:forEach var="bbsData" items="${bbsDataList}">
   <span class="xfolkentry"><a href="./mobile?offset=${offset}&limit=${limit}&body=%3E%3E${bbsData.id}">${bbsData.id}</a> 
   &nbsp;<a href=""><b>${bbsData.name}</b></a>&nbsp;
-  <fmt:formatDate value="${bbsData.createdDate}" pattern="yyyy-MM-dd（E） KK:mm:ss" />
+  <fmt:formatDate value="${bbsData.createdDate}" pattern="yyyy-MM-dd（E） kk:mm:ss" />
   <blockquote>
       ${f:br(f:nbsp(f:h(bbsData.comment)))}
   </blockquote>
