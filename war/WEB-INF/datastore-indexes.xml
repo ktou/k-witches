@@ -1,0 +1,11 @@
+<!-- Indices written at Wed, 16 Feb 2011 14:51:40 UTC -->
+
+<datastore-indexes autoGenerate="true">
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="BBSDataModel" ancestor="false" source="auto">
+        <property name="invertedIndex" direction="asc"/>
+        <property name="id" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>
