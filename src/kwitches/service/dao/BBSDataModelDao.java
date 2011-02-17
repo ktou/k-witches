@@ -68,10 +68,7 @@ public class BBSDataModelDao {
             return null;
         }
         ModelQuery<BBSDataModel> query = Datastore.query(meta);
-        for (String t : token) {
-            query = query.filter(meta.invertedIndex.in(t)).limit(1000);
-        }
-        return query.sort(meta.id.desc).limit(1000).asList();
+        return query.filter(meta.invertedIndex.in(token)).sort(meta.id.desc).limit(1000).asList();
     }
     
     public static int getMaxId() {
