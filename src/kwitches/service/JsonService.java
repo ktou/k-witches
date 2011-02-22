@@ -5,14 +5,14 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
-import org.slim3.datastore.Datastore;
-
-import com.google.appengine.api.datastore.Key;
-
 import kwitches.model.BBSDataModel;
 import kwitches.service.dao.BBSDataModelDao;
 import kwitches.text.TextTransformer;
 import kwitches.util.TimeUtils;
+
+import org.slim3.datastore.Datastore;
+
+import com.google.appengine.api.datastore.Key;
 
 public class JsonService {
 
@@ -20,7 +20,7 @@ public class JsonService {
     
     private static final String JSON_DATA_FORMAT =
         "<'name':'{0}','ip':'{1}','date':'{2}'," +
-        "'comment':'{3}','id':'{4}','classtype':'{5}','icon':'{6}','file':<{7}>>";
+        "'comment':'{3}','id':'{4,number,#}','classtype':'{5}','icon':'{6}','file':<{7}>>";
 
     /**
      * RequestMapによる条件指定でBBSDataModelのJSONデータを取得する
