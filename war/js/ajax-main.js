@@ -301,7 +301,8 @@ Article.prototype = {
     },
 
     rewritePageTitle : function(number, name) {
-    	document.title = "K-witches " + number + " : " + decodeURI(name);
+    	name = name.replace(/\+/g,"%20");
+    	document.title = "K-witches " + number + " : " + decodeURIComponent(name);
     },
     
     _getFileDom : function(data) {
