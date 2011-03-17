@@ -3,10 +3,12 @@
  */
 package kwitches.text.hyperlink;
 
+import static kwitches.text.hyperlink.HyperlinkTransformUtil.getDivHtml;
+import static kwitches.text.hyperlink.HyperlinkTransformUtil.getSBMLinks;
+
 import java.util.HashMap;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import static kwitches.text.hyperlink.HyperlinkTransformUtil.*;
+import java.util.regex.Pattern;
 
 /**
  * リンクの種類がニコニコ動画URLの場合の変換クラス
@@ -16,7 +18,7 @@ public class NicovideoLinkTransformer
     extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "nicovideo";
-    private static final String REGEXP_URL_STRING = "^http://www.nicovideo.jp/watch/([A-Za-z_]\\w*)/?";
+    private static final String REGEXP_URL_STRING = "^http://www.nicovideo.jp/watch/([1-9A-Za-z_]\\w*)/?";
     
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
