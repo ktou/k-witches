@@ -12,8 +12,8 @@
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">
-        google.load("jquery", "1.4");
-        google.load("jqueryui", "1.5");
+        google.load("jquery", "1.5");
+        google.load("jqueryui", "1.8");
     </script>
     <c:if test="${isKAuth}">
     <script src='./_ah/channel/jsapi'></script>
