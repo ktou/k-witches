@@ -102,6 +102,21 @@ blockquote cite {
 	margin: 15px 0px;
 }
 
+#ustream{
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background: none repeat scroll 0 0 white;
+	border: 1px solid #D1D1D1;
+	width: 900px;
+	padding: 12px 0px 12px 0px;
+	margin: 15px 0px;
+}
+
+#ustream h4,#ustream div {
+	padding: 10px;
+}
+
 #textarea {
 	width: 520px;
 	height: 28px;

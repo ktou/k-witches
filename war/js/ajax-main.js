@@ -90,6 +90,8 @@ $(function(){
     $(".res").live("click",function(){
         createResDom(this);
     });
+    
+    $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
 });
 
 function createResDom(resAnchor) {
