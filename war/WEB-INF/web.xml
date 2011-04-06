@@ -31,7 +31,7 @@
         <filter-class>kwitches.filter.UserAcconutFilter</filter-class>
         <init-param>
             <param-name>exclude</param-name>
-            <param-value>/index.jsp,/css*,/_ah/login*,/_ah/logout*,/_ah/admin/*,/_ah/channel/*</param-value>
+            <param-value>/index.jsp,/index_sw.jsp,/css*,/_ah/login*,/_ah/logout*,/_ah/admin/*,/_ah/channel/*</param-value>
         </init-param>
     </filter>
 

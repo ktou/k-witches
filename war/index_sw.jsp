@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link rel="icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link type="text/css" rel="stylesheet" href="css/global.css" media="screen and (min-device-width: 481px)">
+    <link type="text/css" rel="stylesheet" href="css/global_sw.css" media="screen and (min-device-width: 481px)">
     <link type="text/css" rel="stylesheet" href="css/iphone.css" media="only screen and (max-device-width: 480px)">
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
@@ -36,9 +36,9 @@
     <c:if test="${'LOGIN' == isLogin}">
         <script type="text/javascript" src="js/swfobject.js"></script>
         <script type="text/javascript" src="js/soundapi.js"></script>
-        <h1>the ktou connection</h1>
+        <img src="images/kw-logo.png"/>
         <br />
-        <p>ロゴはあとで作る</p>
+        <p>守りたいから私は飛ぶ！！パンツじゃないから恥ずかしくないもん！</p>
         <c:if test="${isKAuth}">
         <div class="postlocate">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
@@ -67,6 +67,7 @@
         </div>
         <div id="articles"></div>
         <div id="pagelink"></div>
+        <script src="http://l.yimg.com/a/i/us/pps/imagebadge_1.3.js">{"pipe_id":"96eb667d4f5b69673fb38eda4e4e18cb","_btype":"image","width":"900px","height":"800px","pipe_params":{"username":"thrakt"}}</script>
         </c:if>
     </c:if>
 </body>
