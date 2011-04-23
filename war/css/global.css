@@ -33,10 +33,6 @@ input,textarea {
 	background-image: -moz-linear-gradient(top, #FFF, #EEE);
 }
 
-.quote {
-	color: #1177FF;
-}
-
 input[type="text"]:focus,textarea:focus {
 	background-image: none;
 	background-color: #FFD;
@@ -146,19 +142,6 @@ blockquote cite {
 	margin-left: 70px;
 }
 
-.all {
-	margin-left: 20px;
-}
-
-.creater {
-	padding-top: 12px;
-	margin-left: 60px;
-}
-
-.creater p {
-	font-size: small;
-}
-
 .title {
 	margin-top: 12px;
 	margin-left: 12px;
@@ -172,32 +155,9 @@ blockquote cite {
 	line-height: 16px;
 }
 
-.cluster_info:hover {
-	background: #ffffcc;
-}
-
-.cluster_info .body,.entry .body,.user_info .body {
+.entry .body {
 	word-wrap: break-word;
 	margin: 8px 30px 0px 42px;
-}
-
-.cluster_info {
-	background-color: #FFF8DC;
-}
-
-.cluster_info {
-	margin-top: 15px;
-	margin-right: 30px;
-}
-
-.user_info {
-	background-color: #F0F9FC;
-}
-
-.menu a {
-	color: blue;
-	font-size: 15px;
-	line-height: 16px;
 }
 
 .bottom {
@@ -226,67 +186,6 @@ blockquote cite {
 .photo img {
 	background: #ccc;
 	width: 50px;
-}
-
-.photo span {
-	display: block;
-	height: 100px;
-	width: 100px;
-	background-repeat: no-repeat;
-	background-image:
-		url(http://static.tumblr.com/4cradrm/caWkmz08e/icon_reblog.png);
-}
-
-/*--------------------------------------------------------
- * 更新情報とか
- *--------------------------------------------------------*/
-#links {
-	margin-top: 40px;
-}
-
-#links * {
-	font-size: small;
-}
-
-#links ul {
-	list-style-type: none;
-	width: 400px;
-}
-
-#links li {
-	border: 1px dotted #999;
-	border-width: 1px 0;
-	margin: 5px 0;
-	background-color: #FFF8DC;
-}
-
-#links li a {
-	color: #990000;
-	display: block;
-	font: bold 120% Arial, Helvetica, sans-serif;
-	padding: 5px;
-}
-
-* html #links li a {
-	width: 400px;
-}
-
-#links li a:hover {
-	background: #ffffcc;
-	text-decoration: none;
-}
-
-#links a em {
-	color: #333;
-	display: block;
-	font: normal 85% Verdana, Arial, Helvetica, sans-serif;
-	line-height: 125%;
-}
-
-#links a span {
-	color: #125F15;
-	font: normal 70% Verdana, Arial, Helvetica, sans-serif;
-	line-height: 150%;
 }
 
 /*-------------------------------------------------------
@@ -322,13 +221,6 @@ blockquote cite {
 h2,h3 {
 	border-left: 7px solid #FFA500;
 	padding: 0.8em 0.9em;
-}
-
-h3 span {
-	display: block;
-	padding-top: 0.2em;
-	font-size: 0.8em;
-	color: #CCCCCC;
 }
 
 /* コンテナ:Tooltip全体 */
@@ -393,37 +285,6 @@ input,textarea {
 	color: #404040;
 }
 
-label {
-	color: #999;
-	cursor: pointer;
-	padding-left: 2px;
-	line-height: 15px;
-	vertical-align: top;
-}
-
-label.chosen {
-	color: #333;
-}
-
-.transparent {
-	filter: alpha(opacity = 0);
-	-moz-opacity: 0;
-	opacity: 0;
-	border: 0px solid #FFF;
-	background: #FFF;
-	z-index: 10;
-	cursor: pointer;
-}
-
-.transparentFake {
-	background: none;
-	border: none;
-}
-
-.transparent2 {
-	z-index: 10;
-}
-
 .textinput,.textinputHovered {
 	width: 236px;
 	height: 15px;
@@ -448,82 +309,6 @@ label.chosen {
 	background-position: left bottom;
 }
 
-.selectArea {
-	width: 200px;
-	height: 21px;
-	background: url(../images/select_bg.gif) repeat-x left top;
-}
-
-.selectArea .left {
-	width: 8px;
-	height: 21px;
-	float: left;
-	background: url(../images/select_left.gif) no-repeat left top;
-}
-
-.selectArea .right {
-	width: 21px;
-	height: 21px;
-	float: right;
-	background: url(../images/select_right.gif) no-repeat left top;
-}
-
-.selectArea .right a {
-	display: block;
-	width: 21px;
-	height: 21px;
-}
-
-.selectArea .right i {
-	display: none;
-}
-
-.selectArea .center {
-	width: 160px;
-	margin-left: 5px;
-	margin-right: 20px;
-	color: #FFF;
-	padding-top: 3px;
-}
-
-.optionsDivInvisible,.optionsDivVisible {
-	position: absolute;
-	margin-top: -1px;
-	margin-left: 3px;
-	width: 172px;
-	background: #6f7074;
-	padding: 2px;
-	font-size: 11px;
-	z-index: 20;
-}
-
-.optionsDivInvisible {
-	display: none;
-}
-
-.optionsDivVisible {
-	display: block;
-}
-
-.optionsDivVisible p {
-	margin: 0;
-	padding: 0;
-}
-
-.optionsDivVisible a {
-	color: #f2f2f2;
-	text-decoration: none;
-	display: block;
-	padding: 1px 4px;
-	border: 1px solid #6f7074;
-}
-
-.optionsDivVisible a:hover {
-	color: #FFF;
-	background: #5f6062;
-	border-color: #cfd0d6;
-}
-
 .buttonSubmit,.buttonSubmitHovered {
 	width: 69px;
 	height: 26px;
@@ -537,13 +322,6 @@ label.chosen {
 
 .buttonSubmitHovered {
 	background-position: left bottom;
-}
-
-#stylesheetTest {
-	position: absolute;
-	left: -999px;
-	width: 10px;
-	height: 10px;
 }
 
 /* BUTTONS */
@@ -580,10 +358,6 @@ label.chosen {
 .buttons button[type] {
 	padding: 5px 10px 5px 7px; /* Firefox */
 	line-height: 17px; /* Safari */
-}
-
-*:first-child+html button[type] {
-	padding: 4px 10px 3px 7px; /* IE7 */
 }
 
 .buttons button img,.buttons a img {
@@ -685,25 +459,6 @@ button.regular,.buttons a.regular {
 	-moz-opacity: 0.75; /* Firefox */
 	filter: alpha(opacity = 75); /* IE6/7 */
 	-ms-filter: "alpha(opacity=75)"; /* IE8 */
-}
-
-* html .preview_div {
-	position: absolute;
-	margin-top: 60px;
-	top: expression((   ( ignoreMe =   document.documentElement.scrollTop ?
-		document.documentElement.scrollTop :   document.body.scrollTop) ) +
-		'px' );
-	right: expression((   ( ignoreMe2 =   document.documentElement.scrollLeft ?
-		document.documentElement.scrollLeft :   document.body.scrollLeft) ) +
-		  'px' );
-}
-
-* html #overlay {
-	position: absolute;
-	top: expression((   ( ignoreMe =   document.documentElement.scrollTop ?
-		document.documentElement.scrollTop :   document.body.scrollTop) ) +
-		'px' );
-	right: 0;
 }
 
 div.sabrosus {
