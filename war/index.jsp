@@ -36,9 +36,9 @@
     <c:if test="${'LOGIN' == isLogin}">
         <script type="text/javascript" src="js/swfobject.js"></script>
         <script type="text/javascript" src="js/soundapi.js"></script>
-        <h1>the ktou connection</h1>
+        <img src="images/magi-logo.png"/>
         <br />
-        <p>ロゴはあとで作る</p>
+        <p>僕とK棟してエントロピーを凌駕してよ！</p>
         <c:if test="${isKAuth}">
         <div class="postlocate">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
