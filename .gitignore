@@ -1,2 +1,3 @@
-war/WEB-INF/appengine-generated/*.*
-src/kwitches/meta/*.*
+war/WEB-INF/appengine-generated/*
+src/kwitches/meta/*
+war/WEB-INF/classes/*
