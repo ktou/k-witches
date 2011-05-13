@@ -4,7 +4,7 @@ $(function(){
        $("#aud").remove();
     }
     $('.clearField').clearField();
-    
+
     var article = new Article();
     article.drawArticles(1, 30);
     var pageFooter = new PagingFooter();
@@ -34,7 +34,7 @@ $(function(){
             });
         }
     };
-    
+
     $("#file").change(function() {
         isFileUpload = true;
     });
@@ -90,7 +90,7 @@ $(function(){
     $(".res").live("click",function(){
         createResDom(this);
     });
-    
+
     $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
 });
 
@@ -304,9 +304,9 @@ Article.prototype = {
 
     rewritePageTitle : function(number, name) {
     	name = name.replace(/\+/g,"%20");
-    	document.title = "K-witches " + number + " : " + decodeURIComponent(name);
+    	document.title = "KEITO KAMADA " + number + " : " + decodeURIComponent(name);
     },
-    
+
     _getFileDom : function(data) {
         var fileDom = "";
         if (!data.file.filename) return "";

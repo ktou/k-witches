@@ -29,7 +29,7 @@
     //-->
     </script>
     </c:if>
-    <title>K-Witches</title>
+    <title>KEITO KAMADA</title>
 </head>
 <body>
     <jsp:include page="user_account.jsp" />
