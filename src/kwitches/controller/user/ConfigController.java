@@ -11,7 +11,7 @@ import com.google.appengine.api.datastore.Key;
 
 public class ConfigController extends Controller {
 
-    
+
     @Override
     public Navigation run() throws Exception {
         UserModel userModel =  UserModelDao.getCurrentUser();
@@ -25,7 +25,9 @@ public class ConfigController extends Controller {
             request.setAttribute("imageKey",imageKey);
         }
         request.setAttribute("username",userModel.getName());
-        
+        request.setAttribute("amazonAccount",userModel.getAmazonAccount());
+        request.setAttribute("twitterId",userModel.getTwitterId());
+
         return forward("config.jsp");
     }
 }

@@ -21,17 +21,19 @@ public class UserModel implements Serializable {
 
     @Attribute(version = true)
     private Long version;
-    
+
     private User user;
-    
+
     private String name;
-    
+
     private ModelRef<ImageModel> IconRef =
         new ModelRef<ImageModel>(ImageModel.class);
-    
+
     private boolean isAuthUser;
-    
+
     private String amazonAccount;
+
+    private String twitterId;
 
     /**
      * Returns the key.
@@ -162,5 +164,13 @@ public class UserModel implements Serializable {
      */
     public String getAmazonAccount() {
         return amazonAccount;
+    }
+
+    public void setTwitterId(String twitterId) {
+        this.twitterId = twitterId;
+    }
+
+    public String getTwitterId() {
+        return twitterId;
     }
 }
