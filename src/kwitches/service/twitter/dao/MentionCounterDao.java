@@ -23,18 +23,18 @@ public class MentionCounterDao {
             Datastore.createKey(NumberCounterModel.class, KEY));
     }
 
-    public long getMentiondId() {
+    public long getMentionCounter() {
         NumberCounterModel model = getModel();
-        return model == null ? 0 : model.getCounter();
+        return model == null ? 1L : model.getCounter();
     }
 
-    public void setMentionId(long fetchedId) {
+    public void setMentionCounter(long mentionCounter) {
         NumberCounterModel model = getModel();
         if (model == null) {
             model = new NumberCounterModel();
             model.setKey(Datastore.createKey(NumberCounterModel.class, KEY));
         }
-        model.setCounter(fetchedId);
+        model.setCounter(mentionCounter);
         Datastore.put(model);
     }
 

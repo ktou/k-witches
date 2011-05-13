@@ -2,9 +2,13 @@ package kwitches.service.twitter;
 
 import kwitches.model.twitter.AccessTokenModel;
 import kwitches.model.twitter.RequestTokenModel;
+import kwitches.service.twitter.dao.MentionCounterDao;
 
 import org.slim3.datastore.Datastore;
 
+import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -45,5 +49,24 @@ public class TwitterAccessService {
         } catch (TwitterException e) {
             e.printStackTrace();
         }
+    }
+
+    private ResponseList<Status> getMentions(long since)
+            throws TwitterException {
+        return new TwitterFactory()
+            .getInstance(getAccessToken().getToken())
+            .getMentions(new Paging(since));
+    }
+
+    public ResponseList<Status> getMentionsAtCounter() throws TwitterException {
+        long counter = MentionCounterDao.getInstance().getMentionCounter();
+        ResponseList<Status> mentions = getMentions(counter);
+
+        if (mentions.size() > 0) {
+            MentionCounterDao.getInstance().setMentionCounter(
+                mentions.get(0).getId());
+        }
+
+        return mentions;
     }
 }
