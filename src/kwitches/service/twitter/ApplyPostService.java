@@ -38,9 +38,9 @@ public class ApplyPostService {
             input.put("name", name + "@twitter");
             input.put("comment", text);
 
-            UserModel userModel = getUserModel(name);
+            UserModel userModel = getUserModelById(name);
             if (userModel == null) {
-                userModel = getUserModel(IMPORT_USER_NAME);
+                userModel = getUserModelByName(IMPORT_USER_NAME);
                 if (userModel == null) {
                     Logger.getLogger(this.getClass().getName()).info(
                         "Please append user : " + IMPORT_USER_NAME);
@@ -57,7 +57,11 @@ public class ApplyPostService {
         }
     }
 
-    private UserModel getUserModel(String name) {
+    private UserModel getUserModelById(String id) {
+        return UserModelDao.GetInstance().getUserByTwitterId(id);
+    }
+
+    private UserModel getUserModelByName(String name) {
         return UserModelDao.GetInstance().getUserByName(name);
     }
 

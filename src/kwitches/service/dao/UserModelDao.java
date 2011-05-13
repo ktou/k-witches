@@ -46,4 +46,8 @@ public class UserModelDao {
     public UserModel getUserByName(String name){
         return Datastore.query(meta).filter(meta.name.equal(name)).limit(1).asSingle();
     }
+
+    public UserModel getUserByTwitterId(String id){
+        return Datastore.query(meta).filter(meta.twitterId.equal(id)).limit(1).asSingle();
+    }
 }
