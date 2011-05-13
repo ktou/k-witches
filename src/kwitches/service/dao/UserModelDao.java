@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package kwitches.service.dao;
 
@@ -26,20 +26,28 @@ public class UserModelDao {
     public static UserModelDao GetInstance(){
              return instance;
     }
-    
+
     public void appendUser(UserModel userModel) {
         Transaction tx = Datastore.beginTransaction();
         Datastore.put(userModel);
         tx.commit();
     }
-    
+
     public UserModel getUser(String keyString) {
         return Datastore.get(meta, Datastore.stringToKey(keyString));
     }
-    
+
     public static UserModel getCurrentUser() {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         return Datastore.query(meta).filter(meta.user.equal(user)).asSingle();
+    }
+
+    public UserModel getUserByName(String name){
+        return Datastore.query(meta).filter(meta.name.equal(name)).limit(1).asSingle();
+    }
+
+    public UserModel getUserByTwitterId(String id){
+        return Datastore.query(meta).filter(meta.twitterId.equal(id)).limit(1).asSingle();
     }
 }

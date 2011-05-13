@@ -20,6 +20,10 @@
         <form action="./register_config" enctype="multipart/form-data" method="post">
             <p>名前</p>
             <input type="text" name="name" value="${username}">
+            <p>Amazonアフィリエイトアカウント</p>
+            <input type="text" name="amazonAccount" value="${amazonAccount}">
+            <p>twitterアカウント</p>
+            <input type="text" name="twitterId" value="${twitterId}">
             <p>アイコン</p>
 
             <img src="./icon?_=${imageKey}" width="96">
