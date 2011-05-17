@@ -1,7 +1,7 @@
 @CHARSET "utf-8";
 
 body {
-	background: #F5F5F5 url(/images/back.png) no-repeat fixed right bottom;
+	background: #F5F5F5 url(/images/back.png) no-repeat fixed center center;
 	margin: 5px 10px;
 	font-family:"MeiryoKe_PGothic","MS UI Gothic";
 }
