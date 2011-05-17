@@ -6,14 +6,13 @@ import org.slim3.datastore.Datastore;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 import twitter4j.auth.RequestToken;
 
 
 public class TwitterRequestService {
 
     public String getAuthURL() {
-        Twitter twitter = new TwitterFactory().getInstance();
+        Twitter twitter = TwitterInstanceManager.getTwitterInstance();
         String url = "";
         try {
             RequestToken token = twitter.getOAuthRequestToken();
