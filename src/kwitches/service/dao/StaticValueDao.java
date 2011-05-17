@@ -20,10 +20,9 @@ public class StaticValueDao {
 
     private final static StaticValueModelMeta meta = StaticValueModelMeta.get();
 
-    private static Map<StaticValueDao, String> cache;
+    private static Map<StaticValueType, String> cache = new HashMap<StaticValueType, String>();;
 
     private StaticValueDao() {
-        cache = new HashMap<StaticValueDao, String>();
     }
 
     public static String getValue(StaticValueType type) {
@@ -40,6 +39,22 @@ public class StaticValueDao {
         }
 
         return value;
+    }
+
+    public static void setValue(StaticValueType type,String value){
+        StaticValueModel model =
+            Datastore.getOrNull(
+                StaticValueModel.class,
+                Datastore.createKey(meta, type.toString()));
+        if(model==null){
+            model = new StaticValueModel();
+            model.setKey(Datastore.createKey(meta, type.toString()));
+        }
+
+        model.setValue(value);
+        cache.put(type, value);
+
+        Datastore.put(model);
     }
 
 }
