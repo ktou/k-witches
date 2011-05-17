@@ -2,6 +2,8 @@ package kwitches.service.twitter;
 
 import kwitches.model.twitter.AccessTokenModel;
 import kwitches.model.twitter.RequestTokenModel;
+import kwitches.service.dao.StaticValueDao;
+import kwitches.service.dao.StaticValueDao.StaticValueType;
 import kwitches.service.twitter.dao.MentionCounterDao;
 
 import org.slim3.datastore.Datastore;
@@ -11,7 +13,6 @@ import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
@@ -26,7 +27,7 @@ public class TwitterAccessService {
     private AccessTokenModel getAccessToken() {
         return Datastore.getOrNull(
             AccessTokenModel.class,
-            Datastore.createKey(AccessTokenModel.class, "ktoubot"));
+            Datastore.createKey(AccessTokenModel.class, StaticValueDao.getValue(StaticValueType.TWITTERFETCH_TWITTER_ID)));
     }
 
     public void setAuth(String token) {
@@ -37,7 +38,7 @@ public class TwitterAccessService {
         Datastore.delete(requestModelKey);
 
         try {
-            Twitter twitter = new TwitterFactory().getInstance();
+            Twitter twitter = TwitterInstanceManager.getTwitterInstance();
             AccessToken accessToken = twitter.getOAuthAccessToken(requestToken);
 
             AccessTokenModel accessTokenModel = new AccessTokenModel();
@@ -53,9 +54,8 @@ public class TwitterAccessService {
 
     private ResponseList<Status> getMentions(long since)
             throws TwitterException {
-        return new TwitterFactory()
-            .getInstance(getAccessToken().getToken())
-            .getMentions(new Paging(since));
+        return TwitterInstanceManager.getTwitterInstance(
+            getAccessToken().getToken()).getMentions(new Paging(since));
     }
 
     public ResponseList<Status> getMentionsAtCounter() throws TwitterException {
