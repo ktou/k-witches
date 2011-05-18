@@ -87,24 +87,12 @@ blockquote cite {
 	margin: 0px;
 }
 
-.postlocate {
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	background: none repeat scroll 0 0 white;
-	border: 1px solid #D1D1D1;
-	width: 900px;
+#postlocate {
 	padding: 12px 0px 12px 0px;
 	margin: 15px 0px;
 }
 
 #ustream{
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	background: none repeat scroll 0 0 white;
-	border: 1px solid #D1D1D1;
-	width: 900px;
 	padding: 12px 0px 12px 0px;
 	margin: 15px 0px;
 }
@@ -123,7 +111,7 @@ blockquote cite {
 	height: 4.9em !important;
 }
 
-#articles{
+.backpartition{
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;

@@ -40,7 +40,7 @@
         <br />
         <p>僕とK棟してエントロピーを凌駕してよ！</p>
         <c:if test="${isKAuth}">
-        <div class="postlocate">
+        <div id="postlocate" class="backpartition">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
                 <textarea rows="1" name="comment" id="textarea" class=""></textarea><br>
                 <div class="buttons">
@@ -65,7 +65,7 @@
             <input id="search" type="text" class="clearField" value="検索" />
             <audio controls id="aud"><source src="./swf/notify_sound1.mp3"></audio>
         </div>
-        <div id="ustream">
+        <div id="ustream" class="backpartition">
         	<h4>K棟24時</h4>
         	<div id="ustplayer">
 				<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
@@ -84,7 +84,7 @@
 				</object>
 			</div>
 		</div>
-        <div id="articles"></div>
+        <div id="articles" class="backpartition"></div>
         <div id="pagelink"></div>
         </c:if>
     </c:if>
