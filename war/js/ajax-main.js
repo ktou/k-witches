@@ -29,7 +29,7 @@ $(function(){
             article.decorate();
         } else if (data.type == "booth_in") {
             Api.playSound('../swf/notify_sound2.mp3');
-            $.jGrowl(data.content + "さんがブースインしました", {
+            $.jGrowl(data.content + "さんが円環の理に導かれました", {
                speed: 'fast'
             });
         }
