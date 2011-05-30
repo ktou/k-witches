@@ -131,16 +131,15 @@ blockquote cite {
 }
 
 .title {
-	margin-top: 12px;
+	margin-top: 10px;
 	margin-left: 12px;
 	color: #990000;
-	font: bold 110% sans-serif;
+	font: bold 100% sans-serif;
+	letter-spacing: 0.03em;
 }
 
 .title .number {
 	color: blue;
-	font-size: 110%;
-	line-height: 16px;
 }
 
 .entry .body {
@@ -156,8 +155,7 @@ blockquote cite {
 
 .bottom .time {
 	color: #666666;
-	font-size: 15px;
-	line-height: 16px;
+	font-size: 12px;
 }
 
 .name {
