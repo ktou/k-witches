@@ -58,13 +58,22 @@ $(function(){
                 },
                 success: function(data) {
                     $("#textarea").val("");
-                    $.cookie("location", $("*:input[name=location]").val() , { expires: 30 });
+                    $.cookie("location", $("#locationsetting input:first").val() , { expires: 30 });
                 }
             });
             return false;
         }
     });
-    $("*:input[name=location]").val($.cookie("location"));
+    $("#locationsetting input:first").val($.cookie("location"));
+    var locationstr = $.cookie("location");
+    if(locationstr == null || locationstr == "") locationstr = "none";
+    $("#locationsetting span:first").append(" "+locationstr);
+    $("#locationsetting").click(function() {
+    	if($("#locationsetting input:first").css("display") == "none"){
+    		$("#locationsetting span:first").hide();
+    		$("#locationsetting input:first").show();
+    	}
+    });
 
     $("#textarea").bind('paste', function(e) {
         setTimeout(function() {
