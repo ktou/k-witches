@@ -59,7 +59,8 @@
 
                    <span id="locationsetting">
                        location :
-                       <input type="text" name="location" />
+                       <span></span>
+                       <input type="text" name="location" style="display: none;"/>
                    </span>
                    <br />
               </div>
