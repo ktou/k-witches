@@ -21,6 +21,7 @@
     <script src="js/jquery.pack.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery.jgrowl_google.js" type="text/javascript"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript"></script>
     <script type="text/javascript">
     <!--
     // Global
@@ -56,8 +57,10 @@
                 -->
                    <input type="file" id="file" name="file"/>
 
-                   <label>location :</label>
-                   <input type="text" id="location" name="location" />
+                   <span id="locationsetting">
+                       location :
+                       <input type="text" name="location" />
+                   </span>
                    <br />
               </div>
             </form>

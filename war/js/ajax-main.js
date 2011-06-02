@@ -47,21 +47,24 @@ $(function(){
                 $("#file").val("");
                 $("#post_form").submit();  //わざとPOSTすることで二重送信防止
             }, 100);
+            $.cookie("location", $("*:input[name=location]").val() , { expires: 30 });
         } else {
             $.ajax({
                 type: "POST",
                 url: "./sign",
                 data : {
                     comment : $("#textarea").val(),
-                    location : $("#location").val()
+                    location : $("*:input[name=location]").val()
                 },
                 success: function(data) {
                     $("#textarea").val("");
+                    $.cookie("location", $("*:input[name=location]").val() , { expires: 30 });
                 }
             });
             return false;
         }
     });
+    $("*:input[name=location]").val($.cookie("location"));
 
     $("#textarea").bind('paste', function(e) {
         setTimeout(function() {
