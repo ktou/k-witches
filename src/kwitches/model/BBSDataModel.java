@@ -45,6 +45,9 @@ public class BBSDataModel implements Serializable {
     /** アイコンへの参照 */
     private ModelRef<ImageModel> iconRef =
         new ModelRef<ImageModel>(ImageModel.class);
+    /** ロケーション */
+    private String location;
+
 
     /**
      * Returns the key.
@@ -204,7 +207,7 @@ public class BBSDataModel implements Serializable {
     public String getLongComment() {
         return longComment;
     }
-    
+
     public String getBBSComment() {
         return comment != null ? comment : longComment;
     }
@@ -216,6 +219,14 @@ public class BBSDataModel implements Serializable {
     public String getName() {
         UserModel model = getUserModelRef().getModel();
         return name != null ? name : model != null ? model.getName() : "null";
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public ModelRef<ImageModel> getIconRef() {
@@ -234,13 +245,13 @@ public class BBSDataModel implements Serializable {
         UploadedData file = this.uploadedDataRef.getModel();
         if (file == null) {
             return "";
-        } 
+        }
         String filename = file.getFileName();
         String key = Datastore.keyToString(file.getKey());
         int filesize = file.getLength() / 1024;
         long version = file.getVersion();
         return ("'filename':'" + filename + "','key':'" + key +"','length':'" +
-                filesize + "','version':'" + version + "'").replace("'", "\""); 
+                filesize + "','version':'" + version + "'").replace("'", "\"");
     }
 
 }
