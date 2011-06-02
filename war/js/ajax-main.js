@@ -52,7 +52,8 @@ $(function(){
                 type: "POST",
                 url: "./sign",
                 data : {
-                    comment : $("#textarea").val()
+                    comment : $("#textarea").val(),
+                    location : $("#location").val()
                 },
                 success: function(data) {
                     $("#textarea").val("");
@@ -231,6 +232,8 @@ Article.prototype = {
             ).append(
                 $("<div/>").addClass("bottom").attr("align", "right").append(
                     $("<a/>").addClass("time").attr("href", "#").text(e.date)
+                ).append(
+                    $("<span/>").addClass("location").attr("href", "#").text(decodeURL(e.location == "" ? "" : " from "+e.location))
                 )
             ).append(
                 $("<div/>").addClass("res")

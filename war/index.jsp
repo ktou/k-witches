@@ -56,6 +56,8 @@
                 -->
                    <input type="file" id="file" name="file"/>
 
+                   <label>location :</label>
+                   <input type="text" id="location" name="location" />
                    <br />
               </div>
             </form>
