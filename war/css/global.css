@@ -166,7 +166,7 @@ blockquote cite {
 	text-shadow: 0 0 10px #999999;
 }
 
-.bottom .time {
+.bottom .time, .bottom .location {
 	color: #666666;
 	font-size: 15px;
 	line-height: 16px;
@@ -503,4 +503,15 @@ div.sabrosus span.disabled {
     left: 700px;
     top:  5px;
     width:200px;
+}
+
+#locationsetting{
+	padding-left : 10px;
+	color: #666666;
+    font-size: 15px;
+    line-height: 16px;
+}
+
+#locationsetting input{
+	margin : 0;
 }
