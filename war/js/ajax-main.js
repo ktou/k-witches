@@ -4,7 +4,7 @@ $(function(){
        $("#aud").remove();
     }
     $('.clearField').clearField();
-    
+
     var article = new Article();
     article.drawArticles(1, 30);
     var pageFooter = new PagingFooter();
@@ -34,7 +34,7 @@ $(function(){
             });
         }
     };
-    
+
     $("#file").change(function() {
         isFileUpload = true;
     });
@@ -52,7 +52,8 @@ $(function(){
                 type: "POST",
                 url: "./sign",
                 data : {
-                    comment : $("#textarea").val()
+                    comment : $("#textarea").val(),
+                    location : $("#location").val()
                 },
                 success: function(data) {
                     $("#textarea").val("");
@@ -90,7 +91,7 @@ $(function(){
     $(".res").live("click",function(){
         createResDom(this);
     });
-    
+
     $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
 });
 
@@ -231,6 +232,8 @@ Article.prototype = {
             ).append(
                 $("<div/>").addClass("bottom").attr("align", "right").append(
                     $("<a/>").addClass("time").attr("href", "#").text(e.date)
+                ).append(
+                    $("<span/>").addClass("location").attr("href", "#").text(decodeURL(e.location == "" ? "" : " from "+e.location))
                 )
             ).append(
                 $("<div/>").addClass("res")
@@ -306,7 +309,7 @@ Article.prototype = {
     	name = name.replace(/\+/g,"%20");
     	document.title = "K-witches " + number + " : " + decodeURIComponent(name);
     },
-    
+
     _getFileDom : function(data) {
         var fileDom = "";
         if (!data.file.filename) return "";
