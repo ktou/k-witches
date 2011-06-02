@@ -17,10 +17,10 @@ import com.google.appengine.api.datastore.Key;
 public class JsonService {
 
     private static BBSDataModelDao bbsDao = BBSDataModelDao.GetInstance();
-    
+
     private static final String JSON_DATA_FORMAT =
-        "<'name':'{0}','ip':'{1}','date':'{2}'," +
-        "'comment':'{3}','id':'{4,number,#}','classtype':'{5}','icon':'{6}','file':<{7}>>";
+        "<'name':'{0}','location':'{1}','ip':'{2}','date':'{3}'," +
+        "'comment':'{4}','id':'{5,number,#}','classtype':'{6}','icon':'{7}','file':<{8}>>";
 
     /**
      * RequestMapによる条件指定でBBSDataModelのJSONデータを取得する
@@ -55,7 +55,7 @@ public class JsonService {
                 return this.getJson(resNumber);
             }
             int offset = hasOffset ? Integer.parseInt((String) input.get("offset")) : 0;
-            int limit = hasLimit ? Integer.parseInt((String) input.get("limit")) 
+            int limit = hasLimit ? Integer.parseInt((String) input.get("limit"))
                                           : BBSDataModelDao.DEFAULT_LIMIT;
             int page = hasPage ? Integer.parseInt((String) input.get("page")) : 1;
             offset += limit * (page - 1);
@@ -64,27 +64,28 @@ public class JsonService {
             return "";
         }
     }
-    
+
     public String getJson() throws Exception {
         List<BBSDataModel> bbsDataList = bbsDao.getBBSDataList();
         return this.getJson(bbsDataList);
     }
-    
+
     public String getJson(int offset, int limit) throws Exception {
         List<BBSDataModel> bbsDataList = bbsDao.getBBSDataList(offset, limit);
         return this.getJson(bbsDataList);
     }
-    
+
     public String getJson(int resNumber) throws Exception {
         List<BBSDataModel> bbsDataList = bbsDao.getBBSData(resNumber);
         return this.getJson(bbsDataList);
     }
-    
+
     public static String getSingleData(BBSDataModel bbsData) throws Exception {
         String comment = bbsData.getBBSComment();
         comment = TextTransformer.transform(comment);
         comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
         String name = (bbsData.getName() != null) ? URLEncoder.encode(bbsData.getName(), "UTF-8") : "null";
+        String location = (bbsData.getLocation() != null) ? URLEncoder.encode(bbsData.getLocation(), "UTF-8") : "";
         Key iconKey = (bbsData.getIconRef() != null) ? bbsData.getIconRef().getKey() : null;
         String iconKeyString = (iconKey != null) ? Datastore.keyToString(iconKey) : "";
         String fileJsonString = bbsData.getFileJsonString();
@@ -92,6 +93,7 @@ public class JsonService {
             JSON_DATA_FORMAT.replace("'", "\""),
             new Object[] {
                 name,
+                location,
                 bbsData.getIpAddress(),
                 TimeUtils.getDateString(bbsData.getCreatedDate()),
                 comment,
@@ -102,7 +104,7 @@ public class JsonService {
             }
         );
     }
-    
+
     protected String getJson(List<BBSDataModel> bbsDataList) throws Exception {
         if (bbsDataList == null) {
             return "{\"articles\":[]}";
