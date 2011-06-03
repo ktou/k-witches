@@ -39,7 +39,7 @@
         <script type="text/javascript" src="js/soundapi.js"></script>
         <img src="images/magi-logo.png"/>
         <br />
-        <p>僕とK棟してエントロピーを凌駕してよ！</p>
+        <p>僕と契約してから<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>で買い物してよ！</p>
         <c:if test="${isKAuth}">
         <div id="postlocate" class="backpartition">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
