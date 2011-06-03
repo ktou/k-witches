@@ -35,9 +35,6 @@ public class ApplyPostService {
                 text = text.substring(9);
             text = text.replace("&gt;", ">").replace("&lt;", "<");
 
-            input.put("name", name + "@twitter");
-            input.put("comment", text);
-
             UserModel userModel = getUserModelById(name);
             if (userModel == null) {
                 userModel = getUserModelByName(IMPORT_USER_NAME);
@@ -47,6 +44,10 @@ public class ApplyPostService {
                     return;
                 }
             }
+
+            input.put("name", userModel.getName());
+            input.put("comment", text);
+            input.put("location", "twitter");
 
             new SignService().sign(
                 input,
