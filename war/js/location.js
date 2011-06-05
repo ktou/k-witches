@@ -25,7 +25,7 @@ Location.prototype = {
         });
     },
 
-    bindFocusoutEvent: function() {
+    bindFocusoutEvent : function() {
         var _this = this;
         $(this.dom_id).focusout(function() {
             _this.hideInputDom();
@@ -46,8 +46,8 @@ Location.prototype = {
 
     hideInputDom : function() {
        if (!this.isDisplayInputDom()) {
-         this.display_dom.show();
-         this.input_dom.hide();
+           this.display_dom.show();
+           this.input_dom.hide();
        }
     },
 
@@ -67,21 +67,21 @@ Location.prototype = {
         this.input_dom.val(value);
     },
 
-    getName: function() {
+    getName : function() {
         return this.name;
     },
 
-    setName: function(name) {
+    setName : function(name) {
         this.input_dom.val(name);
         this.name = name || this.nothing_name;
         this.display_dom.text(" " + this.name);
     },
 
-    setNameByInputValue: function() {
+    setNameByInputValue : function() {
         this.setName(this.getInputValue());
     },
 
-    setCookieByInputValue: function() {
+    setCookieByInputValue : function() {
         this.setCookie(this.getInputValue());
     },
 
