@@ -13,6 +13,7 @@ $(function(){
     var channel = new goog.appengine.Channel(channelToken);
     var socket = channel.open();
     var isFileUpload = false;
+    var location = new Location("#locationsetting");
 
     socket.onmessage = function(msg) {
         var data = $.parseJSON(msg.data);
@@ -40,39 +41,33 @@ $(function(){
     });
 
     $("#post_button").click(function() {
+        function successHandler() {
+            $("#textarea").val("");
+            location.setNameAndCookieByInputValue();
+            location.hideInputDom();
+        }
+
         if (isFileUpload) {
             $("#post_form").submit();
             setTimeout(function() {
-                $("#textarea").val("");
                 $("#file").val("");
                 $("#post_form").submit();  //わざとPOSTすることで二重送信防止
+                successHandler();
             }, 100);
-            $.cookie("location", $("*:input[name=location]").val() , { expires: 30 });
         } else {
             $.ajax({
                 type: "POST",
                 url: "./sign",
                 data : {
                     comment : $("#textarea").val(),
-                    location : $("*:input[name=location]").val()
+                    location : location.getInputValue()
                 },
                 success: function(data) {
-                    $("#textarea").val("");
-                    $.cookie("location", $("#locationsetting input:first").val() , { expires: 30 });
+                    successHandler();
                 }
             });
             return false;
         }
-    });
-    $("#locationsetting input:first").val($.cookie("location"));
-    var locationstr = $.cookie("location");
-    if(locationstr == null || locationstr == "") locationstr = "none";
-    $("#locationsetting span:first").append(" "+locationstr);
-    $("#locationsetting").click(function() {
-    	if($("#locationsetting input:first").css("display") == "none"){
-    		$("#locationsetting span:first").hide();
-    		$("#locationsetting input:first").show();
-    	}
     });
 
     $("#textarea").bind('paste', function(e) {
