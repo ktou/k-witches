@@ -16,12 +16,13 @@
         google.load("jqueryui", "1.8");
     </script>
     <c:if test="${isKAuth}">
-    <script src='./_ah/channel/jsapi'></script>
-    <script src="js/object-prototype.js" type="text/javascript"></script>
-    <script src="js/jquery.pack.js" type="text/javascript"></script>
+    <script src="./_ah/channel/jsapi"></script>
+    <script src="js/util/object-prototype.js" type="text/javascript"></script>
+    <script src="js/jquery/jquery.pack.js" type="text/javascript"></script>
+    <script src="js/dom-modifier.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
-    <script src="js/jquery.jgrowl_google.js" type="text/javascript"></script>
-    <script src="js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="js/jquery/jquery.jgrowl_google.js" type="text/javascript"></script>
+    <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>
     <script type="text/javascript">
     <!--
     // Global
@@ -35,8 +36,8 @@
 <body>
     <jsp:include page="user_account.jsp" />
     <c:if test="${'LOGIN' == isLogin}">
-        <script type="text/javascript" src="js/swfobject.js"></script>
-        <script type="text/javascript" src="js/soundapi.js"></script>
+        <script type="text/javascript" src="js/util/swfobject.js"></script>
+        <script type="text/javascript" src="js/util/soundapi.js"></script>
         <img src="images/magi-logo.png"/>
         <br />
         <p>僕と契約してから<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>で買い物してよ！</p>
