@@ -14,12 +14,13 @@
 <c:if test="${isKAuth}">
 <form action="/signmobile" method="post">
   <textarea id="body" name="comment" class="textarea" cols="40" rows="5">${f:h(body)}</textarea><br />
+  <input type="hidden" name="location" value="mobile">
   <input type="submit" value="送信">
 </form>
 
 <div class="content">
 <c:forEach var="bbsData" items="${bbsDataList}">
-  <span class="xfolkentry"><a href="./mobile?offset=${offset}&limit=${limit}&body=%3E%3E${bbsData.id}">${bbsData.id}</a> 
+  <span class="xfolkentry"><a href="./mobile?offset=${offset}&limit=${limit}&body=%3E%3E${bbsData.id}">${bbsData.id}</a>
   &nbsp;<a href=""><b>${bbsData.name}</b></a>&nbsp;
   <fmt:formatDate value="${bbsData.createdDate}" pattern="yyyy-MM-dd（E） kk:mm:ss" />
   <blockquote>
