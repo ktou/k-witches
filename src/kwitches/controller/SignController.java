@@ -17,15 +17,20 @@ public class SignController extends Controller {
     
     @Override
     public Navigation run() throws Exception {
+        sign();
+        return null;
+    }
+    
+    public boolean sign() {
         String comment = (String) request.getAttribute("comment");
         if (comment == null || comment.equals("")) {
-            return null;
+            return false;
         }
         UserModel userModel =  UserModelDao.getCurrentUser();
         String ipAddress = request.getRemoteAddr();
         Date date = TimeUtils.getJstDate();
         FileItem formFile = requestScope("file");
         service.sign(new RequestMap(request), ipAddress , date, userModel, formFile);
-        return null;
+        return true;
     }
 }
