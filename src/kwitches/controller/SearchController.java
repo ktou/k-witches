@@ -1,24 +1,15 @@
 package kwitches.controller;
 
-import java.io.PrintWriter;
+import org.slim3.controller.Navigation;
 
 import kwitches.service.SearchService;
 
-import org.slim3.controller.Controller;
-import org.slim3.controller.Navigation;
-
-public class SearchController extends Controller {
-    
-    private SearchService service = new SearchService();
+public class SearchController extends JsonController {
     
     @Override
     public Navigation run() throws Exception {
-        response.setContentType("application/json");
-        PrintWriter pw = response.getWriter();
-        String word = asString("word");
-        String jsonString = service.search(word);
-        pw.println(jsonString);
-        pw.close();
+        search(new SearchService());
         return null;
     }
+
 }
