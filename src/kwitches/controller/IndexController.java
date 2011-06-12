@@ -26,6 +26,8 @@ public class IndexController extends Controller {
                 MessageFactory.create(MessageFactory.Type.BOOTH_IN);
             message.setInformation(userModel.getName());
             ms.sendMessageAll(message);
+            requestScope("userName", userModel.getName());
+            requestScope("userId", userModel.getUser().getNickname());
         }
         requestScope("maxId", BBSDataModelDao.getMaxId());
         return forward("index.jsp");

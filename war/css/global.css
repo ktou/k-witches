@@ -92,12 +92,12 @@ blockquote cite {
 	margin: 15px 0px;
 }
 
-#ustream{
+.gadget {
 	padding: 12px 0px 12px 0px;
 	margin: 15px 0px;
 }
 
-#ustream h4,#ustream div {
+.gadget h4, .gadget div, .gadget span {
 	padding: 10px;
 }
 

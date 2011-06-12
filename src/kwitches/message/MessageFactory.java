@@ -4,7 +4,7 @@ package kwitches.message;
  * @author voidy21
  */
 public class MessageFactory {
-    public enum Type {SIGN, BOOTH_IN};
+    public enum Type {SIGN, BOOTH_IN, LIVE};
     
     private MessageFactory() {}
     
@@ -17,6 +17,10 @@ public class MessageFactory {
             }
             case BOOTH_IN : {
                 mi = new BoothInMessageImpl();
+                break;
+            }
+            case LIVE : {
+                mi = new LiveMessageImpl();
                 break;
             }
         }

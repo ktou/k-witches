@@ -15,7 +15,7 @@ import kwitches.util.StringUtils;
 /**
  * @author voidy21
  */
-public abstract class MapMessageAbstract implements MapMessageInterface {
+public abstract class AbstractMapMessage implements MapMessageInterface {
     
     private Map<String, Object> information;
     

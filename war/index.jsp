@@ -21,6 +21,7 @@
     <script src="js/jquery/jquery.pack.js" type="text/javascript"></script>
     <script src="js/dom-modifier.js" type="text/javascript"></script>
     <script src="js/location.js" type="text/javascript"></script>
+    <script src="js/livechecker.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.jgrowl_google.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>
@@ -29,6 +30,8 @@
     // Global
     channelToken = "${f:h(channelToken)}";
     g_maxId = ${f:h(maxId)};
+    g_userName = "${f:h(userName)}";
+    g_userId = "${f:h(userId)}";
     //-->
     </script>
     </c:if>
@@ -73,7 +76,11 @@
             <input id="search" type="text" class="clearField" value="検索" />
             <audio controls id="aud"><source src="./swf/notify_sound1.mp3"></audio>
         </div>
-        <div id="ustream" class="backpartition">
+        <div id="liveChecker" class="backpartition gadget">
+          <h4>ActiveUsers</h4>
+          <span></span>
+        </div>
+        <div id="ustream" class="backpartition gadget">
         	<h4>K棟24時</h4>
         	<div id="ustplayer">
 				<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"

@@ -14,6 +14,7 @@ $(function(){
     var socket = channel.open();
     var isFileUpload = false;
     var location = new Location("#locationsetting");
+    var liveChecker = new LiveChecker("#liveChecker");
 
     socket.onmessage = function(msg) {
         var data = $.parseJSON(msg.data);
@@ -33,6 +34,9 @@ $(function(){
             $.jGrowl(data.content + "さんが円環の理に導かれました", {
                speed: 'fast'
             });
+            liveChecker.appendOrUpdate(data.content);
+        } else if (data.type == "live") {
+            liveChecker.appendOrUpdate(data.content);
         }
     };
 
@@ -100,6 +104,28 @@ $(function(){
     });
 
     $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
+    
+    liveChecker.append(getSelfInfo());
+    sendLivingMessage();
+    setInterval(function(){
+    	sendLivingMessage();
+    },LiveUser.auto_remove_time - 1000);
+    
+    function sendLivingMessage() {
+    	$.ajax({
+    		type: "POST",
+    		url: "api/live",
+    		data: getSelfInfo()
+    	});
+    }
+    
+    function getSelfInfo() {
+        return {
+			name: g_userName,
+			location: location.getInputValue(),
+			id: g_userId
+		}	
+    }
 });
 
 function createResDom(resAnchor) {

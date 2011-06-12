@@ -23,3 +23,4 @@ public class BoothInMessageImpl implements MessageInterface {
     }
 
 }
+
