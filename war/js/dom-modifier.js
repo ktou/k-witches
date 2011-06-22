@@ -262,6 +262,48 @@ TumblrThumnail.prototype = new DomModifier();
 
 }).apply(TumblrThumnail.prototype);
 
+var PixivThumnail = function() {
+    this.initialize.apply(this, arguments);
+}
+
+PixivThumnail.prototype = new DomModifier();
+
+(function() {
+    this.initialize = function(domPattern) {
+        DomModifier.prototype.initialize.apply(this, arguments);
+    },
+
+    this.execute = function() {
+        var _this = this;
+
+        $(this.domPattern).each(function() {
+            var illust_id = $(this).attr("data-pixivillustid");
+            var pixiv_detail_url = "http://iphone.pxv.jp/iphone/illust.php?illust_id="+illust_id;
+            var dom = this;
+            $.ajax({
+                type: "GET",
+                url: "/util/fetchurl",
+                data: {url: pixiv_detail_url},
+                dataType: "text",
+                success: function(data) {
+                    var illust_url_480 = data.match("http://[^:]*480mw.jpg");
+                    var illust_url_128 = data.match("http://[^:]*128x128.jpg");
+                    $(dom).empty().append(
+                        $("<a/>").attr({
+                            "href" : illust_url_480,
+                            "target" : "_blank"
+                        }).append(
+                            $("<img/>").attr("src", illust_url_128)
+                        )
+                    );
+                }
+            });
+            $(this).removeClass(_this.domPattern.split(".")[1]);
+        });
+    }
+
+}).apply(PixivThumnail.prototype);
+
 var TwitterThumnail = function() {
     this.initialize.apply(this, arguments);
 }

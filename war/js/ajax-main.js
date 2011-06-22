@@ -104,13 +104,13 @@ $(function(){
     });
 
     $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
-    
+
     liveChecker.append(getSelfInfo());
     sendLivingMessage();
     setInterval(function(){
     	sendLivingMessage();
     },LiveUser.auto_remove_time - 1000);
-    
+
     function sendLivingMessage() {
     	$.ajax({
     		type: "POST",
@@ -118,13 +118,13 @@ $(function(){
     		data: getSelfInfo()
     	});
     }
-    
+
     function getSelfInfo() {
         return {
 			name: g_userName,
 			location: location.getInputValue(),
 			id: g_userId
-		}	
+		}
     }
 });
 
@@ -329,6 +329,7 @@ Article.prototype = {
             new GistPreview("div.new_gist_preview", lazyScriptLoader),
             new TwitterThumnail("div.new_twitter_thumb"),
             new TumblrThumnail("div.new_tumblr_thumb"),
+            new PixivThumnail("div.new_pixiv_thumb"),
             new InstagrThumnail("div.new_instagr_thumb"),
             new NormalLink("div.new_link")
         ];
