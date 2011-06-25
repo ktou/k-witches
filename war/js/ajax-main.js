@@ -22,7 +22,14 @@ $(function(){
             if (g_maxId == data.content.id) {
                 return;
             }
-            Api.playSound('../swf/notify_sound1.mp3');
+            var tilofinaleUrlArray = new Array(
+                    '../swf/tilofinale_all.mp3',
+                    '../swf/tilofinale_kyoko.mp3',
+                    '../swf/tilofinale_mami1.mp3',
+                    '../swf/tilofinale_mami2.mp3',
+                    '../swf/tilofinale_mami3.mp3'
+            );
+            Api.playSound(tilofinaleUrlArray[Math.floor(Math.random()*tilofinaleUrlArray.length)]);
             g_maxId = data.content.id;
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
