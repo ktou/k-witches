@@ -17,7 +17,7 @@ public class TwitterLinkTransformer
     extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "twitter";
-    private static final String REGEXP_URL_STRING = "^http://twitter.com/(#!/)?(\\w+)/status(\\w*)/(\\d+)/?";
+    private static final String REGEXP_URL_STRING = "^https?://twitter.com/(#!/)?(\\w+)/status(\\w*)/(\\d+)/?";
 
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
