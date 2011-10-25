@@ -28,6 +28,7 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
 
     private List<HyperlinkTransformInterface> hyperlinkTransformerList =
         new ArrayList<HyperlinkTransformInterface>(){{
+            add(new ShortenLinkTransformer());
             add(new AmazonLinkTransformer());
             add(new GistLinkTransformer());
             add(new NicovideoLinkTransformer());
