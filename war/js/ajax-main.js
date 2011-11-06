@@ -22,7 +22,12 @@ $(function(){
             if (g_maxId == data.content.id) {
                 return;
             }
-            Api.playSound('../swf/omaetachini_tugeru.mp3');
+            var signSoundUrlArray = new Array(
+//                    '../swf/omaetachini_tugeru.mp3',
+                    '../swf/dayone.mp3',
+                    '../swf/shibirerudaro.mp3'
+            );
+            Api.playSound(signSoundUrlArray[Math.floor(Math.random()*signSoundUrlArray.length)]);
             g_maxId = data.content.id;
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
@@ -30,7 +35,11 @@ $(function(){
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-            Api.playSound('../swf/seizon_senryaku.mp3');
+            var signSoundUrlArray = new Array(
+//                  '../swf/seizon_senryaku.mp3',
+                  '../swf/seizon_sanetoshi.mp3'
+            );
+            Api.playSound(boothinSoundUrlArray[Math.floor(Math.random()*boothinSoundUrlArray.length)]);
             $.jGrowl(data.content + "「K棟戦略しましょうか」", {
                speed: 'fast'
             });
