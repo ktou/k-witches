@@ -1,7 +1,7 @@
 @CHARSET "utf-8";
 
 body {
-	background: #F5F5F5 url(/images/back.png) no-repeat fixed center center;
+	background: #F5F5F5 url(/images/pd-back.png) left top;
 	margin: 5px 10px;
 	font-family:"MeiryoKe_PGothic","MS UI Gothic";
 }
@@ -85,6 +85,10 @@ blockquote cite {
 	padding-bottom: 10px;
 	padding-left: 10px;
 	margin: 0px;
+}
+
+#logo{
+	background: url(../images/a70.png) repeat;
 }
 
 #postlocate {

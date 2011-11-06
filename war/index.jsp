@@ -35,14 +35,14 @@
     //-->
     </script>
     </c:if>
-    <title>KEITO KAMADA</title>
+    <title>KEITOHSENRYAKU</title>
 </head>
 <body>
     <jsp:include page="user_account.jsp" />
     <c:if test="${'LOGIN' == isLogin}">
         <script type="text/javascript" src="js/util/swfobject.js"></script>
         <script type="text/javascript" src="js/util/soundapi.js"></script>
-        <img src="images/magi-logo.png"/>
+        <img id="logo" src="images/pd-logo.png"/>
         <br />
         <p>僕と契約してから<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>で買い物してよ！</p>
         <c:if test="${isKAuth}">

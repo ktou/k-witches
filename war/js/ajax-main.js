@@ -22,14 +22,7 @@ $(function(){
             if (g_maxId == data.content.id) {
                 return;
             }
-            var tilofinaleUrlArray = new Array(
-                    '../swf/tilofinale_all.mp3',
-                    '../swf/tilofinale_kyoko.mp3',
-                    '../swf/tilofinale_mami1.mp3',
-                    '../swf/tilofinale_mami2.mp3',
-                    '../swf/tilofinale_mami3.mp3'
-            );
-            Api.playSound(tilofinaleUrlArray[Math.floor(Math.random()*tilofinaleUrlArray.length)]);
+            Api.playSound('../swf/omaetachini_tugeru.mp3');
             g_maxId = data.content.id;
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
@@ -37,8 +30,8 @@ $(function(){
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-            Api.playSound('../swf/notify_sound2.mp3');
-            $.jGrowl(data.content + "さんが円環の理に導かれました", {
+            Api.playSound('../swf/seizon_senryaku.mp3');
+            $.jGrowl(data.content + "「K棟戦略しましょうか」", {
                speed: 'fast'
             });
             liveChecker.appendOrUpdate(data.content);
@@ -348,7 +341,7 @@ Article.prototype = {
 
     rewritePageTitle : function(number, name) {
     	name = name.replace(/\+/g,"%20");
-    	document.title = "KEITO KAMADA " + number + " : " + decodeURIComponent(name);
+    	document.title = "KEITOHSENRYAKU " + number + " : " + decodeURIComponent(name);
     },
 
     _getFileDom : function(data) {
