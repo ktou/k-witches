@@ -10,11 +10,6 @@ body {
     font: 10px;
 }
 
-#logo{
-	background: white;
-	opacity: 0.7;
-}
-
 #postlocate {
 	font-size: 20px;
 }
@@ -35,8 +30,6 @@ body {
 }
 
 .backpartition {
-    background: white;
-    opacity: 0.7;
     width: 100%;
 }
 

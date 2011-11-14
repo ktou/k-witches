@@ -23,11 +23,7 @@ input,textarea {
 	margin-left: 12px;
 	border: 1px solid #999;
 	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
 	box-shadow: 0 0 2px #CCC;
-	-webkit-box-shadow: 0 0 2px #CCC;
-	-moz-box-shadow: 0 0 2px #CCC;
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFF),
 		to(#EEE) );
 	background-image: -moz-linear-gradient(top, #FFF, #EEE);
@@ -36,7 +32,6 @@ input,textarea {
 input[type="text"]:focus,textarea:focus {
 	background-image: none;
 	background-color: #FFD;
-	-moz-box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
 	border-color: rgba(82, 168, 236, 0.75) !important;
 	outline: medium none;
 }
@@ -88,7 +83,7 @@ blockquote cite {
 }
 
 #logo{
-	background: url(../images/a70.png) repeat;
+	background-color: rgba(255,255,255,0.7);
 }
 
 #postlocate {
@@ -117,9 +112,7 @@ blockquote cite {
 
 .backpartition{
 	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	background: url(../images/a70.png) repeat;
+	background-color: rgba(255,255,255,0.7);
 	border: 1px solid #D1D1D1;
 	width: 900px;
 }
@@ -179,81 +172,11 @@ blockquote cite {
 }
 
 /*-------------------------------------------------------
- * メッセージボックス
- *-----------------------------------------------------*/
-.alert {
-	background: url("../images/exclamation.png") no-repeat scroll 15px 50%
-		#FFF6BF;
-	border-bottom: 2px solid #FFD324;
-	border-top: 2px solid #FFD324;
-	padding: 5px 20px 5px 45px;
-}
-
-.info {
-	background: url("../images/information.png") no-repeat scroll 15px 50%
-		#F8FAFC;
-	border-bottom: 2px solid #B5D4FE;
-	border-top: 2px solid #B5D4FE;
-	padding: 5px 20px 5px 45px;
-}
-
-.download {
-	background: url("../images/download.png") no-repeat scroll 15px 50%
-		#CCFFCC;
-	border-bottom: 2px solid #33CC66;
-	border-top: 2px solid #33CC66;
-	padding: 5px 20px 5px 45px;
-}
-
-/*-------------------------------------------------------
  * h1~h6
  *-----------------------------------------------------*/
 h2,h3 {
 	border-left: 7px solid #FFA500;
 	padding: 0.8em 0.9em;
-}
-
-/* コンテナ:Tooltip全体 */
-#tooltip {
-	text-align: left;
-	position: absolute;
-	left: -999em;
-	z-index: 1;
-	filter: alpha(opacity = 85);
-	-moz-opacity: 0.85;
-	opacity: 0.85;
-	background-image: url(../images/img_back.gif);
-	background-repeat: no-repeat;
-	width: 230px;
-	height: 230px;
-}
-
-/* IE 6:インラインフレーム */
-.bgiframe {
-	text-align: left;
-	background-color: #FFFFFF;
-	border: 1px solid #CCCCCC;
-	padding: 1px;
-	filter: progid : DXImageTransform.Microsoft.Alpha ( opacity = 90 );
-}
-
-#tooltip .body {
-	font-size: 12px;
-	margin: 0;
-	line-height: 16px;
-	color: #999;
-	padding-top: 0px;
-	padding-right: 5px;
-	padding-bottom: 5px;
-	padding-left: 15px;
-}
-
-.bgiframe {
-	text-align: left;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	padding: 1px;
-	filter: progid : DXImageTransform.Microsoft.Alpha ( opacity = 90 );
 }
 
 * {
@@ -273,30 +196,6 @@ input,textarea {
 	font-family: "MeiryoKe_PGothic", Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #404040;
-}
-
-.textinput,.textinputHovered {
-	width: 236px;
-	height: 15px;
-	background: url(../images/input.gif) no-repeat left top;
-	border: none;
-	padding: 4px 8px;
-}
-
-.textinputHovered {
-	background-position: left bottom;
-}
-
-.textarea,.textareaHovered {
-	width: 336px;
-	height: 125px;
-	background: url(../images/textarea.gif) no-repeat left top;
-	border: none;
-	padding: 4px 8px;
-}
-
-.textareaHovered {
-	background-position: left bottom;
 }
 
 .buttonSubmit,.buttonSubmitHovered {
@@ -420,35 +319,6 @@ button.regular,.buttons a.regular {
 	background-color: #6299c5;
 	border: 1px solid #6299c5;
 	color: #fff;
-}
-
-/*-----------------------------------------------------
- * オーバレイ
-*----------------------------------------------------*/
-.preview_div {
-	position: fixed;
-	width: 680px;
-	height: 500px;
-	overflow: auto;
-	left: 50%;
-	margin-left: -400px;
-	top: 50%;
-	margin-top: -330px;
-	background: #fff;
-	padding: 20px;
-}
-
-#overlay {
-	background: #000;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	opacity: 0.75;
-	-moz-opacity: 0.75; /* Firefox */
-	filter: alpha(opacity = 75); /* IE6/7 */
-	-ms-filter: "alpha(opacity=75)"; /* IE8 */
 }
 
 div.sabrosus {
