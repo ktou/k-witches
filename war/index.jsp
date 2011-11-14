@@ -80,6 +80,7 @@
           <h4>ActiveUsers</h4>
           <span></span>
         </div>
+        <% if(request.getHeader("User-Agent").indexOf("Mobile") == -1){ %>
         <div id="ustream" class="backpartition gadget">
             <h4>K棟24時</h4>
             <div id="ustplayer">
@@ -99,6 +100,7 @@
                 </object>
             </div>
         </div>
+        <% } %>
         <div id="articles" class="backpartition"></div>
         <div id="pagelink"></div>
         </c:if>
