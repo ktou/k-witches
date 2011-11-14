@@ -12,7 +12,7 @@
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">
-        google.load("jquery", "1.6");
+        google.load("jquery", "1.7");
         google.load("jqueryui", "1.8");
     </script>
     <c:if test="${isKAuth}">
