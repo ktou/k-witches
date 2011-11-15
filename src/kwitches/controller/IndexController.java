@@ -34,6 +34,19 @@ public class IndexController extends Controller {
             requestScope("ustId", StaticValueDao.getValue(StaticValueType.USTREAM_CHANNEL_KEY));
         }
         requestScope("maxId", BBSDataModelDao.getMaxId());
+
+        String page = "1";
+        if (request.getAttribute("page") != null) {
+            try {
+                if (Integer.parseInt((String) request.getAttribute("page")) > 1) {
+                    page = (String) request.getAttribute("page");
+                }
+            } catch (NumberFormatException n) {
+                // noting to do when inputted illegal pagenumber
+            }
+        }
+        requestScope("page", page);
+
         return forward("index.jsp");
     }
 }

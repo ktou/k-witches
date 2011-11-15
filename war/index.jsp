@@ -5,6 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <base href="/" />
     <link rel="shortcut icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link rel="icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link type="text/css" rel="stylesheet" href="css/global.css">
@@ -32,6 +33,7 @@
     g_maxId = ${f:h(maxId)};
     g_userName = "${f:h(userName)}";
     g_userId = "${f:h(userId)}";
+    g_page = "${f:h(page)}";
     //-->
     </script>
     </c:if>

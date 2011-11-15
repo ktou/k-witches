@@ -6,10 +6,11 @@ $(function(){
     $('.clearField').clearField();
 
     var article = new Article();
-    article.drawArticles(1, 30);
-    var pageFooter = new PagingFooter();
+    var pageFooter = new PagingFooter(g_page);
     pageFooter.setMaxId(g_maxId);
+    article.drawArticles(g_page, 30);
     pageFooter.drawPageLink();
+
     var channel = new goog.appengine.Channel(channelToken);
     var socket = channel.open();
     var isFileUpload = false;
@@ -176,11 +177,24 @@ var PagingFooter = function() {
 }
 
 PagingFooter.prototype = {
-    initialize : function() {
-        this.currentPage = 1;
+    initialize : function(page) {
+        this.currentPage = parseInt(page);
         this.maxPage = 1;
         this.maxId = 0;
         this.pageLength = 30;
+        var _this = this;
+        window.onpopstate = function(event){
+            var nextpage = _this.currentPage;
+            var urlHierarchy = window.location.href.split('\/');
+            if(urlHierarchy.length == 6 && urlHierarchy[3] == 'page'){
+                nextpage = urlHierarchy[4];
+            } else if(urlHierarchy.length == 4){
+                nextpage = 1;
+            }
+            if(_this.currentPage != nextpage){
+                _this.movePage(nextpage,false);
+            }
+        }
     },
 
     setMaxId : function(maxId) {
@@ -222,8 +236,9 @@ PagingFooter.prototype = {
     },
 
     movePage : function(moveTo){
-        this.currentPage = moveTo;
+        this.currentPage = parseInt(moveTo);
         this.maxId = 0;
+        if(arguments.length < 2 || arguments[1]) history.pushState("", "", "/page/"+moveTo+"/");
         $("#articles").empty();
         new Article().drawArticles(this.currentPage, this.pageLength);
         this.drawPageLink();
