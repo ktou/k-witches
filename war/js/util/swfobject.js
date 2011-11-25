@@ -144,7 +144,7 @@ var SWFObject=deconcept.SWFObject;
 //--------------------------------------------------------------------
 var soundapi_setup = {
   obj_id:   'id_soundapi',
-  swf_path: 'js/soundapi.swf'
+  swf_path: 'swf/soundapi.swf'
 };
 
 document.write('<!-- saved from url=(0013)about:internet -->');
