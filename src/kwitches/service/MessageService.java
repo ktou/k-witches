@@ -15,22 +15,22 @@ import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory; 
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 public class MessageService {
     private static ChannelService channel = ChannelServiceFactory.getChannelService();
     private static MemcacheService memcached = MemcacheServiceFactory.getMemcacheService();
     public static final String PUSH_ALL_CLIENT = "all_clients";
-   
+
     public static String getToken() {
         return getToken(UserModelDao.getCurrentUser());
     }
-    
+
     public static String getToken(UserModel userModel) {
         String channelId = Datastore.keyToString(userModel.getKey());
         return channel.createChannel(channelId);
     }
-    
+
     public void sendMessageAll(String message) {
         Set<String> clients = this.getClients();
         if (clients == null) {
@@ -41,20 +41,20 @@ public class MessageService {
             try {
                 channel.sendMessage(cm);
             }catch(Exception e) {
-               
+
             }
         }
     }
-    
+
     public void sendMessageAll(MessageInterface message) {
         this.sendMessageAll(message.getMessage());
     }
-    
+
     @SuppressWarnings("unchecked")
     public Set<String> getClients() {
         return (Set<String>) memcached.get(PUSH_ALL_CLIENT);
     }
-    
+
     public void putClients(UserModel userModel) {
         Set<String> clients = this.getClients();
         if (clients == null) {
@@ -64,6 +64,6 @@ public class MessageService {
         if (!clients.contains(clientKey)) {
             clients.add(clientKey);
         }
-        memcached.put(PUSH_ALL_CLIENT, clients, Expiration.byDeltaSeconds(3600));
+        memcached.put(PUSH_ALL_CLIENT, clients, Expiration.byDeltaSeconds(7200));
     }
 }
