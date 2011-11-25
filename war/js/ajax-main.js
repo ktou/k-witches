@@ -24,7 +24,7 @@ $(function(){
                 return;
             }
             var signSoundUrlArray = new Array(
-//                    '../swf/omaetachini_tugeru.mp3',
+                    '../swf/omaetachini_tugeru.mp3',
                     '../swf/dayone.mp3',
                     '../swf/shibirerudaro.mp3'
             );
@@ -36,8 +36,8 @@ $(function(){
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-            var signSoundUrlArray = new Array(
-//                  '../swf/seizon_senryaku.mp3',
+            var boothinSoundUrlArray = new Array(
+                  '../swf/seizon_senryaku.mp3',
                   '../swf/seizon_sanetoshi.mp3'
             );
             Api.playSound(boothinSoundUrlArray[Math.floor(Math.random()*boothinSoundUrlArray.length)]);
