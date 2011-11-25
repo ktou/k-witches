@@ -17,7 +17,7 @@ $(function(){
     var location = new Location("#locationsetting");
     var liveChecker = new LiveChecker("#liveChecker");
 
-    socket.onmessage = function(msg) {
+    var applyMessage = function(msg) {
         var data = $.parseJSON(msg.data);
         if (data.type == "sign") {
             if (g_maxId == data.content.id) {
@@ -49,6 +49,21 @@ $(function(){
             liveChecker.appendOrUpdate(data.content);
         }
     };
+    var reOpen = function(){
+    	$.ajax({
+    		type: "GET",
+    		url: "./api/token/get",
+    		success: function(data) {
+    			channel = new goog.appengine.Channel(data);
+    			socket = channel.open();
+    			socket.onmessage = applyMessage;
+    			socket.onclose   = reOpen;
+    		}
+    	});
+    };
+
+    socket.onmessage = applyMessage;
+    socket.onclose   = reOpen;
 
     $("#file").change(function() {
         isFileUpload = true;
