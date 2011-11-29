@@ -6,4 +6,10 @@
 		<schedule>every 1 minutes</schedule>
 		<timezone>Asia/Tokyo</timezone>
 	</cron>
+	<cron>
+		<url>/api/maxid</url>
+		<description>push maxid to all socket every 1 minutes</description>
+		<schedule>every 1 minutes</schedule>
+		<timezone>Asia/Tokyo</timezone>
+	</cron>
 </cronentries>

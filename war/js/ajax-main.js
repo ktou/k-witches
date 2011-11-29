@@ -48,19 +48,27 @@ $(function(){
             liveChecker.appendOrUpdate(data.content);
         } else if (data.type == "live") {
             liveChecker.appendOrUpdate(data.content);
+        } else if(data.type == "max_id"){
+            if(data.content > g_maxId){
+                g_maxId = parseInt(data.content);
+                $("#articles").empty();
+                pageFooter.setMaxId(g_maxId);
+                pageFooter.drawPageLink();
+                article.drawArticles(g_page, pageLength);
+            }
         }
     };
     var reOpen = function(){
-    	$.ajax({
-    		type: "GET",
-    		url: "./api/token/get",
-    		success: function(data) {
-    			channel = new goog.appengine.Channel(data);
-    			socket = channel.open();
-    			socket.onmessage = applyMessage;
-    			socket.onclose   = reOpen;
-    		}
-    	});
+        $.ajax({
+            type: "GET",
+            url: "./api/token/get",
+            success: function(data) {
+                channel = new goog.appengine.Channel(data);
+                socket = channel.open();
+                socket.onmessage = applyMessage;
+                socket.onclose   = reOpen;
+            }
+        });
     };
 
     socket.onmessage = applyMessage;
@@ -134,23 +142,23 @@ $(function(){
     liveChecker.append(getSelfInfo());
     sendLivingMessage();
     setInterval(function(){
-    	sendLivingMessage();
+        sendLivingMessage();
     },LiveUser.auto_remove_time - 1000);
 
     function sendLivingMessage() {
-    	$.ajax({
-    		type: "POST",
-    		url: "api/live",
-    		data: getSelfInfo()
-    	});
+        $.ajax({
+            type: "POST",
+            url: "api/live",
+            data: getSelfInfo()
+        });
     }
 
     function getSelfInfo() {
         return {
-			name: g_userName,
-			location: location.getInputValue(),
-			id: g_userId
-		}
+            name: g_userName,
+            location: location.getInputValue(),
+            id: g_userId
+        }
     }
 });
 
@@ -379,8 +387,8 @@ Article.prototype = {
     },
 
     rewritePageTitle : function(number, name) {
-    	name = name.replace(/\+/g,"%20");
-    	document.title = "KEITOHSENRYAKU " + number + " : " + decodeURIComponent(name);
+        name = name.replace(/\+/g,"%20");
+        document.title = "KEITOHSENRYAKU " + number + " : " + decodeURIComponent(name);
     },
 
     _getFileDom : function(data) {

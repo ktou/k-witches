@@ -4,10 +4,10 @@ package kwitches.message;
  * @author voidy21
  */
 public class MessageFactory {
-    public enum Type {SIGN, BOOTH_IN, LIVE};
-    
+    public enum Type {SIGN, BOOTH_IN, LIVE, MAX_ID};
+
     private MessageFactory() {}
-    
+
     public static MessageInterface create(Type type) {
         MessageInterface mi = null;
         switch (type) {
@@ -21,6 +21,10 @@ public class MessageFactory {
             }
             case LIVE : {
                 mi = new LiveMessageImpl();
+                break;
+            }
+            case MAX_ID : {
+                mi = new MaxIdMessageImpl();
                 break;
             }
         }
