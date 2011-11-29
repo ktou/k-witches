@@ -7,7 +7,6 @@ import kwitches.service.dao.BBSDataModelDao;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
-import org.slim3.util.RequestMap;
 
 public class MaxidController extends Controller {
 

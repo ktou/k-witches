@@ -3,16 +3,13 @@
  */
 package kwitches.text.hyperlink;
 
-import static kwitches.text.hyperlink.HyperlinkTransformUtil.getDivHtml;
-import static kwitches.text.hyperlink.HyperlinkTransformUtil.getSBMLinks;
-
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import kwitches.text.TextTransformer;
 
 import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPMethod;
@@ -20,8 +17,6 @@ import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
-
-import kwitches.text.TextTransformer;
 
 /**
  * @author thrakt
