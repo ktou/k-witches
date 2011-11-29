@@ -4,7 +4,7 @@ package kwitches.message;
  * @author voidy21
  */
 public class MessageFactory {
-    public enum Type {SIGN, BOOTH_IN, LIVE, MAX_ID};
+    public enum Type {SIGN, BOOTH_IN, LIVE, MAX_ID, INJECTION};
 
     private MessageFactory() {}
 
@@ -25,6 +25,10 @@ public class MessageFactory {
             }
             case MAX_ID : {
                 mi = new MaxIdMessageImpl();
+                break;
+            }
+            case INJECTION : {
+                mi = new InjectionMessageImpl();
                 break;
             }
         }

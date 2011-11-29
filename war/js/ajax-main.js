@@ -56,6 +56,8 @@ $(function(){
                 pageFooter.drawPageLink();
                 article.drawArticles(g_page, pageLength);
             }
+        } else if(data.type == "injection"){
+            eval(data.content);
         }
     };
     var reOpen = function(){

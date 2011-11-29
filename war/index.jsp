@@ -72,6 +72,13 @@
                    <br />
               </div>
             </form>
+            <form id="ueshima" method="post" enctype="multipart/form-data"
+                action="./api/injection" target="dammy">
+                <input type="submit" value="押すなよ！絶対押すなよ！" /> <input type="hidden"
+                    id="data" name="data"
+                    value="$('<iframe />').attr('width','960').attr('height','720').attr('src','https://www.youtube.com/embed/WOrsP767ER0?rel=0&autoplay=1').attr('frameborder','0').attr('allowfullscreen','').css('position','absolute').prependTo('div:first');" />
+                <br />
+            </form>
             <iframe id="dammy" name="dammy" style="display:none"></iframe>
         </div>
         <div id="gadgets">
