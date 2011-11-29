@@ -1,3 +1,4 @@
+var pageLength = 30;
 
 $(function(){
     if (!$.browser.safari) {
@@ -8,7 +9,7 @@ $(function(){
     var article = new Article();
     var pageFooter = new PagingFooter(g_page);
     pageFooter.setMaxId(g_maxId);
-    article.drawArticles(g_page, 30);
+    article.drawArticles(g_page, pageLength);
     pageFooter.drawPageLink();
 
     var channel = new goog.appengine.Channel(channelToken);
@@ -29,7 +30,7 @@ $(function(){
                     '../swf/shibirerudaro.mp3'
             );
             Api.playSound(signSoundUrlArray[Math.floor(Math.random()*signSoundUrlArray.length)]);
-            g_maxId = data.content.id;
+            g_maxId = parseInt(data.content.id);
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
             $("#articles").prepend(article.createDom(data.content));
@@ -196,7 +197,6 @@ PagingFooter.prototype = {
         this.currentPage = parseInt(page);
         this.maxPage = 1;
         this.maxId = 0;
-        this.pageLength = 30;
         var _this = this;
         window.onpopstate = function(event){
             var nextpage = _this.currentPage;
@@ -214,7 +214,7 @@ PagingFooter.prototype = {
 
     setMaxId : function(maxId) {
         this.maxId = maxId;
-        this.maxPage = Math.floor(this.maxId / this.pageLength + 1);
+        this.maxPage = Math.floor(this.maxId / pageLength + 1);
     },
 
     drawPageLink : function() {
@@ -255,7 +255,7 @@ PagingFooter.prototype = {
         this.maxId = 0;
         if(arguments.length < 2 || arguments[1]) history.pushState("", "", "/page/"+moveTo+"/");
         $("#articles").empty();
-        new Article().drawArticles(this.currentPage, this.pageLength);
+        new Article().drawArticles(this.currentPage, pageLength);
         this.drawPageLink();
     }
 }
