@@ -106,6 +106,10 @@ blockquote cite {
 	font-size: 120%;
 }
 
+.quote {
+    color:#1177FF;
+}
+
 .expand {
 	height: 4.9em !important;
 }
