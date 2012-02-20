@@ -21,7 +21,7 @@ $(function(){
     var applyMessage = function(msg) {
         var data = $.parseJSON(msg.data);
         if (data.type == "sign") {
-            if (g_maxId == data.content.id) {
+            if (g_page > 1 || g_maxId == data.content.id) {
                 return;
             }
             var signSoundUrlArray = new Array(
@@ -49,7 +49,7 @@ $(function(){
         } else if (data.type == "live") {
             liveChecker.appendOrUpdate(data.content);
         } else if(data.type == "max_id"){
-            if(data.content > g_maxId){
+            if(g_page == 1 && data.content > g_maxId){
                 g_maxId = parseInt(data.content);
                 $("#articles").empty();
                 pageFooter.setMaxId(g_maxId);
