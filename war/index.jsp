@@ -8,6 +8,7 @@
     <base href="/" />
     <link rel="shortcut icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link rel="icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="css/global.css">
     <link type="text/css" rel="stylesheet" href="css/iphone.css" media="only screen and (max-device-width: 480px)">
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
@@ -74,7 +75,7 @@
             </form>
             <form id="ueshima" method="post" enctype="multipart/form-data"
                 action="./api/injection" target="dammy">
-                <input type="submit" value="押すなよ！絶対押すなよ！" /> <input type="hidden"
+                <input class="btn-danger" type="submit" value="押すなよ！絶対押すなよ！" /> <input type="hidden"
                     id="data" name="data"
                     value="$('<iframe />').attr('width','960').attr('height','720').attr('src','https://www.youtube.com/embed/WOrsP767ER0?rel=0&autoplay=1').attr('frameborder','0').attr('allowfullscreen','').css('position','absolute').prependTo('div:first');" />
                 <br />

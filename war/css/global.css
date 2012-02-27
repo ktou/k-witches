@@ -87,8 +87,12 @@ blockquote cite {
 }
 
 #postlocate {
-	padding: 12px 0px 12px 0px;
+	padding: 12px 0px 0px 0px;
 	margin: 15px 0px;
+}
+
+#postlocate form{
+	margin: 0px;
 }
 
 .gadget {
@@ -146,6 +150,7 @@ blockquote cite {
 .entry .body {
 	word-wrap: break-word;
 	margin: 8px 30px 0px 42px;
+	font-size: 16px;
 }
 
 .entry .bottom {
