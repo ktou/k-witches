@@ -330,42 +330,12 @@ button.regular,.buttons a.regular {
 	color: #fff;
 }
 
-div.sabrosus {
-	padding: 3px;
-	margin: 3px;
-	text-align: center;
+.pagination{
 	width: 900px;
-	line-height: 25px;
 }
 
-div.sabrosus a.other {
-	padding: 2px 5px 2px 5px;
-	margin-right: 2px;
-	border: 1px solid #9aafe5;
-	text-decoration: none;
-	color: #2e6ab1;
-}
-
-div.sabrosus span.other:hover,div.pagination a:active {
-	border: 1px solid #2b66a5;
-	color: #000;
-	background-color: lightyellow;
-}
-
-div.sabrosus span.current {
-	padding: 2px 5px 2px 5px;
-	margin-right: 2px;
-	border: 1px solid navy;
-	font-weight: bold;
-	background-color: #2e6ab1;
-	color: #FFF;
-}
-
-div.sabrosus span.disabled {
-	padding: 2px 5px 2px 5px;
-	margin-right: 2px;
-	border: 1px solid #929292;
-	color: #929292;
+.pagination ul li a{
+	background-color: rgba(255, 255, 255, 0.7);
 }
 
 #search {

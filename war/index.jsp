@@ -112,7 +112,7 @@
         </div>
         <% } %>
         <div id="articles" class="backpartition"></div>
-        <div id="pagelink"></div>
+        <div id="pagelink" class="pagination"></div>
         </c:if>
     </c:if>
 </body>

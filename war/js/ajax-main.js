@@ -229,34 +229,31 @@ PagingFooter.prototype = {
 
     drawPageLink : function() {
         var _this = this;
-        var pagediv = $("#pagelink").addClass("sabrosus");
+        $("#pagelink").empty().append($("<ul/>"));
+        var pagediv = $("#pagelink > ul");
         var nextLink = function(isNext) {
-            $(pagediv).append($("<a/>").addClass("other").click(function(){
+            $(pagediv).append($("<li/>").append($("<a/>").click(function(){
                 _this.movePage(_this.currentPage + (isNext ? 1 :-1));
-            }).text(isNext ? ">>" : "<<").css("cursor","pointer"));
+            }).text(isNext ? ">>" : "<<")));
         };
-        $("#pagelink").empty();
         if (this.currentPage > 1) {
             nextLink(false);
         } else {
-            $(pagediv).append($("<span/>").addClass("disabled").text("<<"));
+            $(pagediv).append($("<li/>").append($("<a/>").text("<<")).addClass("disabled"));
         }
         for (var i = 1; i <= this.maxPage; i++){
             if (i != this.currentPage) {
-                $(pagediv).append($("<a/>").addClass("other").click(function(){
+                $(pagediv).append($("<li/>").append($("<a/>").click(function(){
                     _this.movePage(parseInt(this.innerHTML));
-                }).text("" + i).css("cursor","pointer"));
+                }).text("" + i)));
             } else {
-                $(pagediv).append($("<span/>").addClass("current").text("" + i));
-            }
-            if ((i % 25 == 0 && i != 0 && i < 101)||(i%20 == 0 && i != 0 && i > 101)) {
-                $(pagediv).append($("<br/>"));
+                $(pagediv).append($("<li/>").append($("<a/>").text("" + i)).addClass("active"));
             }
         }
         if (this.currentPage < this.maxPage) {
             nextLink(true);
         } else {
-            $(pagediv).append($("<span/>").addClass("disabled").text(">>"));
+            $(pagediv).append($("<li/>").append($("<a/>").text(">>")).addClass("disabled"));
         }
     },
 
