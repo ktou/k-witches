@@ -4,31 +4,23 @@ import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
 
-import kwitches.meta.ImageModelMeta;
 import kwitches.model.ImageModel;
+import kwitches.service.dao.ImageModelDao;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
-import org.slim3.datastore.Datastore;
-
-import com.google.appengine.api.datastore.Key;
 
 public class IconController extends Controller {
 
-    private static final ImageModelMeta meta =  ImageModelMeta.get();
-    
     @Override
     public Navigation run() throws Exception {
         String keyString = request.getParameter("_");
-        Key key;
+        ImageModel imageModel;
         try {
-            key = Datastore.stringToKey(keyString);
+            imageModel = ImageModelDao.GetInstance().getImage(keyString);
         } catch (Exception e) {
             return redirect("../images/avater.jpg");
         }
-        ImageModel imageModel = Datastore.query(meta)
-           .filter(meta.key.equal(key))
-           .asSingle();
 
         String contentType = imageModel.getFileContentType();
         byte[] image = imageModel.getFileImage().getBytes();

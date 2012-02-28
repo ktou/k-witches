@@ -15,20 +15,21 @@ import com.google.appengine.api.images.Transform;
 
 import kwitches.model.ImageModel;
 import kwitches.model.UserModel;
+import kwitches.service.dao.ImageModelDao;
 
 public class UploadImageService {
-    
+
     private static ImagesService imagesService = ImagesServiceFactory.getImagesService();
-    
+
     public static final int THUMBNAIL_WIDTH = 96;
-    
+
     public ImageModel create(Map<String, Object> input, UserModel userModel) {
         Transaction tx;
         BeanUtil.copy(input, userModel);
         ImageModel newData = new ImageModel();
         FileItem fileImage = (FileItem)input.get("fileImage");
         String isIconReset = (String) input.get("icon_reset");
-  
+
         if ( (isIconReset != null && isIconReset.equals("yes")) || (fileImage != null)) {
             if (isIconReset != null && isIconReset.equals("yes")) {
                 userModel.getIconRef().setModel(null);
@@ -45,10 +46,9 @@ public class UploadImageService {
                 Image resizeImage = imagesService.applyTransform(resize, oldImage);
                 newData.setFileImage(new Blob(resizeImage.getImageData()));
 
-                userModel.getIconRef().setModel(newData);   
-                tx = Datastore.beginTransaction();
-                Datastore.put(newData);
-                tx.commit();
+                userModel.getIconRef().setModel(newData);
+
+                ImageModelDao.GetInstance().putImage(newData);
             }
         }
 
