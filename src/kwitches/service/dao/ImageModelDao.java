@@ -14,6 +14,7 @@ public class ImageModelDao {
 
     private static MemcacheService memcached = MemcacheServiceFactory
         .getMemcacheService();
+    private static final String IMAGE = "image_";
 
     private ImageModelDao() {
     }
@@ -31,12 +32,19 @@ public class ImageModelDao {
     public void deleteImage(String key) {
         Transaction tx = Datastore.beginTransaction();
         Datastore.delete(Datastore.stringToKey(key));
+        memcached.delete(IMAGE.concat(key));
         tx.commit();
     }
 
     public ImageModel getImage(String key) {
-        return Datastore
-            .getOrNull(ImageModel.class, Datastore.stringToKey(key));
+        ImageModel image = (ImageModel) memcached.get(IMAGE.concat(key));
+        if(image == null){
+            image = Datastore.getOrNull(ImageModel.class, Datastore.stringToKey(key));
+            if (image != null)
+                memcached.put(IMAGE.concat(key), image);
+        }
+
+        return image;
     }
 
 }
