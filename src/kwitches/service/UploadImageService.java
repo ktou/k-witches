@@ -30,32 +30,34 @@ public class UploadImageService {
         FileItem fileImage = (FileItem)input.get("fileImage");
         String isIconReset = (String) input.get("icon_reset");
 
-        if ( (isIconReset != null && isIconReset.equals("yes")) || (fileImage != null)) {
-            if (isIconReset != null && isIconReset.equals("yes")) {
-                userModel.getIconRef().setModel(null);
-            } else if (fileImage != null) {
-                newData.setFilename((String)fileImage.getShortFileName());
-                newData.setFileContentType((String)fileImage.getContentType());
-                byte[] imageData = fileImage.getData();
-                //幅96にリサイズ
-                Image oldImage = ImagesServiceFactory.makeImage(imageData);
-                double width = oldImage.getWidth();
-                double height = oldImage.getHeight();
-                double rate = height / width;
-                Transform resize = ImagesServiceFactory.makeResize(THUMBNAIL_WIDTH, (int)(THUMBNAIL_WIDTH * rate));
-                Image resizeImage = imagesService.applyTransform(resize, oldImage);
-                newData.setFileImage(new Blob(resizeImage.getImageData()));
+        if (isIconReset != null && isIconReset.equals("yes")) {
+            userModel.getIconRef().setModel(null);
+        } else if (fileImage != null) {
+            newData.setFilename((String) fileImage.getShortFileName());
+            newData.setFileContentType((String) fileImage.getContentType());
 
-                userModel.getIconRef().setModel(newData);
+            Image oldImage =
+                ImagesServiceFactory.makeImage(fileImage.getData());
+            Image resizedImage = resizeToThumbnail(oldImage);
 
-                ImageModelDao.GetInstance().putImage(newData);
-            }
+            newData.setFileImage(new Blob(resizedImage.getImageData()));
+            ImageModelDao.GetInstance().putImage(newData);
+
+            userModel.getIconRef().setModel(newData);
         }
 
         tx = Datastore.beginTransaction();
         Datastore.put(userModel);
         tx.commit();
         return newData;
+    }
+
+    private Image resizeToThumbnail(Image oldImage) {
+        double width = oldImage.getWidth();
+        double height = oldImage.getHeight();
+        double rate = height / width;
+        Transform resize = ImagesServiceFactory.makeResize(THUMBNAIL_WIDTH, (int)(THUMBNAIL_WIDTH * rate));
+        return imagesService.applyTransform(resize, oldImage);
     }
 
 }
