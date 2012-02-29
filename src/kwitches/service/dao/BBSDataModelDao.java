@@ -41,10 +41,14 @@ public class BBSDataModelDao {
     }
 
     public List<BBSDataModel> getBBSDataList(int offset, int limit) {
-        return Datastore.query(meta)
-                        .sort(meta.id.desc)
-                        .offset(offset)
-                        .limit(limit).asList();
+        return Datastore.get(
+            BBSDataModel.class,
+            Datastore
+                .query(meta)
+                .sort(meta.id.desc)
+                .offset(offset)
+                .limit(limit)
+                .asKeyList());
     }
 
     public List<BBSDataModel> getBBSData(int resNumber) {
