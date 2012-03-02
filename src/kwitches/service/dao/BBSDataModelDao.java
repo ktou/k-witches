@@ -1,5 +1,6 @@
 package kwitches.service.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kwitches.meta.BBSDataModelMeta;
@@ -41,14 +42,12 @@ public class BBSDataModelDao {
     }
 
     public List<BBSDataModel> getBBSDataList(int offset, int limit) {
-        return Datastore.get(
-            BBSDataModel.class,
-            Datastore
-                .query(meta)
-                .sort(meta.id.desc)
-                .offset(offset)
-                .limit(limit)
-                .asKeyList());
+        ArrayList<Integer> idList = new ArrayList<Integer>(limit);
+        int startId = BBSDataModelDao.getMaxId() - offset;
+        for (int i = 0; i < limit; i++)
+            idList.add(new Integer(startId - i));
+
+        return Datastore.query(meta).filter(meta.id.in(idList)).asList();
     }
 
     public List<BBSDataModel> getBBSData(int resNumber) {
