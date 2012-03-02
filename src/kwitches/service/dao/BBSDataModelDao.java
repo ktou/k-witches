@@ -47,7 +47,11 @@ public class BBSDataModelDao {
         for (int i = 0; i < limit; i++)
             idList.add(new Integer(startId - i));
 
-        return Datastore.query(meta).filter(meta.id.in(idList)).asList();
+        return Datastore
+            .query(meta)
+            .filter(meta.id.in(idList))
+            .sort(meta.id.desc)
+            .asList();
     }
 
     public List<BBSDataModel> getBBSData(int resNumber) {
