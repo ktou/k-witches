@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.Key;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Datastore;
+import org.slim3.datastore.EntityNotFoundRuntimeException;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
@@ -177,6 +178,11 @@ public class BBSDataModel implements Serializable {
      * @return userModelRef
      */
     public ModelRef<UserModel> getUserModelRef() {
+        try{
+            UserModelRef.refresh();
+        } catch (EntityNotFoundRuntimeException e) {
+            UserModelRef = new ModelRef<UserModel>(UserModel.class);
+        }
         return UserModelRef;
     }
 
@@ -231,7 +237,10 @@ public class BBSDataModel implements Serializable {
 
     public ModelRef<ImageModel> getIconRef() {
         UserModel model = getUserModelRef().getModel();
-        return iconRef != null && iconRef.getModel() != null ? iconRef : model != null ? model.getIconRef() : null;
+        return iconRef != null && iconRef.getModel() != null
+            ? iconRef
+            : model != null ? model.getIconRef()
+                            : new ModelRef<ImageModel>(ImageModel.class);
     }
 
     /**
