@@ -8,11 +8,10 @@ import kwitches.model.BBSDataModel;
 
 import org.slim3.datastore.Datastore;
 import org.slim3.datastore.ModelQuery;
+import org.slim3.memcache.Memcache;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 /**
  * BBSDataModelのDAO(Singleton)
@@ -25,7 +24,6 @@ public class BBSDataModelDao {
     private static final BBSDataModelMeta meta =  BBSDataModelMeta.get();
     private static BBSDataModelDao instance = new BBSDataModelDao();
 
-    private static MemcacheService memcached = MemcacheServiceFactory.getMemcacheService();
     private static final Object MAX_ID = "max_id";
 
     private BBSDataModelDao(){}
@@ -63,7 +61,7 @@ public class BBSDataModelDao {
     public void putBBSData(BBSDataModel bbsDataModel) {
         Transaction tx = Datastore.beginTransaction();
         Datastore.put(bbsDataModel);
-        memcached.delete(MAX_ID);
+        Memcache.delete(MAX_ID);
         tx.commit();
     }
 
@@ -85,10 +83,10 @@ public class BBSDataModelDao {
     }
 
     public static int getMaxId() {
-        Integer maxId = (Integer) memcached.get(MAX_ID);
+        Integer maxId = (Integer) Memcache.get(MAX_ID);
         if (maxId == null){
             maxId = new Integer(Datastore.query(meta).max(meta.id));
-            memcached.put(MAX_ID, maxId);
+            Memcache.put(MAX_ID, maxId);
         }
         return maxId.intValue();
      }

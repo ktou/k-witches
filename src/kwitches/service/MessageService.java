@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.slim3.datastore.Datastore;
+import org.slim3.memcache.Memcache;
 
 import kwitches.message.MessageInterface;
 import kwitches.model.UserModel;
@@ -14,12 +15,9 @@ import com.google.appengine.api.channel.ChannelMessage;
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 import com.google.appengine.api.memcache.Expiration;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 public class MessageService {
     private static ChannelService channel = ChannelServiceFactory.getChannelService();
-    private static MemcacheService memcached = MemcacheServiceFactory.getMemcacheService();
     public static final String PUSH_ALL_CLIENT = "all_clients";
 
     public static String getToken() {
@@ -52,7 +50,7 @@ public class MessageService {
 
     @SuppressWarnings("unchecked")
     public Set<String> getClients() {
-        return (Set<String>) memcached.get(PUSH_ALL_CLIENT);
+        return (Set<String>) Memcache.get(PUSH_ALL_CLIENT);
     }
 
     public void putClients(UserModel userModel) {
@@ -64,6 +62,6 @@ public class MessageService {
         if (!clients.contains(clientKey)) {
             clients.add(clientKey);
         }
-        memcached.put(PUSH_ALL_CLIENT, clients, Expiration.byDeltaSeconds(7200));
+        Memcache.put(PUSH_ALL_CLIENT, clients, Expiration.byDeltaSeconds(7200));
     }
 }

@@ -4,10 +4,9 @@
 package kwitches.service.dao;
 
 import org.slim3.datastore.Datastore;
+import org.slim3.memcache.Memcache;
 
 import com.google.appengine.api.datastore.Transaction;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -23,7 +22,6 @@ public class UserModelDao {
     private static final UserModelMeta meta =  UserModelMeta.get();
     private static UserModelDao instance = new UserModelDao();
 
-    private static MemcacheService memcached = MemcacheServiceFactory.getMemcacheService();
     private static final String USER = "user_";
 
     private UserModelDao(){}
@@ -35,7 +33,7 @@ public class UserModelDao {
     public void appendUser(UserModel userModel) {
         Transaction tx = Datastore.beginTransaction();
         Datastore.put(userModel);
-        memcached.delete(USER.concat(userModel.getUser().toString()));
+        Memcache.delete(USER.concat(userModel.getUser().toString()));
         tx.commit();
     }
 
@@ -48,10 +46,10 @@ public class UserModelDao {
         User user = userService.getCurrentUser();
         if(user == null) return null;
 
-        UserModel model = (UserModel) memcached.get(USER.concat(user.toString()));
+        UserModel model = (UserModel) Memcache.get(USER.concat(user.toString()));
         if(model == null){
             model = Datastore.query(meta).filter(meta.user.equal(user)).asSingle();
-            memcached.put(USER.concat(user.toString()), model);
+            Memcache.put(USER.concat(user.toString()), model);
         }
         return model;
     }

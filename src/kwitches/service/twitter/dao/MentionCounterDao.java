@@ -1,9 +1,7 @@
 package kwitches.service.twitter.dao;
 
 import org.slim3.datastore.Datastore;
-
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import org.slim3.memcache.Memcache;
 
 import kwitches.model.NumberCounterModel;
 
@@ -12,7 +10,6 @@ public class MentionCounterDao {
 
     private static MentionCounterDao instance = new MentionCounterDao();
 
-    private static MemcacheService memcached = MemcacheServiceFactory.getMemcacheService();
     private String KEY = "TWITTER_MENTION_ID";
 
     private MentionCounterDao(){}
@@ -28,7 +25,7 @@ public class MentionCounterDao {
     }
 
     public long getMentionCounter() {
-        Long count = (Long) memcached.get(KEY);
+        Long count = (Long) Memcache.get(KEY);
         if (count == null) {
             NumberCounterModel model = getModel();
             count = model == null ? 1L : model.getCounter();
@@ -44,7 +41,7 @@ public class MentionCounterDao {
         }
         model.setCounter(mentionCounter);
         Datastore.put(model);
-        memcached.put(KEY, new Long(mentionCounter));
+        Memcache.put(KEY, new Long(mentionCounter));
     }
 
 
