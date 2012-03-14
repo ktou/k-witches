@@ -402,6 +402,38 @@ InstagrThumnail.prototype = new DomModifier();
 
 }).apply(InstagrThumnail.prototype);
 
+var SoundCloudThumnail = function() {
+    this.initialize.apply(this, arguments);
+}
+
+SoundCloudThumnail.prototype = new DomModifier();
+
+(function() {
+    this.initialize = function(domPattern) {
+        DomModifier.prototype.initialize.apply(this, arguments);
+    },
+
+    this.execute = function() {
+        var _this = this;
+
+        $(this.domPattern).each(function() {
+            var url = $(this).attr("url");
+            var dom = this;
+            $.ajax({
+                type: "GET",
+                url: "http://soundcloud.com/oembed",
+                data: {url: url, format: "json"},
+                dataType: "json",
+                success: function(data) {
+                    $(dom).empty().append(data.html);
+                }
+            });
+            $(this).removeClass(_this.domPattern.split(".")[1]);
+        });
+    }
+
+}).apply(SoundCloudThumnail.prototype);
+
 var ShowTitleApi = function() {
     this.initialize.apply(this, arguments);
 }

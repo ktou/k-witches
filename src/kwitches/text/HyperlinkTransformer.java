@@ -39,6 +39,7 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
             add(new PixivLinkTransformer());
             add(new TwitpicLinkTransformer());
             add(new YfrogLinkTransformer());
+            add(new SoundCloudLinkTransformer());
             add(new ImageLinkTransformer());
             add(new AudioLinkTransformer());
             add(new NormalLinkTransformer());
