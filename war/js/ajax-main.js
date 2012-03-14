@@ -25,9 +25,10 @@ $(function(){
                 return;
             }
             var signSoundUrlArray = new Array(
-                    '../swf/omaetachini_tugeru.mp3',
-                    '../swf/dayone.mp3',
-                    '../swf/shibirerudaro.mp3'
+                    '../swf/adele_aitaa1.mp3',
+                    '../swf/adele_aitaa2.mp3',
+                    '../swf/adele_aitaa3.mp3',
+                    '../swf/adele_aitaa4.mp3'
             );
             Api.playSound(signSoundUrlArray[Math.floor(Math.random()*signSoundUrlArray.length)]);
             g_maxId = parseInt(data.content.id);
@@ -38,11 +39,11 @@ $(function(){
             article.decorate();
         } else if (data.type == "booth_in") {
             var boothinSoundUrlArray = new Array(
-                  '../swf/seizon_senryaku.mp3',
-                  '../swf/seizon_sanetoshi.mp3'
+                    '../swf/adele_sankaimawatteaitaa.mp3',
+                    '../swf/adele_gaman.mp3'
             );
             Api.playSound(boothinSoundUrlArray[Math.floor(Math.random()*boothinSoundUrlArray.length)]);
-            $.jGrowl(data.content + "「K棟戦略しましょうか」", {
+            $.jGrowl("「従士"+data.content + "！一番槍行きます！」", {
                speed: 'fast'
             });
             liveChecker.appendOrUpdate(data.content);

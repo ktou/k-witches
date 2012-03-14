@@ -55,7 +55,7 @@
                 <div class="buttons">
                     <button id="post_button" class="positive" href="javascript:void(0)">
                         <img alt="" src="images/apply2.png">
-                        送信
+                        あいたぁー
                     </button>
                       <!--
                     <a id="preview_link" class="regular" href="javascript:void(0)">
