@@ -25,10 +25,9 @@ $(function(){
                 return;
             }
             var signSoundUrlArray = new Array(
-                    '../swf/adele_aitaa1.mp3',
-                    '../swf/adele_aitaa2.mp3',
-                    '../swf/adele_aitaa3.mp3',
-                    '../swf/adele_aitaa4.mp3'
+                    '../swf/yoshika_happa.mp3',
+                    '../swf/yoshika_nannano.mp3',
+                    '../swf/yoshika_soudesuka.mp3'
             );
             Api.playSound(signSoundUrlArray[Math.floor(Math.random()*signSoundUrlArray.length)]);
             g_maxId = parseInt(data.content.id);
@@ -39,11 +38,11 @@ $(function(){
             article.decorate();
         } else if (data.type == "booth_in") {
             var boothinSoundUrlArray = new Array(
-                    '../swf/adele_sankaimawatteaitaa.mp3',
-                    '../swf/adele_gaman.mp3'
+                    '../swf/yoshika_gekijo.mp3',
+                    '../swf/yoshika_ikou.mp3'
             );
             Api.playSound(boothinSoundUrlArray[Math.floor(Math.random()*boothinSoundUrlArray.length)]);
-            $.jGrowl("「従士"+data.content + "！一番槍行きます！」", {
+            $.jGrowl(data.content + "「K棟じゃないから恥ずかしくないもん！」", {
                speed: 'fast'
             });
             liveChecker.appendOrUpdate(data.content);
@@ -389,7 +388,7 @@ Article.prototype = {
 
     rewritePageTitle : function(number, name) {
         name = name.replace(/\+/g,"%20");
-        document.title = "KEITOHSENRYAKU " + number + " : " + decodeURIComponent(name);
+        document.title = "K-WITCHES 劇場版 " + number + " : " + decodeURIComponent(name);
     },
 
     _getFileDom : function(data) {

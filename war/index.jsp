@@ -38,16 +38,16 @@
     //-->
     </script>
     </c:if>
-    <title>KEITOHSENRYAKU</title>
+    <title>K-WITCHES 劇場版</title>
 </head>
 <body>
     <jsp:include page="user_account.jsp" />
     <c:if test="${'LOGIN' == isLogin}">
         <script type="text/javascript" src="js/util/swfobject.js"></script>
         <script type="text/javascript" src="js/util/soundapi.js"></script>
-        <img id="logo" src="images/pd-logo.png"/>
+        <img id="logo" src="images/kw-g-logo.png"/>
         <br />
-        <p>僕と契約してから<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>で買い物してよ！</p>
+        <p>ガリア軍司令部より伝令：物資補給は<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>より受領せよ</p>
         <c:if test="${isKAuth}">
         <div id="postlocate" class="backpartition">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
@@ -55,7 +55,7 @@
                 <div class="buttons">
                     <button id="post_button" class="positive" href="javascript:void(0)">
                         <img alt="" src="images/apply2.png">
-                        あいたぁー
+                        発進
                     </button>
                       <!--
                     <a id="preview_link" class="regular" href="javascript:void(0)">
@@ -75,9 +75,9 @@
             </form>
             <form id="ueshima" method="post" enctype="multipart/form-data"
                 action="./api/injection" target="dammy">
-                <input class="btn-danger" type="submit" value="押すなよ！絶対押すなよ！" /> <input type="hidden"
+                <input class="btn-danger" type="submit" value="ウィッチこそ我らが守り！刮目せよ！" /> <input type="hidden"
                     id="data" name="data"
-                    value="$('<iframe />').attr('width','1280').attr('height','720').attr('src','https://www.youtube.com/embed/SFsXFNmMyGQ?rel=0&autoplay=1').attr('frameborder','0').attr('allowfullscreen','').css('position','absolute').prependTo('div:first');" />
+                    value="$('<iframe />').attr('width','853').attr('height','480').attr('src','https://www.youtube.com/embed/A-KSZ_OaFZg?rel=0&autoplay=1').attr('frameborder','0').attr('allowfullscreen','').css('position','absolute').prependTo('div:first');" />
                 <br />
             </form>
             <iframe id="dammy" name="dammy" style="display:none"></iframe>
@@ -87,12 +87,12 @@
             <audio controls id="aud"><source src="./swf/tilofinale_mami1.mp3"></audio>
         </div>
         <div id="liveChecker" class="backpartition gadget">
-          <h4>ActiveUsers</h4>
+          <h4>劇一号作戦現在行動中</h4>
           <span></span>
         </div>
         <% if(request.getHeader("User-Agent").indexOf("Mobile") == -1){ %>
         <div id="ustream" class="backpartition gadget">
-            <h4>K棟24時</h4>
+            <h4>K棟司令部24時</h4>
             <div id="ustplayer">
                 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
                     width="480" height="296">
