@@ -21,15 +21,18 @@ public class SignService {
     private static UploadFileService uploadFileService = new UploadFileService();
     private static MessageService ms = new MessageService();
     private static AnalyzerInterface analizer = new SimpleAnalyzer();
-    
+
     public BBSDataModel sign(Map<String, Object> input,
-            String ipAddress, Date createdDate, 
+            String ipAddress, Date createdDate,
             UserModel userModel, FileItem formFile) {
         String comment = (String) input.get("comment");
         comment = comment.replace("\r\n", "\n");
         input.put("comment", comment);
         BBSDataModel bbsDataModel = new BBSDataModel();
         bbsDataModel.getUserModelRef().setModel(userModel);
+        if(userModel.getIconRef() != null){
+            bbsDataModel.getIconRef().setModel(userModel.getIconRef().getModel());
+        }
         input.put("id", BBSDataModelDao.getMaxId() + 1);
         input.put("createdDate", createdDate);
         input.put("ipAddress", ipAddress);
@@ -44,7 +47,7 @@ public class SignService {
             bbsDataModel.getUploadedDataRef().setKey(uploadedData.getKey());
         }
         bbsDao.putBBSData(bbsDataModel);
-        MessageInterface message = 
+        MessageInterface message =
             MessageFactory.create(MessageFactory.Type.SIGN);
         message.setInformation(bbsDataModel);
         ms.sendMessageAll(message);

@@ -236,11 +236,7 @@ public class BBSDataModel implements Serializable {
     }
 
     public ModelRef<ImageModel> getIconRef() {
-        UserModel model = getUserModelRef().getModel();
-        return iconRef != null && iconRef.getModel() != null
-            ? iconRef
-            : model != null ? model.getIconRef()
-                            : new ModelRef<ImageModel>(ImageModel.class);
+        return iconRef;
     }
 
     /**
