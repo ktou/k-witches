@@ -86,7 +86,14 @@ public class JsonService {
         comment = comment != null ? URLEncoder.encode(comment, "UTF-8") : "";
         String name = (bbsData.getName() != null) ? URLEncoder.encode(bbsData.getName(), "UTF-8") : "null";
         String location = (bbsData.getLocation() != null) ? URLEncoder.encode(bbsData.getLocation(), "UTF-8") : "";
-        Key iconKey = (bbsData.getIconRef() != null) ? bbsData.getIconRef().getKey() : null;
+        Key iconKey =
+            bbsData.getIconRef().getKey() != null
+                ? bbsData.getIconRef().getKey()
+                : bbsData.getUserModelRef().getModel() != null ? bbsData.getUserModelRef()
+                                                                        .getModel()
+                                                                        .getIconRef()
+                                                                        .getKey()
+                                                               : null;
         String iconKeyString = (iconKey != null) ? Datastore.keyToString(iconKey) : "";
         String fileJsonString = bbsData.getFileJsonString();
        return MessageFormat.format(
