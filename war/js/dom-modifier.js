@@ -319,35 +319,8 @@ TwitterThumnail.prototype = new DomModifier();
         var _this = this;
 
         $(this.domPattern).each(function() {
-            var twitterId = $(this).attr("data-twitter_id");
-            var statusNum = $(this).attr("data-status_num");
-            var dom = this;
-            $.ajax({
-                type: "GET",
-                url: "http://voidy21.appspot.com/twit_status",
-                dataType: "jsonp",
-                jsonp: 'callback',
-                data : {
-                    twitter_id : twitterId,
-                    status_num : statusNum
-                },
-                success: function(data) {
-                    if(!data) return;
-                    $(dom).empty();
-                    var cite = $('<cite/>').html(
-                        "<a href='http://twitter.com/%d/'>%d</a> on ".replace(/%d/g, twitterId) +
-                        decodeURI(data.date)
-                    );
-                    var comment = $('<span/>').attr('class','twitter')
-                        .html(decodeURI(data.entry));
-                    var twit_entry = $('<blockquote/>').attr('class','twitter')
-                        .attr('style','background-image: url(' +
-                        decodeURI(data.image) +
-                        ');background-position: left center;')
-                        .append(comment).append('<br/>').append(cite);
-                    $(dom).append(twit_entry);
-                }
-            });
+            var twitterUri = $(this).attr("data-twitter_uri");
+            $(this).oembed(twitterUri);
             $(this).removeClass(_this.domPattern.split(".")[1]);
         });
     }

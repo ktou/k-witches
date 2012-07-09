@@ -48,8 +48,10 @@ public class TwitterLinkTransformer
 
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("class", "new_twitter_thumb");
-        properties.put("data-twitter_id", userId);
-        properties.put("data-status_num", statusNum);
+        properties.put("data-twitter_uri", String.format(
+            "https://twitter.com/%1$s/statuses/%2$s",
+            userId,
+            statusNum));
 
         return String.format("<a href='%1$s' target='_blank'>%1$s</a><br>%2$s",
             url,

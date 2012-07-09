@@ -27,6 +27,7 @@
     <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.jgrowl_google.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>
+    <script src="js/jquery/jquery.oembed.min.js" type="text/javascript"></script>
     <script type="text/javascript">
     <!--
     // Global
