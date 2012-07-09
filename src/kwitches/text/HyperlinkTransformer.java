@@ -29,17 +29,11 @@ public class HyperlinkTransformer implements LineMessageTransformInterface {
     private List<HyperlinkTransformInterface> hyperlinkTransformerList =
         new ArrayList<HyperlinkTransformInterface>(){{
             add(new ShortenLinkTransformer());
-            add(new AmazonLinkTransformer());
+            add(new OEmbedLinkTransformer());
             add(new GistLinkTransformer());
+            add(new AmazonLinkTransformer());
             add(new NicovideoLinkTransformer());
-            add(new TwitterLinkTransformer());
-            add(new YoutubeLinkTransformer());
-            add(new InstagrLinkTransformer());
-            add(new TumblrLinkTransformer());
             add(new PixivLinkTransformer());
-            add(new TwitpicLinkTransformer());
-            add(new YfrogLinkTransformer());
-            add(new SoundCloudLinkTransformer());
             add(new ImageLinkTransformer());
             add(new AudioLinkTransformer());
             add(new NormalLinkTransformer());

@@ -211,57 +211,6 @@ GistPreview.prototype = new DomModifier();
 
 }).apply(GistPreview.prototype);
 
-var TumblrThumnail = function() {
-    this.initialize.apply(this, arguments);
-}
-
-TumblrThumnail.prototype = new DomModifier();
-
-(function() {
-    this.initialize = function(domPattern) {
-        DomModifier.prototype.initialize.apply(this, arguments);
-    },
-
-    this.execute = function() {
-        var _this = this;
-
-        $(this.domPattern).each(function() {
-            var tumblr_id = $(this).attr("data-tumblrid");
-            var post_id = $(this).attr("data-postid");
-            var tumblr_api_url = "http://%d.tumblr.com/api/read/json".replace("%d", tumblr_id);
-            var dom = this;
-            $.ajax({
-                type: "GET",
-                url: tumblr_api_url,
-                dataType: "jsonp",
-                data : {
-                    id : post_id
-                },
-                success: function(data) {
-                    var post = data.posts[0];
-                    if (post.type == "photo") {
-                        var photo_thumbnail_url = post["photo-url-250"];
-                        var photo_url = post["photo-url-1280"];
-                        var photo_caption = post["photo-caption"];
-                        $(dom).empty().append(
-                            $("<a/>").attr({
-                                "href" : photo_url,
-                                "target" : "_blank"
-                            }).append(
-                                $("<img/>").attr("src", photo_thumbnail_url)
-                            ).append(
-                                $("<div/>").addClass("photo_caption").html(photo_caption)
-                            )
-                        );
-                    }
-                }
-            });
-            $(this).removeClass(_this.domPattern.split(".")[1]);
-        });
-    }
-
-}).apply(TumblrThumnail.prototype);
-
 var PixivThumnail = function() {
     this.initialize.apply(this, arguments);
 }
@@ -304,11 +253,11 @@ PixivThumnail.prototype = new DomModifier();
 
 }).apply(PixivThumnail.prototype);
 
-var TwitterThumnail = function() {
+var OEmbedThumnail = function() {
     this.initialize.apply(this, arguments);
 }
 
-TwitterThumnail.prototype = new DomModifier();
+OEmbedThumnail.prototype = new DomModifier();
 
 (function() {
     this.initialize = function(domPattern) {
@@ -319,93 +268,16 @@ TwitterThumnail.prototype = new DomModifier();
         var _this = this;
 
         $(this.domPattern).each(function() {
-            var twitterUri = $(this).attr("data-twitter_uri");
-            $(this).oembed(twitterUri);
+            var dataUri = $(this).attr("data-uri");
+            var dom = $("<div />");
+            dom.oembed(dataUri);
+            $(this).append(dom)
             $(this).removeClass(_this.domPattern.split(".")[1]);
+            $(this).addClass("oembed_thumb");
         });
     }
 
-}).apply(TwitterThumnail.prototype);
-
-var InstagrThumnail = function() {
-    this.initialize.apply(this, arguments);
-}
-
-InstagrThumnail.prototype = new DomModifier();
-
-(function() {
-    this.initialize = function(domPattern) {
-        DomModifier.prototype.initialize.apply(this, arguments);
-    },
-
-    this.execute = function() {
-        var _this = this;
-
-        $(this.domPattern).each(function() {
-            var url = $(this).attr("data-url");
-            var api_url = "http://instagr.am/api/v1/oembed";
-            var dom = this;
-            $.ajax({
-                type: "GET",
-                url: api_url,
-                dataType: "jsonp",
-                data : {
-                    url : url,
-                    maxwidth : 450
-                },
-                jsonp: 'callback',
-                success: function(data) {
-                    var photo_thumbnail_url = data.url;
-                    var photo_caption = data.title;
-                    $(dom).empty().append(
-                        $("<a/>").attr({
-                            "href" : url,
-                            "target" : "_blank"
-                        }).append(
-                            $("<img/>").attr("src", photo_thumbnail_url)
-                        ).append(
-                            $("<div/>").addClass("photo_caption").html(photo_caption)
-                        )
-                    );
-                }
-            });
-            $(this).removeClass(_this.domPattern.split(".")[1]);
-        });
-    }
-
-}).apply(InstagrThumnail.prototype);
-
-var SoundCloudThumnail = function() {
-    this.initialize.apply(this, arguments);
-}
-
-SoundCloudThumnail.prototype = new DomModifier();
-
-(function() {
-    this.initialize = function(domPattern) {
-        DomModifier.prototype.initialize.apply(this, arguments);
-    },
-
-    this.execute = function() {
-        var _this = this;
-
-        $(this.domPattern).each(function() {
-            var url = $(this).attr("url");
-            var dom = this;
-            $.ajax({
-                type: "GET",
-                url: "http://soundcloud.com/oembed",
-                data: {url: url, format: "json"},
-                dataType: "json",
-                success: function(data) {
-                    $(dom).empty().append(data.html);
-                }
-            });
-            $(this).removeClass(_this.domPattern.split(".")[1]);
-        });
-    }
-
-}).apply(SoundCloudThumnail.prototype);
+}).apply(OEmbedThumnail.prototype);
 
 var ShowTitleApi = function() {
     this.initialize.apply(this, arguments);

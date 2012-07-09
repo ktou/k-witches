@@ -373,11 +373,8 @@ Article.prototype = {
             new NicoThumnail("div.new_nico_thumb", lazyScriptLoader),
             new NicoTags("div.new_nico_tags"),
             new GistPreview("div.new_gist_preview", lazyScriptLoader),
-            new TwitterThumnail("div.new_twitter_thumb"),
-            new TumblrThumnail("div.new_tumblr_thumb"),
+            new OEmbedThumnail("div.new_oembed_thumb"),
             new PixivThumnail("div.new_pixiv_thumb"),
-            new InstagrThumnail("div.new_instagr_thumb"),
-            new SoundCloudThumnail("div.new_sc_thumb"),
             new NormalLink("div.new_link")
         ];
         for (var i = 0, length = decoratorer.length; i < length; i++) {
