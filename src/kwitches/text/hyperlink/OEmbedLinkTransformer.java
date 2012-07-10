@@ -28,6 +28,7 @@ public class OEmbedLinkTransformer
         "(^http://youtu\\.be/.+)|" + // youtube2
         "(^https?://maps\\.google\\.((com)|(co\\.jp))/((maps)|(maps/ms)|)\\?.+)|" + // google maps
         "(^http://((www\\.slideshare\\.net/(mobile/)?[^/]+)|(slidesha\\.re))/[^/]+$)|" + // slideshare
+        "(^https?://.*\\.wikipedia\\.org/wiki/.+)|" + // slideshare
         "(^http://www\\.ustream\\.tv/.+)"; // ustream
 
     /* (非 Javadoc)
