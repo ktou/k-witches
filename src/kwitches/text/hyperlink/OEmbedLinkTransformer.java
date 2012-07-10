@@ -23,7 +23,6 @@ public class OEmbedLinkTransformer
         "(^http://((soundcloud\\.com)|(snd\\.sc))/.+)|" + // soundcloud
         "(^http://((tumblr\\.com/)|(.*\\.tumblr\\.com/post/)).+)|" + // tumblr
         "(^https?://(www\\.)?twitpic\\.com/.+)|" + // twitpic
-        "(^https?://itunes\\.apple\\.com/.+)|" + // itunes
         "(^http://.*yfrog\\.com/.+)|" + // yfrog
         "(^https?://(\\w+)\\.youtube\\.com/((watch)|(v/)|(view_play_list)|(playlist)).+)|" + // youtube1
         "(^http://youtu\\.be/.+)|" + // youtube2
