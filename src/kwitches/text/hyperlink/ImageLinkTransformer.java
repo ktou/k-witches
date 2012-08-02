@@ -1,7 +1,9 @@
 /**
- * 
+ *
  */
 package kwitches.text.hyperlink;
+
+import static kwitches.text.hyperlink.HyperlinkTransformUtil.*;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -9,13 +11,13 @@ import java.util.regex.Matcher;
 /**
  * リンクの種類が画像URLの場合の変換クラス
  * @author voidy21
- */ 
+ */
 public class ImageLinkTransformer
     extends  HyperlinkTransformAbstract {
 
     private static final String ARTICLE_TYPE = "link";
     private static final String REGEXP_URL_STRING = ".*\\.(png|jpg|jpeg|gif|bmp)$";
-    
+
     /* (非 Javadoc)
      * @see kwitches.text.hyperlink.HyperlinkTransformInterface#getArticleType()
      */
@@ -40,8 +42,11 @@ public class ImageLinkTransformer
             return rawString;
         }
         String url = rawString;
-        return String.format("<a class='lightpop' href='%1$s'><img width='200' src='%1$s'></a>", 
-            url);
+        return String
+            .format(
+                "<div class='new_link'><a class='link' href='%1$s' target='_blank'>%1$s</a>%2$s</div><a class='link_image' href='%1$s'><img src='%1$s' /></a>",
+                url,
+                getSBMLinks(url));
     }
 
 }
