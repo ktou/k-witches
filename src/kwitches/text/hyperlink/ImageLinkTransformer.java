@@ -44,7 +44,7 @@ public class ImageLinkTransformer
         String url = rawString;
         return String
             .format(
-                "<div class='new_link'><a class='link' href='%1$s' target='_blank'>%1$s</a>%2$s</div><a class='link_image' href='%1$s'><img src='%1$s' /></a>",
+                "<div class='new_link'><a class='link' href='%1$s' target='_blank'>%1$s</a>%2$s</div><a class='link_image' href='%1$s' target='_blank'><img src='%1$s' /></a>",
                 url,
                 getSBMLinks(url));
     }
