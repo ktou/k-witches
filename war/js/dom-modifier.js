@@ -227,7 +227,7 @@ PixivThumnail.prototype = new DomModifier();
 
         $(this.domPattern).each(function() {
             var illust_id = $(this).attr("data-pixivillustid");
-            var pixiv_detail_url = "http://iphone.pxv.jp/iphone/illust.php?illust_id="+illust_id;
+            var pixiv_detail_url = "http://spapi.pixiv.net/iphone/illust.php?illust_id="+illust_id;
             var dom = this;
             $.ajax({
                 type: "GET",
