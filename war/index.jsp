@@ -24,6 +24,7 @@
     <script src="js/dom-modifier.js" type="text/javascript"></script>
     <script src="js/location.js" type="text/javascript"></script>
     <script src="js/livechecker.js" type="text/javascript"></script>
+    <script src="js/article.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.jgrowl_google.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>
