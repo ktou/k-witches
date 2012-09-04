@@ -1,9 +1,6 @@
 var pageLength = 30;
 
-var article;
-var pageFooter;
-var liveChecker;
-var place;
+var g_observer;
 
 var KtouObserver = function(){
     this.initialize.apply(this, arguments);
@@ -11,11 +8,20 @@ var KtouObserver = function(){
 
 KtouObserver.prototype = {
     initialize: function(){
+        this.article = new Article();
+        this.pageFooter = new PagingFooter(g_page);
+        this.place =  new Place("#locationsetting");
+        this.liveChecker = new LiveChecker("#liveChecker");
+        this.channelControl = new ChannelControl(this);
+
+        var article = this.article;
+        var pageFooter = this.pageFooter;
+        var place = this.place;
+        var liveChecker = this.liveChecker;
+
         pageFooter.setMaxId(g_maxId);
         article.drawArticles(g_page, pageLength);
         pageFooter.drawPageLink();
-
-        var channelControl = new ChannelControl();
 
         liveChecker.append(getSelfInfo());
         sendLivingMessage();
@@ -49,12 +55,11 @@ $(function(){
     }
     $('.clearField').clearField();
 
-    article = new Article();
-    pageFooter = new PagingFooter(g_page);
-    place =  new Place("#locationsetting");
-    liveChecker = new LiveChecker("#liveChecker");
-
-    new KtouObserver();
+    g_observer = new KtouObserver();
+    var article = g_observer.article;
+    var pageFooter = g_observer.pageFooter;
+    var place = g_observer.place;
+    var liveChecker = g_observer.liveChecker;
 
     var isFileUpload = false;
 
@@ -122,8 +127,6 @@ $(function(){
     });
 
     $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
-
-    console.log("endiniti");
 
 });
 

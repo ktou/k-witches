@@ -15,13 +15,17 @@ ChannelControl.prototype = {
             success : function(data) {
                 channel = new goog.appengine.Channel(data);
                 socket = channel.open();
-                socket.onmessage = self.applyMessage;
-                socket.onclose = self.channelOpen;
+                socket.onmessage = g_observer.channelControl.applyMessage;
+                socket.onclose = g_observer.channelControl.channelOpen;
             }
         });
     },
 
     applyMessage : function(msg) {
+        var pageFooter = g_observer.pageFooter;
+        var article = g_observer.article;
+        var liveChecker = g_observer.liveChecker;
+
         var data = $.parseJSON(msg.data);
         if (data.type == "sign") {
             if (g_page > 1 || g_maxId == data.content.id) {
