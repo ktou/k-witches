@@ -1,80 +1,28 @@
 var pageLength = 30;
 
+var article;
+var pageFooter;
+var liveChecker;
+
 $(function(){
     if (!$.browser.safari) {
        $("#aud").remove();
     }
     $('.clearField').clearField();
 
-    var article = new Article();
-    var pageFooter = new PagingFooter(g_page);
+    article = new Article();
+    pageFooter = new PagingFooter(g_page);
+
     pageFooter.setMaxId(g_maxId);
     article.drawArticles(g_page, pageLength);
     pageFooter.drawPageLink();
 
-    var channel = new goog.appengine.Channel(channelToken);
-    var socket = channel.open();
+    var channelControl = new ChannelControl();
+
     var isFileUpload = false;
     var location = new Location("#locationsetting");
-    var liveChecker = new LiveChecker("#liveChecker");
+    liveChecker = new LiveChecker("#liveChecker");
 
-    var applyMessage = function(msg) {
-        var data = $.parseJSON(msg.data);
-        if (data.type == "sign") {
-            if (g_page > 1 || g_maxId == data.content.id) {
-                return;
-            }
-            var signSoundUrlArray = new Array(
-                    '../swf/yoshika_happa.mp3',
-                    '../swf/yoshika_nannano.mp3',
-                    '../swf/yoshika_soudesuka.mp3'
-            );
-            Api.playSound(signSoundUrlArray[Math.floor(Math.random()*signSoundUrlArray.length)]);
-            g_maxId = parseInt(data.content.id);
-            pageFooter.setMaxId(g_maxId);
-            pageFooter.drawPageLink();
-            $("#articles").prepend(article.createDom(data.content));
-            article.rewritePageTitle(data.content.id, data.content.name);
-            article.decorate();
-        } else if (data.type == "booth_in") {
-            var boothinSoundUrlArray = new Array(
-                    '../swf/yoshika_gekijo.mp3',
-                    '../swf/yoshika_ikou.mp3'
-            );
-            Api.playSound(boothinSoundUrlArray[Math.floor(Math.random()*boothinSoundUrlArray.length)]);
-            $.jGrowl(data.content + "「K棟じゃないから恥ずかしくないもん！」", {
-               speed: 'fast'
-            });
-            liveChecker.appendOrUpdate(data.content);
-        } else if (data.type == "live") {
-            liveChecker.appendOrUpdate(data.content);
-        } else if(data.type == "max_id"){
-            if(g_page == 1 && data.content > g_maxId){
-                g_maxId = parseInt(data.content);
-                $("#articles").empty();
-                pageFooter.setMaxId(g_maxId);
-                pageFooter.drawPageLink();
-                article.drawArticles(g_page, pageLength);
-            }
-        } else if(data.type == "injection"){
-            eval(data.content);
-        }
-    };
-    var reOpen = function(){
-        $.ajax({
-            type: "GET",
-            url: "./api/token/get",
-            success: function(data) {
-                channel = new goog.appengine.Channel(data);
-                socket = channel.open();
-                socket.onmessage = applyMessage;
-                socket.onclose   = reOpen;
-            }
-        });
-    };
-
-    socket.onmessage = applyMessage;
-    socket.onclose   = reOpen;
 
     $("#file").change(function() {
         isFileUpload = true;

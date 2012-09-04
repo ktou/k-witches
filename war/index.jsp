@@ -23,6 +23,7 @@
     <script src="js/livechecker.js" type="text/javascript"></script>
     <script src="js/article.js" type="text/javascript"></script>
     <script src="js/pagefooter.js" type="text/javascript"></script>
+    <script src="js/channelcontrol.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.jgrowl_google.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>

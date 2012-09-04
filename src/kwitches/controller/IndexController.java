@@ -20,10 +20,6 @@ public class IndexController extends Controller {
     public Navigation run() throws Exception {
         UserModel userModel =  UserModelDao.getCurrentUser();
         if (userModel != null) {
-            ms.putClients(userModel);
-            String channelToken = MessageService.getToken(userModel);
-            requestScope("channelToken", channelToken);
-
             MessageInterface message =
                 MessageFactory.create(MessageFactory.Type.BOOTH_IN);
             message.setInformation(userModel.getName());
