@@ -51,7 +51,7 @@ $(function(){
 
     article = new Article();
     pageFooter = new PagingFooter(g_page);
-    place =  new Location("#locationsetting");
+    place =  new Place("#locationsetting");
     liveChecker = new LiveChecker("#liveChecker");
 
     new KtouObserver();

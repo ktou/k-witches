@@ -19,7 +19,7 @@
     <script src="js/util/object-prototype.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.pack.js" type="text/javascript"></script>
     <script src="js/dom-modifier.js" type="text/javascript"></script>
-    <script src="js/location.js" type="text/javascript"></script>
+    <script src="js/place.js" type="text/javascript"></script>
     <script src="js/livechecker.js" type="text/javascript"></script>
     <script src="js/article.js" type="text/javascript"></script>
     <script src="js/pagefooter.js" type="text/javascript"></script>

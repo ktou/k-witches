@@ -1,10 +1,10 @@
-var Location = function() {
+var Place = function() {
     this.cookie_name = "location";
     this.nothing_name = "none";
     this.initialize.apply(this, arguments);
 };
 
-Location.prototype = {
+Place.prototype = {
     initialize : function(dom_id) {
         this.dom_id = dom_id;
         this.input_dom = $(this.dom_id + " input:first");
