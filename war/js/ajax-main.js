@@ -3,6 +3,45 @@ var pageLength = 30;
 var article;
 var pageFooter;
 var liveChecker;
+var place;
+
+var KtouObserver = function(){
+    this.initialize.apply(this, arguments);
+}
+
+KtouObserver.prototype = {
+    initialize: function(){
+        pageFooter.setMaxId(g_maxId);
+        article.drawArticles(g_page, pageLength);
+        pageFooter.drawPageLink();
+
+        var channelControl = new ChannelControl();
+
+        liveChecker.append(getSelfInfo());
+        sendLivingMessage();
+        setInterval(function(){
+            sendLivingMessage();
+        },LiveUser.auto_remove_time - 1000);
+
+
+        function sendLivingMessage() {
+            $.ajax({
+                type: "POST",
+                url: "api/live",
+                data: getSelfInfo()
+            });
+        }
+
+        function getSelfInfo() {
+            return {
+                name: g_userName,
+                location: place.getInputValue(),
+                id: g_userId
+            }
+        }
+    }
+
+}
 
 $(function(){
     if (!$.browser.safari) {
@@ -12,17 +51,12 @@ $(function(){
 
     article = new Article();
     pageFooter = new PagingFooter(g_page);
-
-    pageFooter.setMaxId(g_maxId);
-    article.drawArticles(g_page, pageLength);
-    pageFooter.drawPageLink();
-
-    var channelControl = new ChannelControl();
-
-    var isFileUpload = false;
-    var location = new Location("#locationsetting");
+    place =  new Location("#locationsetting");
     liveChecker = new LiveChecker("#liveChecker");
 
+    new KtouObserver();
+
+    var isFileUpload = false;
 
     $("#file").change(function() {
         isFileUpload = true;
@@ -31,8 +65,8 @@ $(function(){
     $("#post_button").click(function() {
         function successHandler() {
             $("#textarea").val("");
-            location.setNameAndCookieByInputValue();
-            location.hideInputDom();
+            place.setNameAndCookieByInputValue();
+            place.hideInputDom();
         }
 
         if (isFileUpload) {
@@ -48,7 +82,7 @@ $(function(){
                 url: "./sign",
                 data : {
                     comment : $("#textarea").val(),
-                    location : location.getInputValue()
+                    location : place.getInputValue()
                 },
                 success: function(data) {
                     successHandler();
@@ -89,26 +123,7 @@ $(function(){
 
     $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
 
-    liveChecker.append(getSelfInfo());
-    sendLivingMessage();
-    setInterval(function(){
-        sendLivingMessage();
-    },LiveUser.auto_remove_time - 1000);
+    console.log("endiniti");
 
-    function sendLivingMessage() {
-        $.ajax({
-            type: "POST",
-            url: "api/live",
-            data: getSelfInfo()
-        });
-    }
-
-    function getSelfInfo() {
-        return {
-            name: g_userName,
-            location: location.getInputValue(),
-            id: g_userId
-        }
-    }
 });
 
