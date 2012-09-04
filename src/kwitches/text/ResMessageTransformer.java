@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class ResMessageTransformer implements LineMessageTransformInterface {
 
     private final static String REGEXP_RES_STRING = "&gt;&gt;([0-9]+)";
-    
+
     /* (非 Javadoc)
      * @see kwitches.text.LineMessageTransformInterface#getRegexp()
      */
@@ -25,7 +25,7 @@ public class ResMessageTransformer implements LineMessageTransformInterface {
     public String transform(String rawString) {
         Pattern p = Pattern.compile(this.getRegexp());
         Matcher m = p.matcher(rawString);
-        return m.replaceAll("<a class='res' href='javascript:void(0)' data-resnum='$1'>&gt;&gt;$1</a>");
+        return m.replaceAll("<a class='res like-link' data-resnum='$1'>&gt;&gt;$1</a>");
     }
 
 }

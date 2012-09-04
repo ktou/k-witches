@@ -60,12 +60,12 @@ Article.prototype = {
             $("<div/>").addClass("entry").attr("data-entrynumber", e.id
             ).append(
                 $("<div/>").addClass("title").append(
-                    $("<a/>").addClass("number").attr("href","#").text(e.id).click(function() {
+                    $("<a/>").addClass("number").addClass("like-link").text(e.id).click(function() {
                         Res.appendTextarea(e.id);
                         $("#textarea").focus().addClass("expand");
                     })
                 ).append(" : ").append(
-                    $("<a/>").addClass("name").attr("href", "#").text(decodeURL(e.name))
+                    $("<a/>").addClass("name").addClass("like-link").text(decodeURL(e.name))
                 )
             ).append(
                 $("<div/>").addClass("body").html(
