@@ -8,7 +8,6 @@ ChannelControl.prototype = {
     },
 
     channelOpen : function() {
-        self = this;
         $.ajax({
             type : "GET",
             url : "./api/token/get",
