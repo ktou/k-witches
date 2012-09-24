@@ -62,7 +62,8 @@ public class ShortenLinkTransformer
                     HTTPMethod.GET,
                     FetchOptions.Builder.withDeadline(5.0));
             HTTPResponse response = ufs.fetch(request);
-            if (result.equals(response.getFinalUrl().toString()) == false) {
+            if (response.getFinalUrl() != null
+                && result.equals(response.getFinalUrl().toString()) == false) {
                 result = TextTransformer.transform(response.getFinalUrl().toString());
             }
         } catch (MalformedURLException e) {
