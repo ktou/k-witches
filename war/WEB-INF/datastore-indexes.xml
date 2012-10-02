@@ -8,4 +8,9 @@
         <property name="id" direction="desc"/>
     </datastore-index>
 
+    <datastore-index kind="UploadedDataFragment" ancestor="false" source="manual">
+        <property name="uploadedDataRef" direction="asc"/>
+        <property name="index" direction="asc"/>
+    </datastore-index>
+
 </datastore-indexes>
