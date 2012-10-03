@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package kwitches.text.hyperlink;
 
@@ -17,12 +17,12 @@ public class HyperlinkTransformUtil {
 
     @SuppressWarnings("serial")
     public static String getSBMLinks(String url) {
-        List<SBMLinkAbstract> sbmLinks = 
+        List<SBMLinkAbstract> sbmLinks =
             new ArrayList<SBMLinkAbstract>() {
             {
                 add(new HatenaBookmarkLink());
                 add(new LivedoorClipLink());
-                add(new TwibLink());
+                add(new TweetBuzzLink());
             }
         };
         StringBuilder sb = new StringBuilder();
@@ -31,7 +31,7 @@ public class HyperlinkTransformUtil {
         }
         return sb.toString();
     }
-    
+
     public static String getDivHtml(HashMap<String, String> properties) {
         StringBuilder sb = new StringBuilder();
         for (String attr : properties.keySet()) {
@@ -41,7 +41,7 @@ public class HyperlinkTransformUtil {
             String value = properties.get(attr);
             sb.append(String.format("%s='%s'", attr, value));
         }
-        return String.format("<div %s></div>", sb);   
+        return String.format("<div %s></div>", sb);
     }
 
 }
