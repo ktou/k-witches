@@ -36,7 +36,11 @@ public class UploadImageService {
 
             Image oldImage =
                 ImagesServiceFactory.makeImage(fileImage.getData());
-            Image resizedImage = resizeToThumbnail(oldImage);
+            Image resizedImage =
+                oldImage.getHeight() <= THUMBNAIL_WIDTH
+                    && oldImage.getWidth() <= THUMBNAIL_WIDTH
+                    ? oldImage
+                    : resizeToThumbnail(oldImage);
 
             newData.setFileImage(new Blob(resizedImage.getImageData()));
             ImageModelDao.GetInstance().putImage(newData);
