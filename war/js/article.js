@@ -150,7 +150,7 @@ Article.prototype = {
 
     rewritePageTitle : function(number, name) {
         name = name.replace(/\+/g,"%20");
-        document.title = "K-WITCHES 劇場版 " + number + " : " + decodeURIComponent(name);
+        document.title = "ケイトウ＆パンツァー " + number + " : " + decodeURIComponent(name);
     },
 
     _getFileDom : function(data) {

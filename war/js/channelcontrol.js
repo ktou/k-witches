@@ -37,7 +37,7 @@ ChannelControl.prototype = {
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-            $.jGrowl(data.content + "「K棟じゃないから恥ずかしくないもん！」", {
+            $.jGrowl(data.content + "「Panzer Vor!!!」", {
                 speed : 'fast'
             });
             liveChecker.appendOrUpdate(data.content);

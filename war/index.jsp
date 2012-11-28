@@ -39,7 +39,7 @@
     //-->
     </script>
     </c:if>
-    <title>K-WITCHES 劇場版</title>
+    <title>ケイトウ＆パンツァー</title>
 </head>
 <body>
     <jsp:include page="user_account.jsp" />
@@ -48,7 +48,7 @@
         <script type="text/javascript" src="js/util/soundapi.js"></script>
         <a href="/"><img id="logo" src="images/kp-logo.png"/></a>
         <br />
-        <p>ガリア軍司令部より伝令：物資補給は<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>より受領せよ</p>
+        <p>あんこうチームより各車伝達：購入時は地点<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>に再集結のこと</p>
         <c:if test="${isKAuth}">
         <div id="postlocate" class="backpartition">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
@@ -56,7 +56,7 @@
                 <div class="buttons">
                     <button id="post_button" class="positive" href="javascript:void(0)">
                         <img alt="" src="images/apply2.png">
-                        発進
+                        Panzerschießen!
                     </button>
                       <!--
                     <a id="preview_link" class="regular" href="javascript:void(0)">
@@ -81,12 +81,12 @@
             <audio controls id="aud"><source src="./swf/tilofinale_mami1.mp3"></audio>
         </div>
         <div id="liveChecker" class="backpartition gadget">
-          <h4>劇一号作戦現在行動中</h4>
+          <h4>行動中列機</h4>
           <span></span>
         </div>
         <% if(request.getHeader("User-Agent").indexOf("Mobile") == -1){ %>
         <div id="ustream" class="backpartition gadget">
-            <h4>K棟司令部24時</h4>
+            <h4>全国K棟道大会中継</h4>
             <div id="ustplayer" style="display: none;">
                 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
                     width="480" height="296">
