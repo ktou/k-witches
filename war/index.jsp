@@ -46,7 +46,7 @@
     <c:if test="${'LOGIN' == isLogin}">
         <script type="text/javascript" src="js/util/swfobject.js"></script>
         <script type="text/javascript" src="js/util/soundapi.js"></script>
-        <a href="/"><img id="logo" src="images/kw-g-logo.png"/></a>
+        <a href="/"><img id="logo" src="images/kp-logo.png"/></a>
         <br />
         <p>ガリア軍司令部より伝令：物資補給は<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>より受領せよ</p>
         <c:if test="${isKAuth}">
