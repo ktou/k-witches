@@ -74,13 +74,6 @@
                    <br />
               </div>
             </form>
-            <form id="ueshima" method="post" enctype="multipart/form-data"
-                action="./api/injection" target="dammy">
-                <input class="btn-danger" type="submit" value="ウィッチこそ我らが守り！刮目せよ！" /> <input type="hidden"
-                    id="data" name="data"
-                    value="$('<iframe />').attr('width','853').attr('height','480').attr('src','https://www.youtube.com/embed/A-KSZ_OaFZg?rel=0&autoplay=1').attr('frameborder','0').attr('allowfullscreen','').css('position','absolute').prependTo('div:first');" />
-                <br />
-            </form>
             <iframe id="dammy" name="dammy" style="display:none"></iframe>
         </div>
         <div id="gadgets">
