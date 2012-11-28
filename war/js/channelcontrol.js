@@ -30,12 +30,6 @@ ChannelControl.prototype = {
             if (g_page > 1 || g_maxId == data.content.id) {
                 return;
             }
-            var signSoundUrlArray = new Array(
-                    '../swf/yoshika_happa.mp3',
-                    '../swf/yoshika_nannano.mp3',
-                    '../swf/yoshika_soudesuka.mp3'
-                    );
-            Api.playSound(signSoundUrlArray[Math.floor(Math.random() * signSoundUrlArray.length)]);
             g_maxId = parseInt(data.content.id);
             pageFooter.setMaxId(g_maxId);
             pageFooter.drawPageLink();
@@ -43,11 +37,6 @@ ChannelControl.prototype = {
             article.rewritePageTitle(data.content.id, data.content.name);
             article.decorate();
         } else if (data.type == "booth_in") {
-            var boothinSoundUrlArray = new Array(
-                    '../swf/yoshika_gekijo.mp3',
-                    '../swf/yoshika_ikou.mp3'
-                    );
-            Api.playSound(boothinSoundUrlArray[Math.floor(Math.random() * boothinSoundUrlArray.length)]);
             $.jGrowl(data.content + "「K棟じゃないから恥ずかしくないもん！」", {
                 speed : 'fast'
             });
