@@ -87,7 +87,7 @@
         <% if(request.getHeader("User-Agent").indexOf("Mobile") == -1){ %>
         <div id="ustream" class="backpartition gadget">
             <h4>K棟司令部24時</h4>
-            <div id="ustplayer">
+            <div id="ustplayer" style="display: none;">
                 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
                     width="480" height="296">
                     <param name="flashvars"
