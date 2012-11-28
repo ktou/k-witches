@@ -12,11 +12,18 @@ div .quote,.res,.new_link,.new_instagr_thumb {
 	_display: inline;
 }
 
-a:link,a:visited {
+a:link{
+	color:#E6855E;
+	text-decoration: none;
+}
+
+a:visited {
+	color:#DA5019;
 	text-decoration: none;
 }
 
 a:hover {
+	color:#DA5019;
 	text-decoration: underline;
 }
 
