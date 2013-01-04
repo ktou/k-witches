@@ -33,7 +33,7 @@ public class SignService {
         if(userModel.getIconRef() != null){
             bbsDataModel.getIconRef().setModel(userModel.getIconRef().getModel());
         }
-        input.put("id", BBSDataModelDao.getMaxId() + 1);
+        input.put("id", BBSDataModelDao.getMaxIdActually() + 1);
         input.put("createdDate", createdDate);
         input.put("ipAddress", ipAddress);
         input.put("invertedIndex", analizer.parse(comment));

@@ -85,9 +85,14 @@ public class BBSDataModelDao {
     public static int getMaxId() {
         Integer maxId = (Integer) Memcache.get(MAX_ID);
         if (maxId == null){
-            maxId = new Integer(Datastore.query(meta).max(meta.id));
-            Memcache.put(MAX_ID, maxId);
+            maxId = getMaxIdActually();
         }
         return maxId.intValue();
      }
+
+    public static Integer getMaxIdActually() {
+        Integer maxId = new Integer(Datastore.query(meta).max(meta.id));
+        Memcache.put(MAX_ID, maxId);
+        return maxId;
+    }
 }
