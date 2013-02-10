@@ -91,7 +91,9 @@ public class BBSDataModelDao {
      }
 
     public static Integer getMaxIdActually() {
+        Transaction tx = Datastore.beginTransaction();
         Integer maxId = new Integer(Datastore.query(meta).max(meta.id));
+        tx.commit();
         Memcache.put(MAX_ID, maxId);
         return maxId;
     }
