@@ -50,11 +50,6 @@ KtouObserver.prototype = {
 }
 
 $(function(){
-    if (!$.browser.safari) {
-       $("#aud").remove();
-    }
-    $('.clearField').clearField();
-
     g_observer = new KtouObserver();
     var article = g_observer.article;
     var pageFooter = g_observer.pageFooter;
@@ -122,7 +117,7 @@ $(function(){
         }
     });
 
-    $(".res").live("click",function(){
+    $(document).on("click",".res",function(){
         createResDom(this);
     });
 

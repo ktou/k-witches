@@ -12,12 +12,11 @@
     <link type="text/css" rel="stylesheet" href="css/global.css">
     <link type="text/css" rel="stylesheet" href="css/iphone.css" media="only screen and (max-device-width: 480px)">
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
     <c:if test="${isKAuth}">
     <script src="./_ah/channel/jsapi"></script>
     <script src="js/util/object-prototype.js" type="text/javascript"></script>
-    <script src="js/jquery/jquery.pack.js" type="text/javascript"></script>
     <script src="js/dom-modifier.js" type="text/javascript"></script>
     <script src="js/place.js" type="text/javascript"></script>
     <script src="js/livechecker.js" type="text/javascript"></script>
@@ -78,7 +77,6 @@
         </div>
         <div id="gadgets">
             <input id="search" type="text" class="clearField" value="検索" />
-            <audio controls id="aud"><source src="./swf/tilofinale_mami1.mp3"></audio>
         </div>
         <div id="liveChecker" class="backpartition gadget">
           <h4>行動中列機</h4>
