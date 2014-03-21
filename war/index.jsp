@@ -38,16 +38,16 @@
     //-->
     </script>
     </c:if>
-    <title>ケイトウ＆パンツァー</title>
+    <title>けいとうヤルカ</title>
 </head>
 <body>
     <jsp:include page="user_account.jsp" />
     <c:if test="${'LOGIN' == isLogin}">
         <script type="text/javascript" src="js/util/swfobject.js"></script>
         <script type="text/javascript" src="js/util/soundapi.js"></script>
-        <a href="/"><img id="logo" src="images/kp-logo.png"/></a>
+        <a href="/"><img id="logo" src="images/madomov-logo.png"/></a>
         <br />
-        <p>あんこうチームより各車伝達：購入時は地点<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">Amazon</a>に再集結のこと</p>
+        <p>税率が騰がったとき、会計は新たなる結末へ。Amazonは<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">こちら</a>から。</p>
         <c:if test="${isKAuth}">
         <div id="postlocate" class="backpartition">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
