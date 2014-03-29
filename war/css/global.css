@@ -1,10 +1,17 @@
 @CHARSET "utf-8";
 
 body {
-	background: linear-gradient(#FFFFFF, #FF7497) fixed;
-	background-size: cover;
+	background: url("/images/texture-floral.png") repeat scroll left top, linear-gradient(to right, rgba(33,9,51,1) 0%,rgba(58,16,88,1) 50%,rgba(33,9,51,1) 100%);
 	margin: 5px 10px;
 	font-family:"MeiryoKe_PGothic","MS UI Gothic";
+}
+
+body p, body div {
+	color: #EEEEEE;
+}
+
+body p *, body div * {
+	color: #333333;
 }
 
 div .quote,.res,.new_link,.new_instagr_thumb {
