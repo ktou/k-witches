@@ -153,6 +153,15 @@ Article.prototype = {
         document.title = "けいとうヤルカ " + number + " : " + decodeURIComponent(name);
     },
 
+    rewriteFavicon : function(){
+        if(g_observer.inFocus){
+            this.displayedId = g_maxId;
+            Tinycon.reset();
+        } else {
+            Tinycon.setBubble(g_maxId - this.displayedId);
+        }
+    },
+
     _getFileDom : function(data) {
         var fileDom = "";
         if (!data.file.filename) return "";

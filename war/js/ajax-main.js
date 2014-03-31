@@ -122,6 +122,16 @@ $(function(){
     });
 
     $("#ustream").click(function(){$("#ustplayer").toggle("slow");});
+    
+    g_observer.inFocus = true;
+    $(document).on("focus",function(){
+        g_observer.inFocus = true;
+        article.rewriteFavicon();
+    });
+    $(document).on("blur",function(){
+        g_observer.inFocus = false;
+    });
+    article.rewriteFavicon();
 
 });
 

@@ -35,6 +35,7 @@ ChannelControl.prototype = {
             pageFooter.drawPageLink();
             $("#articles").prepend(article.createDom(data.content));
             article.rewritePageTitle(data.content.id, data.content.name);
+            article.rewriteFavicon();
             article.decorate();
         } else if (data.type == "booth_in") {
             $.jGrowl(data.content + "「Panzer Vor!!!」", {

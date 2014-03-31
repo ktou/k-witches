@@ -6,8 +6,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <base href="/" />
-    <link rel="shortcut icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" href="./images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="css/global.css">
     <link type="text/css" rel="stylesheet" href="css/iphone.css" media="only screen and (max-device-width: 480px)">
@@ -27,6 +27,7 @@
     <script src="js/jquery/jquery.jgrowl_google.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.oembed.min.js" type="text/javascript"></script>
+    <script src="js/util/tinycon.min.js" type="text/javascript"></script>
     <script type="text/javascript">
     <!--
     // Global
