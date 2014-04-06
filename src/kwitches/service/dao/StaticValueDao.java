@@ -3,19 +3,14 @@ package kwitches.service.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slim3.datastore.Datastore;
-
 import kwitches.meta.StaticValueModelMeta;
 import kwitches.model.StaticValueModel;
+
+import org.slim3.datastore.Datastore;
 
 public class StaticValueDao {
 
     public static enum StaticValueType {
-        TWITTERFETCH_CONSUMER_KEY,
-        TWITTERFETCH_CONSUMER_SECRET_KEY,
-        TWITTERFETCH_TWITTER_ID,
-        TWITTERFETCH_DEFAULT_USER,
-        USTREAM_CHANNEL_KEY,
     };
 
     private final static StaticValueModelMeta meta = StaticValueModelMeta.get();

@@ -5,9 +5,7 @@ import kwitches.message.MessageInterface;
 import kwitches.model.UserModel;
 import kwitches.service.MessageService;
 import kwitches.service.dao.BBSDataModelDao;
-import kwitches.service.dao.StaticValueDao;
 import kwitches.service.dao.UserModelDao;
-import kwitches.service.dao.StaticValueDao.StaticValueType;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
@@ -26,8 +24,6 @@ public class IndexController extends Controller {
             ms.sendMessageAll(message);
             requestScope("userName", userModel.getName());
             requestScope("userId", userModel.getUser().getNickname());
-
-            requestScope("ustId", StaticValueDao.getValue(StaticValueType.USTREAM_CHANNEL_KEY));
         }
         requestScope("maxId", BBSDataModelDao.getMaxId());
 

@@ -30,6 +30,8 @@
     <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.oembed.min.js" type="text/javascript"></script>
     <script src="js/util/tinycon.min.js" type="text/javascript"></script>
+    <script src="js/util/swfobject.js" type="text/javascript"></script>
+    <script src="js/util/soundapi.js" type="text/javascript"></script>
     <script type="text/javascript">
     <!--
     // Global
@@ -46,11 +48,8 @@
 <body>
     <jsp:include page="user_account.jsp" />
     <c:if test="${'LOGIN' == isLogin}">
-        <script type="text/javascript" src="js/util/swfobject.js"></script>
-        <script type="text/javascript" src="js/util/soundapi.js"></script>
         <a href="/"><img id="logo" src="images/madomov-logo.png"/></a>
         <br />
-        <p>税率が騰がったとき、会計は新たなる結末へ。Amazonは<a href="http://www.amazon.co.jp/gp/gc?ie=UTF8&tag=thrakt-22&linkCode=ur2&camp=247&creative=1211" target="_blank">こちら</a>から。</p>
         <c:if test="${isKAuth}">
         <div id="postlocate" class="backpartition">
             <form id="post_form" method="post" enctype="multipart/form-data" action="./sign" target="dammy">
@@ -58,14 +57,8 @@
                 <div class="buttons">
                     <button id="post_button" class="positive" href="javascript:void(0)">
                         <img alt="" src="images/apply2.png">
-                        Panzerschießen!
+                        書き込み
                     </button>
-                      <!--
-                    <a id="preview_link" class="regular" href="javascript:void(0)">
-                        <img alt="" src="images/preview.png">
-                        プレビュー
-                    </a>
-                -->
                    <input type="file" id="file" name="file"/>
 
                    <span id="locationsetting">
@@ -82,30 +75,9 @@
             <input id="search" type="text" class="clearField" value="検索" />
         </div>
         <div id="liveChecker" class="backpartition gadget">
-          <h4>行動中列機</h4>
+          <h4>カバン持ち一同</h4>
           <span></span>
         </div>
-        <% if(request.getHeader("User-Agent").indexOf("Mobile") == -1){ %>
-        <div id="ustream" class="backpartition gadget">
-            <h4>全国K棟道大会中継</h4>
-            <div id="ustplayer" style="display: none;">
-                <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-                    width="480" height="296">
-                    <param name="flashvars"
-                        value="autoplay=false&amp;brand=embed&amp;cid=${f:h(ustId)}&amp;locale=ja_JP&amp;v3=1" />
-                    <param name="allowfullscreen" value="true" />
-                    <param name="allowscriptaccess" value="always" />
-                    <param name="movie" value="http://www.ustream.tv/flash/viewer.swf" />
-                    <embed
-                        flashvars="autoplay=false&amp;brand=embed&amp;cid=${f:h(ustId)}&amp;locale=ja_JP&amp;v3=1"
-                        width="480" height="296" allowfullscreen="true"
-                        allowscriptaccess="always"
-                        src="http://www.ustream.tv/flash/viewer.swf"
-                        type="application/x-shockwave-flash" />
-                </object>
-            </div>
-        </div>
-        <% } %>
         <div id="articles" class="backpartition"></div>
         <div id="pagelink" class="pagination"></div>
         </c:if>
