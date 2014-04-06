@@ -38,9 +38,7 @@ ChannelControl.prototype = {
             article.rewriteFavicon();
             article.decorate();
         } else if (data.type == "booth_in") {
-            $.jGrowl(data.content + "「Panzer Vor!!!」", {
-                speed : 'fast'
-            });
+            $.jGrowl(data.content + "が裂けました。", {sticky:true});
             liveChecker.appendOrUpdate(data.content);
         } else if (data.type == "live") {
             liveChecker.appendOrUpdate(data.content);

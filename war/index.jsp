@@ -11,7 +11,7 @@
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="css/global.css">
     <link type="text/css" rel="stylesheet" href="css/iphone.css" media="only screen and (max-device-width: 480px)">
-    <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
+    <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.min.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="js/lib/underscore-min.js" type="text/javascript"></script>
@@ -26,7 +26,7 @@
     <script src="js/pagefooter.js" type="text/javascript"></script>
     <script src="js/channelcontrol.js" type="text/javascript"></script>
     <script src="js/ajax-main.js" type="text/javascript"></script>
-    <script src="js/jquery/jquery.jgrowl_google.js" type="text/javascript"></script>
+    <script src="js/jquery/jquery.jgrowl.min.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.cookie.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.oembed.min.js" type="text/javascript"></script>
     <script src="js/util/tinycon.min.js" type="text/javascript"></script>

@@ -4,14 +4,7 @@ body {
 	background: url("/images/texture-floral.png") repeat scroll left top, linear-gradient(to right, rgba(33,9,51,1) 0%,rgba(58,16,88,1) 50%,rgba(33,9,51,1) 100%);
 	margin: 5px 10px;
 	font-family:"MeiryoKe_PGothic","MS UI Gothic";
-}
-
-body p, body div {
 	color: #EEEEEE;
-}
-
-body p *, body div * {
-	color: #333333;
 }
 
 div .quote,.res,.new_link,.new_instagr_thumb {
@@ -138,6 +131,7 @@ blockquote cite {
 	background-color: rgba(255,255,255,0.7);
 	border: 1px solid #D1D1D1;
 	width: 900px;
+	color: #333333;
 }
 
 .article{
