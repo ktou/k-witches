@@ -15,7 +15,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="js/lib/underscore-min.js" type="text/javascript"></script>
-    <script src="js/lib/backbone-min.js" type="text/javascript"></script>
+    <script src="js/lib/backbone.js" type="text/javascript"></script>
     <c:if test="${isKAuth}">
     <script src="./_ah/channel/jsapi"></script>
     <script src="js/util/object-prototype.js" type="text/javascript"></script>

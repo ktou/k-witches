@@ -16,9 +16,9 @@ function createResDom(resAnchor) {
     $.getJSON(
         "./json?" + param,
         function(data) {
-           var artcle = new Article();
-           bq.html(artcle.createDom(data.articles[0]).removeClass("article"));
-           artcle.decorate();
+           var article = new Article();
+           bq.html(article.createDom(data.articles[0]).removeClass("article"));
+           article.decorate();
         }
     );
 }
@@ -32,25 +32,50 @@ Res.appendTextarea = function(resNumber) {
     $("#textarea").get(0).value += ">>%d\n".replace("%d", resNumber);
 }
 
-var Article = function() {
-    var self = arguments.callee;
-    if (self.instance == null) {
-        this.initialize.apply(this, arguments);
-        self.instance = this;
-    }
-    return self.instance;
-}
+var ArticleModel = Backbone.Model.extend();
 
-Article.prototype = {
-    initialize : function() {
+var ArticleList = Backbone.Collection.extend({model: ArticleModel});
+
+var ArticlesView = Backbone.View.extend({
+    el: '#articles',
+
+    initialize: function() {
+        //this.listenTo(this.collection, 'add', this.append);
     },
 
+    append: function(article) {
+        var index = this.collection.indexOf(article);
+        var view = new Article({model: article}).render();
+        if(index) {
+            view.$el.insertAfter(this.$el.children()[index-1]);
+        } else {
+            this.$el.prepend(view.el);
+        }
+    },
+
+    render: function() {
+        this.$el.empty();
+        this.collection.each(function(model){
+            this.append(model);
+        }, this);
+        return this;
+    }
+});
+
+var Article = Backbone.View.extend({
     _getIconUrl: function(data) {
         var icon = data.icon;
         return "user/icon?_=" + icon;
     },
 
-   createDom : function(e) {
+    createDom: function(e){
+        this.model = e;
+        this.render();
+        return this.$el;
+    },
+
+    render: function() {
+        var e = this.model.attributes;
         var icon_url = this._getIconUrl(e);
         var article = $("<div/>").addClass("article").append(
             $("<div/>").addClass("photo").append(
@@ -83,7 +108,8 @@ Article.prototype = {
                 $("<div/>").addClass("res")
             )
         );
-        return article;
+        this.$el = article;
+        return this;
     },
 
     drawArticles : function(page, limit) {
@@ -101,11 +127,9 @@ Article.prototype = {
                 xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
             },
             success: function(data) {
-                $("#articles").empty();
                 if (!data.articles[0]) return;
-                data.articles.forEach(function(e) {
-                    $("#articles").append(_this.createDom(e));
-                });
+                articlesView.collection = new ArticleList(data.articles);
+                articlesView.render();
                 _this.rewritePageTitle(data.articles[0].id, data.articles[0].name);
                 _this.decorate();
             }
@@ -123,10 +147,8 @@ Article.prototype = {
                 xhr.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
             },
             success: function(data) {
-                $("#articles").empty();
-                data.articles.forEach(function(e) {
-                    $("#articles").append(_this.createDom(e));
-                });
+                articlesView.collection = new ArticleList(data.articles);
+                articlesView.render();
                 _this.decorate();
             }
         });
@@ -201,4 +223,4 @@ Article.prototype = {
         }
         return fileDom;
     }
-}
+});

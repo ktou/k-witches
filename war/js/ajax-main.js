@@ -49,6 +49,8 @@ KtouObserver.prototype = {
 
 }
 
+var articlesView;
+
 $(function(){
     g_observer = new KtouObserver();
     var article = g_observer.article;
@@ -131,5 +133,6 @@ $(function(){
     });
     article.rewriteFavicon();
 
+    articlesView = new ArticlesView();
 });
 
