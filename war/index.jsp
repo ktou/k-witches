@@ -12,8 +12,10 @@
     <link type="text/css" rel="stylesheet" href="css/global.css">
     <link type="text/css" rel="stylesheet" href="css/iphone.css" media="only screen and (max-device-width: 480px)">
     <link type="text/css" rel="stylesheet" href="css/jquery.jgrowl.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/lib/underscore-min.js" type="text/javascript"></script>
+    <script src="js/lib/backbone-min.js" type="text/javascript"></script>
     <c:if test="${isKAuth}">
     <script src="./_ah/channel/jsapi"></script>
     <script src="js/util/object-prototype.js" type="text/javascript"></script>
